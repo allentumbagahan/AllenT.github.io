@@ -1,5 +1,6 @@
-.header {
-
+.header{
+    display: flex;
+    gap: 0;
 }
 
 body, html {
@@ -9,6 +10,8 @@ body, html {
     margin: 0px;
     background-color: #242d47;
     overflow: hidden;
+    background: rgb(12,43,89);
+    background: linear-gradient(24deg, rgba(12,43,89,1) 27%, rgba(7,21,68,1) 64%, rgba(7,21,68,1) 100%);
 }
 
 .RoundedBox {
@@ -24,9 +27,12 @@ body, html {
 .headerText{
     color: white;
     text-shadow: #394d83;
-    margin: 20px;
-    font-size: 200%;
-    font-family: n;
+    font-size: 150% !important;
+    font-family: Lucida Sans !important;
+    text-shadow: 0 0 7px #fff;
+    background: -webkit-linear-gradient(#eee, rgb(167, 209, 77), rgb(238, 169, 41));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .button {
@@ -46,4 +52,22 @@ body, html {
 .navButton{
     width: 100px;
     height: 100px;
+}
+
+#head {
+    margin: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.HeaderNeon{
+    font-size: 150% !important;
+    font-family: Lucida Sans !important;
+    text-shadow: 0 0 7px #0fa;
+    background: -webkit-linear-gradient(rgb(235, 104, 4), rgb(219, 241, 55), rgb(26, 100, 1) );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+#container{
+    margin-left: 10px;
+    margin-top: 5px;
 }
