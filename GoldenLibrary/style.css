@@ -31,7 +31,7 @@ body, html {
     font-family: Lucida Sans !important;
     text-shadow: 0 0 7px #fff;
     background: -webkit-linear-gradient(#eee, rgb(167, 209, 77), rgb(238, 169, 41));
-    -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -64,7 +64,7 @@ body, html {
     font-family: Lucida Sans !important;
     text-shadow: 0 0 7px #0fa;
     background: -webkit-linear-gradient(rgb(235, 104, 4), rgb(219, 241, 55), rgb(26, 100, 1) );
-    -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 #container{
