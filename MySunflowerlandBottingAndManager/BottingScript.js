@@ -63,6 +63,9 @@ function DetectectPlotImage () {
         let b = a.getElementsByTagName("img") // plot
             plot.push(b[0])
         }
+        if (btnText == "stop"){ 
+            break; 
+        }
     }
     harvestORplant()
 
@@ -83,6 +86,9 @@ function harvestORplant(){
             }
         }else{
             console.log("already planted")
+        }
+        if (btnText == "stop"){ 
+            break; 
         }
     }
 }
