@@ -25,7 +25,8 @@ function getGoblinsBase64Conditonal(src){
 }
 setInterval(FindPlotButtton, 5000)
 function FindPlotButtton () {
-if (btnText == "stop"){    
+if (btnText == "stop"){  
+    console.log("Finding PlotButton")  
     plotButton = []
     for ( let x = 0; x < main.length; x++){
         if (main[x].getAttribute("class")  == "w-full h-full relative" ) {
@@ -84,6 +85,7 @@ function harvestORplant(){
 }
 
 function clickElement(e){
+    if (btnText == "stop"){ 
     let h1 = getFirstHandleValue()
     if (e.src == selectedplotBtn){
         if (parseInt(h1) > 0){
@@ -92,6 +94,7 @@ function clickElement(e){
             console.log("done")
         }
     }
+}
 }
 
 function getFirstHandleValue() {
