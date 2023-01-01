@@ -28,7 +28,7 @@ function getGoblinsBase64Conditonal(src){
 }
 setInterval(FindPlotButtton, 5000)
 function FindPlotButtton () {
-if (btnText == "stop"){  
+if (btnText == "Stop"){  
     console.log("Finding PlotButton")  
     plotButton = []
     for ( let x = 0; x < main.length; x++){
@@ -63,7 +63,7 @@ function DetectectPlotImage () {
         let b = a.getElementsByTagName("img") // plot
             plot.push(b[0])
         }
-        if (btnText != "stop"){ 
+        if (btnText != "Stop"){ 
             break; 
         }
         let h1 = getFirstHandleValue()
@@ -91,7 +91,7 @@ function harvestORplant(){
         }else{
             console.log("already planted")
         }
-        if (btnText != "stop"){ 
+        if (btnText != "Stop"){ 
             break; 
         }
         let h1 = getFirstHandleValue()
@@ -102,7 +102,7 @@ function harvestORplant(){
 }
 
 function clickElement(e){
-    if (btnText == "stop"){ 
+    if (btnText == "Stop"){ 
     let h1 = getFirstHandleValue()
     if (e.src == selectedplotBtn){
         if (parseInt(h1) > 0){
@@ -141,15 +141,84 @@ for (let x=0; x < findinventory.length; x++) {
     mainBTN = document.getElementsByClassName('flex flex-col items-center fixed z-50')[0]
     element1BTN = document.createElement('div')
     elem2BTN = document.createElement('button')
-    elem2BTN.innerHTML = "start"
+    elem2BTN.innerHTML = "Start"
     elem2BTN.setAttribute("onclick", "toggleBTN()")
     mainBTN.appendChild(element1BTN)
     element1BTN.appendChild(elem2BTN)
     btnText = elem2BTN.innerHTML
     console.log(btnText)
     function toggleBTN() {
-        btnText = (elem2BTN.innerHTML == "stop")? "start" : "stop"
+        btnText = (elem2BTN.innerHTML == "Stop")? "Start" : "Stop"
         console.log(btnText)
         elem2BTN.innerHTML = btnText
     }
+    elem3BTN = document.createElement('button')
+    elem3BTN.innerHTML = "Options"
+    elem3BTN.setAttribute("onclick", "settings()")
+    mainBTN.appendChild(elem3BTN)
     
+
+    function settings(){
+        
+    parentmain = document.getElementsByTagName('body')[0]
+
+    element1aDialog = document.createElement('div')
+        element1aDialog.setAttribute("class", "fade modal-backdrop show")
+
+    element1bDialog = document.createElement('div')
+        element1bDialog.setAttribute("role", "dialog")
+        element1bDialog.setAttribute("aria-modal", "true")
+        element1bDialog.setAttribute("class", "fade modal show")
+        element1bDialog.setAttribute("tabindex", "-1")
+        element1bDialog.setAttribute("style", "display: block;")
+
+    element2bDialog = document.createElement('div')
+    element2bDialog.setAttribute("class", "modal-dialog modal-dialog-centered")
+
+    element3bDialog = document.createElement('div')
+    element3bDialog.setAttribute("class", "modal-content")
+
+    element4bDialog = document.createElement('div')
+    element4bDialog.setAttribute("class", "bg-brown-600 text-white relative")
+    element4bDialog.setAttribute("style", 'border-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6DAAAABGdBTUEAALGPC/xhBQAAAAlQTFRFAAAA7qRoGBQlo4eEUgAAAAF0Uk5TAEDm2GYAAAAZSURBVAjXY+BawcCgGsbAMIGxAQODxIHyAIsgB7CF1qipAAAAAElFTkSuQmCC") 22.2222% / 1 / 0 repeat; border-style: solid; border-width: 5.25px; image-rendering: pixelated; border-radius: 13.125px; padding: 39.375px 2.625px 2.625px;')
+
+    element5bDialog = document.createElement('div')
+    element5bDialog.setAttribute("class", "bg-brown-300")
+    element5bDialog.setAttribute("style", 'border-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6DAAAABGdBTUEAALGPC/xhBQAAAAlQTFRFAAAA6tSqGBQlHYAABgAAAAF0Uk5TAEDm2GYAAAAZSURBVAjXY+BawcCgGsbAMIGxAQODxIHyAIsgB7CF1qipAAAAAElFTkSuQmCC") 22.2222% / 1 / 0 repeat; border-style: solid; border-width: 5.25px; image-rendering: pixelated; border-radius: 13.125px; padding: 2.625px;')   
+
+    element6bDialog = document.createElement('div')
+    element6bDialog.setAttribute("class", "absolute flex")
+    element6bDialog.setAttribute("style", "top: 2.625px; left: 2.625px; right: 2.625px;")
+
+    element6bDialog = document.createElement('div')
+    element6bDialog.setAttribute("class", "absolute flex")
+    element6bDialog.setAttribute("style", "top: 2.625px; left: 2.625px; right: 2.625px;")
+
+    element7bDialog = document.createElement('img')
+    element7bDialog.setAttribute("src", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALAgMAAADUwp+1AAAABGdBTUEAALGPC/xhBQAAAAxQTFRFAAAAi5u0GBQl////mo6iugAAAAF0Uk5TAEDm2GYAAAA1SURBVAjXY9BiWsCwv/sHw/z3Nxim/49gUPuXwMD9v4FB//4Dhv3hPxjmpt5gmNoZwQBUBwCl3RKJRykUxQAAAABJRU5ErkJggg==")
+    element7bDialog.setAttribute("class", "absolute cursor-pointer z-20")    
+    element7bDialog.setAttribute("style", "top: 2.625px; right: 2.625px; width: 28.875px;")
+    element7bDialog.setAttribute("onclick", "closeDialog()")
+
+
+    element5b_bDialog = document.createElement('div')
+    element5b_bDialog.setAttribute("class", "flex flex-col-reverse sm:flex-row")    
+    
+    parentmain.appendChild(element1aDialog)
+    parentmain.appendChild(element1bDialog)
+    element1bDialog.appendChild(element2bDialog)
+    element2bDialog.appendChild(element3bDialog)
+    element3bDialog.appendChild(element4bDialog)
+    element4bDialog.appendChild(element5bDialog)
+    element5bDialog.appendChild(element6bDialog)
+    element6bDialog.appendChild(element7bDialog)
+    element5bDialog.appendChild(element5b_bDialog)        
+
+    }
+
+    function closeDialog(){
+        element1bDialog.setAttribute("class", "fade modal")
+        element1aDialog.setAttribute("class", "fade modal-backdrop")
+        element1bDialog.remove()
+        element1aDialog.remove()
+    }
