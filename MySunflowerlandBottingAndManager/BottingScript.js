@@ -70,9 +70,6 @@ function DetectectPlotImage () {
         if (parseInt(h1) < 0){ 
             break; 
         }
-        if (e.src != selectedplotBtn){
-            break; 
-        }
     }
     harvestORplant()
 
@@ -99,9 +96,6 @@ function harvestORplant(){
         }
         let h1 = getFirstHandleValue()
         if (parseInt(h1) < 0){ 
-            break; 
-        }
-        if (e.src != selectedplotBtn){
             break; 
         }
     }
