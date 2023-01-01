@@ -1,12 +1,45 @@
-canvas {
-    border: 5px solid gray ;
+:root{
+    --btn1Size: 60px;
+}
+body, html {
+    margin: 0px;
     width: 100%;
     height: 100%;
-    
+    overflow: hidden;
+}
+.container1{
+    width: 100%;
+    height: 90%;
 }
 
-body, html {
+.container2{
     width: 100%;
-    height: 100%;
-    margin: 0%;
+    height: 5%;
+    background-color: rgb(41, 39, 37);
+    overflow-y: visible;
+    border: 2px solid gray;
+}
+
+.footer{
+    display: flex;
+    justify-content: flex-end;
+}
+
+#build{
+    background-color: rgb(63, 38, 20);
+    transform: translate(0px, -27px);
+    height: var(--btn1Size);
+    width: var(--btn1Size);
+    border: 2px solid gray;
+    border-top-left-radius: 40px;
+}
+
+#hammer{
+    background: none;
+    background-color: transparent;
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    width: 40px;
+    height: 40px;
 }
