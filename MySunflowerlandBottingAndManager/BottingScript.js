@@ -63,7 +63,14 @@ function DetectectPlotImage () {
         let b = a.getElementsByTagName("img") // plot
             plot.push(b[0])
         }
-        if (btnText == "stop"){ 
+        if (btnText != "stop"){ 
+            break; 
+        }
+        let h1 = getFirstHandleValue()
+        if (parseInt(h1) < 0){ 
+            break; 
+        }
+        if (e.src != selectedplotBtn){
             break; 
         }
     }
@@ -87,7 +94,14 @@ function harvestORplant(){
         }else{
             console.log("already planted")
         }
-        if (btnText == "stop"){ 
+        if (btnText != "stop"){ 
+            break; 
+        }
+        let h1 = getFirstHandleValue()
+        if (parseInt(h1) < 0){ 
+            break; 
+        }
+        if (e.src != selectedplotBtn){
             break; 
         }
     }
