@@ -28,6 +28,7 @@ function getGoblinsBase64Conditonal(src){
 }
 setInterval(FindPlotButtton, 5000)
 function FindPlotButtton () {
+    checkbottingButtons()
 if (btnText == "Stop"){  
     console.log("Finding PlotButton")  
     plotButton = []
@@ -137,10 +138,16 @@ for (let x=0; x < findinventory.length; x++) {
 
 
 // Add Toggle Button
+    function checkbottingButtons(){
     e1 = document.getElementsByClassName("mybottingdiv")
     if (e1.length != 0){
         console.log("")
     }else {
+        createBottingButton()
+    }
+    }
+    
+    function createBottingButton(){
         mainBTN = document.getElementsByClassName('flex flex-col items-center fixed z-50')[0]
         element1BTN = document.createElement('div')
         element1BTN.setAttribute("class", "mybottingdiv")
@@ -227,6 +234,3 @@ for (let x=0; x < findinventory.length; x++) {
             element1aDialog.remove()
         }
     }
-
-    
-    
