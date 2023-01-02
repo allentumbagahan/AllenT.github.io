@@ -169,7 +169,9 @@ for (let x=0; x < findinventory.length; x++) {
         mainBTN.appendChild(elem3BTN)
         
     
-        function settings(){
+        
+    }
+    function settings(){
             
         parentmain = document.getElementsByTagName('body')[0]
     
@@ -233,4 +235,3 @@ for (let x=0; x < findinventory.length; x++) {
             element1bDialog.remove()
             element1aDialog.remove()
         }
-    }
