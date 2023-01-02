@@ -158,11 +158,7 @@ for (let x=0; x < findinventory.length; x++) {
         element1BTN.appendChild(elem2BTN)
         btnText = elem2BTN.innerHTML
         console.log(btnText)
-        function toggleBTN() {
-            btnText = (elem2BTN.innerHTML == "Stop")? "Start" : "Stop"
-            console.log(btnText)
-            elem2BTN.innerHTML = btnText
-        }
+
         elem3BTN = document.createElement('button')
         elem3BTN.innerHTML = "Options"
         elem3BTN.setAttribute("onclick", "settings()")
@@ -170,6 +166,11 @@ for (let x=0; x < findinventory.length; x++) {
         
     
         
+    }
+    function toggleBTN() {
+        btnText = (elem2BTN.innerHTML == "Stop")? "Start" : "Stop"
+        console.log(btnText)
+        elem2BTN.innerHTML = btnText
     }
     function settings(){
             
