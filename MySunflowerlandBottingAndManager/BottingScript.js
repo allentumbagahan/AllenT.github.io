@@ -297,12 +297,11 @@ for (let x=0; x < findinventory.length; x++) {
     function GetAllData() {
         kitchenData()
         grubshopValue()
-        if (KData == ""){
-            KData = "idle"
-        }
+        KData = (KData == "")? "idle" : "cooking"
         AllData = {
-            "kitchen" : KData,
-            "grublist" : grubList
+            kitchen : KData,
+            grublist : grubList
+
         }
     }
 
