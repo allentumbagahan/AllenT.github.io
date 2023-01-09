@@ -26,7 +26,9 @@ function getGoblinsBase64Conditonal(src){
     }
     return (r)
 }
+
 setInterval(FindPlotButtton, 5000)
+
 function FindPlotButtton () {
     checkbottingButtons()
 if (btnText == "Stop"){  
@@ -103,16 +105,19 @@ function harvestORplant(){
 }
 
 function clickElement(e){
-    if (btnText == "Stop"){ 
-    let h1 = getFirstHandleValue()
-    if (e.src == selectedplotBtn){
-        if (parseInt(h1) > 0){
-            e.click()
-            console.log(e)
-            console.log("done")
+    setTimeout(() => {
+        if (btnText == "Stop"){ 
+            let h1 = getFirstHandleValue()
+            if (e.src == selectedplotBtn){
+                if (parseInt(h1) > 0){
+                    e.click()
+                    console.log(e)
+                    console.log("done")
+                }
+            }
         }
-    }
-}
+    }, 1000)
+
 }
 
 function getFirstHandleValue() {
@@ -293,12 +298,30 @@ for (let x=0; x < findinventory.length; x++) {
         }
         closeBTN.click()
     }
+    function GetInventory() {
+        inventoryBoxes = []
+        let a = document.getElementsByClassName("relative flex z-50 cursor-pointer hover:img-highlight")[0]
+        a.click()
+        b = document.getElementsByClassName("flex mb-2 flex-wrap -ml-1.5") // 5 container
+            for (x = 0; x < b.length; x++){
+                inventoryBoxes.push(b[x])
+                console.log(b[x])
+            }
+        
+    }
+    function GetLandId(){
+        let a = document.getElementsByClassName("text-white mb-1 text-sm")[0]
+        LandId = a.textContent
+        LandId = LandId.replace("Land ", "")
 
+    }
     function GetAllData() {
         kitchenData()
         grubshopValue()
+        GetLandId()
         KData = (KData == "")? "idle" : "cooking"
         AllData = {
+            landId : LandId,
             kitchen : KData,
             grublist : grubList
 
