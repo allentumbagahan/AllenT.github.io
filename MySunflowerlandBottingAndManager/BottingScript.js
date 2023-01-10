@@ -118,7 +118,7 @@ function clickElement(e){
         }
     }, 1000)
 
-}
+}i
 
 function getFirstHandleValue() {
     let Elem1 = document.getElementsByClassName(" text-white text-xxs")
@@ -235,8 +235,27 @@ for (let x=0; x < findinventory.length; x++) {
         // 
         GetAllData()
         for (let x =0; x < grubList.length; x++){
-            $(".bg-brown-300.box").add('<div class="relative "><div class="bg-brown-600 cursor-pointer relative cursor-pointer" style="width: 47.25px; height: 47.25px; margin: 7.875px 7.875px 5.25px 5.25px; border-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6DAAAABGdBTUEAALGPC/xhBQAAAAlQTFRFAAAA7qRoGBQlo4eEUgAAAAF0Uk5TAEDm2GYAAAAZSURBVAjXY+BawcCgGsbAMIGxAQODxIHyAIsgB7CF1qipAAAAAElFTkSuQmCC&quot;) 22.2222% / 1 / 0 repeat; border-style: solid; border-width: 5.25px; image-rendering: pixelated; border-radius: 13.125px;"><div class="absolute flex justify-center items-center w-full h-full"><div class="flex justify-center items-center" style="width: 36.75px; height: 36.75px;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALBAMAAABbgmoVAAAAD1BMVEUAAADot5bChWm4b1C+Si9gJ5+ZAAAAAXRSTlMAQObYZgAAADhJREFUCNdjYDA2ZgACZiVBAyDlaKQoDKKEwVwnQTDXSRHMZVECcg0gXCAF4gIpIFcEZACLiwMDAAInBtdXX1mZAAAAAElFTkSuQmCC" class="relative" alt="item" style="opacity: 1; transform: scale(2.625);"></div></div></div></div>')
-        }
+            let Elem1 = document.createElement('div')
+            Elem1.setAttribute("class", "relative")
+            let Elem2 = document.createElement('div')
+            Elem2.setAttribute("class", "bg-brown-600 cursor-pointer relative cursor-pointer")
+            Elem2.setAttribute("style", 'width: 47.25px; height: 47.25px; margin: 7.875px 7.875px 5.25px 5.25px; border-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6DAAAABGdBTUEAALGPC/xhBQAAAAlQTFRFAAAA7qRoGBQlo4eEUgAAAAF0Uk5TAEDm2GYAAAAZSURBVAjXY+BawcCgGsbAMIGxAQODxIHyAIsgB7CF1qipAAAAAElFTkSuQmCC") 22.2222% / 1 / 0 repeat; border-style: solid; border-width: 5.25px; image-rendering: pixelated; border-radius: 13.125px;')
+            let Elem3 = document.createElement('div')
+            Elem3.setAttribute("class", "absolute flex justify-center items-center w-full h-full")
+            let Elem4 = document.createElement('div')
+            Elem4.setAttribute("class", "flex justify-center items-center")
+            Elem4.setAttribute("style", "width: 36.75px; height: 36.75px;")
+            let Elem5 = document.createElement('img')
+            Elem5.setAttribute("class", "relative")
+            Elem5.setAttribute("src", `${grubList[x]}`)
+            Elem5.setAttribute("alt", "item")
+            Elem5.setAttribute("style", "opacity: 1; transform: scale(2.625);")
+            Elem4.appendChild(Elem5)
+            Elem3.appendChild(Elem4)
+            Elem2.appendChild(Elem3)
+            Elem1.appendChild(Elem2)
+            element5bDialog.appendChild(Elem1)
+            }
     
         }
     
