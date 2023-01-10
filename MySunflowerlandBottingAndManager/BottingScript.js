@@ -165,7 +165,7 @@ for (let x=0; x < findinventory.length; x++) {
         console.log(btnText)
 
         elem3BTN = document.createElement('button')
-        elem3BTN.innerHTML = "Options"
+        elem3BTN.innerHTML = "More"
         elem3BTN.setAttribute("onclick", "settings()")
         mainBTN.appendChild(elem3BTN)
         
@@ -202,7 +202,7 @@ for (let x=0; x < findinventory.length; x++) {
         element4bDialog.setAttribute("style", 'border-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6DAAAABGdBTUEAALGPC/xhBQAAAAlQTFRFAAAA7qRoGBQlo4eEUgAAAAF0Uk5TAEDm2GYAAAAZSURBVAjXY+BawcCgGsbAMIGxAQODxIHyAIsgB7CF1qipAAAAAElFTkSuQmCC") 22.2222% / 1 / 0 repeat; border-style: solid; border-width: 5.25px; image-rendering: pixelated; border-radius: 13.125px; padding: 39.375px 2.625px 2.625px;')
     
         element5bDialog = document.createElement('div')
-        element5bDialog.setAttribute("class", "bg-brown-300")
+        element5bDialog.setAttribute("class", "bg-brown-300 box")
         element5bDialog.setAttribute("style", 'border-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6DAAAABGdBTUEAALGPC/xhBQAAAAlQTFRFAAAA6tSqGBQlHYAABgAAAAF0Uk5TAEDm2GYAAAAZSURBVAjXY+BawcCgGsbAMIGxAQODxIHyAIsgB7CF1qipAAAAAElFTkSuQmCC") 22.2222% / 1 / 0 repeat; border-style: solid; border-width: 5.25px; image-rendering: pixelated; border-radius: 13.125px; padding: 2.625px;')   
     
         element6bDialog = document.createElement('div')
@@ -231,7 +231,12 @@ for (let x=0; x < findinventory.length; x++) {
         element4bDialog.appendChild(element5bDialog)
         element5bDialog.appendChild(element6bDialog)
         element6bDialog.appendChild(element7bDialog)
-        element5bDialog.appendChild(element5b_bDialog)        
+        element5bDialog.appendChild(element5b_bDialog)
+        // 
+        GetAllData()
+        for (let x =0; x < grubList.length; x++){
+            $(".bg-brown-300.box").add('<div class="relative "><div class="bg-brown-600 cursor-pointer relative cursor-pointer" style="width: 47.25px; height: 47.25px; margin: 7.875px 7.875px 5.25px 5.25px; border-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6DAAAABGdBTUEAALGPC/xhBQAAAAlQTFRFAAAA7qRoGBQlo4eEUgAAAAF0Uk5TAEDm2GYAAAAZSURBVAjXY+BawcCgGsbAMIGxAQODxIHyAIsgB7CF1qipAAAAAElFTkSuQmCC&quot;) 22.2222% / 1 / 0 repeat; border-style: solid; border-width: 5.25px; image-rendering: pixelated; border-radius: 13.125px;"><div class="absolute flex justify-center items-center w-full h-full"><div class="flex justify-center items-center" style="width: 36.75px; height: 36.75px;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALBAMAAABbgmoVAAAAD1BMVEUAAADot5bChWm4b1C+Si9gJ5+ZAAAAAXRSTlMAQObYZgAAADhJREFUCNdjYDA2ZgACZiVBAyDlaKQoDKKEwVwnQTDXSRHMZVECcg0gXCAF4gIpIFcEZACLiwMDAAInBtdXX1mZAAAAAElFTkSuQmCC" class="relative" alt="item" style="opacity: 1; transform: scale(2.625);"></div></div></div></div>')
+        }
     
         }
     
@@ -335,7 +340,6 @@ for (let x=0; x < findinventory.length; x++) {
             landId : LandId,
             kitchen : KData,
             grublist : grubList
-
         }
     }
 
