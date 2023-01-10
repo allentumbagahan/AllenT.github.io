@@ -118,7 +118,7 @@ function clickElement(e){
         }
     }, 1000)
 
-}i
+}
 
 function getFirstHandleValue() {
     let Elem1 = document.getElementsByClassName(" text-white text-xxs")
