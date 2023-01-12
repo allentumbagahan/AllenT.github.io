@@ -322,14 +322,6 @@ for (let x=0; x < findinventory.length; x++) {
             if (AllImage[x].src == kitchenB64){
                 kitchenBTN = AllImage[x]
             }
-            if (AllImage[x].getAttribute("class") == "absolute cursor-pointer z-20"){
-                closeBTN = AllImage[x]
-                console.log(AllImage[x])
-            }else{
-                if (AllImage.length - 1 == x){
-                    console.log("no close button")
-                }
-            }
         }
         if (kitchenBTN == ""){
             return "no kitchen built"
@@ -337,12 +329,17 @@ for (let x=0; x < findinventory.length; x++) {
         else 
         {
             kitchenBTN.click()
+            for (let x=0; x<AllImage.length; x++){
+                if (AllImage[x].getAttribute("class") == "absolute cursor-pointer z-20"){
+                    closeBTN = AllImage[x]
+                }
             chefWhereAreYou =  document.getElementsByClassName('text-xxs sm:text-xs text-center my-1')
             whatAreYouDoingChef = (chefWhereAreYou.length != 0 )? chefWhereAreYou[0].innerHTML : "Chef is Waiting"
             closeBTN.click()
             return whatAreYouDoingChef
+            }
         }
-    }
+    }   
     function GetInventory() {
         inventoryBoxes = []
         inventoryBoxesName = []
