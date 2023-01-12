@@ -62,7 +62,7 @@ if (btnText == "Stop"){
     }
 }
 var plot = []
-var plotSRC = {}
+var plotSRC = []
 function DetectectPlotImage () {
     for ( let x = 0; x < main.length; x++){
         if (main[x].getAttribute("class")  == "w-full h-full relative" ) {
@@ -367,19 +367,30 @@ for (let x=0; x < findinventory.length; x++) {
 
     function GetPlotsData(){
         let p = $('span.text-xxs.text-white.text-center')
-        let results = []
-        for (let x; x < p.length; x++){
-            results.push(p[x])
+        var results = []
+        for (let x = 0; x < p.length; x++){
+            results.push(p[x].innerHTML)
         }
-        return results
+        return (results)
     }
-
+    function GetPlotsSRC() {
+        let e = $('span.text-xxs.text-white.text-center')
+        for (let x = 0; x < e.length; x++){
+            let ee = e[x].parentElement
+            let eee = ee.parentElement
+            let eeee = eee.parentElement
+            let eeeep = eeee.parentElement
+            let eeeepc = eeeep.firstChild
+            plotSRC.push(eeeepc.src)
+        }
+    }
     function GetAllData () {
         kitchenData()
         grubshopValue()
         GetLandId()
         GetBalance()
         plots = GetPlotsData()
+        GetPlotsSRC()
         plots = (plots == "")? "0" : plots
         KData = (KData == "")? "idle" : "cooking"
         AllData = {
