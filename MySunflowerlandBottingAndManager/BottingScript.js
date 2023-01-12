@@ -360,7 +360,7 @@ for (let x=0; x < findinventory.length; x++) {
     }
     function GetBalance() {
         bal = $('span.text-white.text-sm')
-        bal = bal.innerHTML
+        balance = bal[0].innerHTML
     }
     function GetAllData () {
         kitchenData()
@@ -370,7 +370,7 @@ for (let x=0; x < findinventory.length; x++) {
         KData = (KData == "")? "idle" : "cooking"
         AllData = {
             landId : LandId,
-            balance : bal,
+            balance : balance,
             kitchen : KData,
             grublist : grubList
         }
