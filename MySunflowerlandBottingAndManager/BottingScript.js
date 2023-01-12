@@ -1,7 +1,11 @@
 /*Go To https://allentumbagahan.github.io/MySunflowerlandBottingAndManager/read.me For More Info*/
 addJavascript('https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js', 'head')
-const f = await addJavascript('https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js', 'head')
-const f2 = await addJavascript('https://allentumbagahan.github.io/MySunflowerlandBottingAndManager/init-firebase.js', 'body')
+
+const addj = new Promise(function(res, err) {
+    addJavascript('https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js', 'head')
+}).then(function(val){
+    addJavascript('https://allentumbagahan.github.io/MySunflowerlandBottingAndManager/init-firebase.js', 'body')
+}).then(function(val){
 const version = "v0.5"
 
 main = document.getElementsByClassName("w-full h-full relative")
@@ -425,3 +429,4 @@ for (let x=0; x < findinventory.length; x++) {
     function Saving(){
         setInterval(GetAllData, 20000)
     }
+})
