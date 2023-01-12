@@ -211,7 +211,7 @@ for (let x=0; x < findinventory.length; x++) {
     
         element5bDialog = document.createElement('div')
         element5bDialog.setAttribute("class", "bg-brown-300 box")
-        element5bDialog.setAttribute("style", 'border-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6DAAAABGdBTUEAALGPC/xhBQAAAAlQTFRFAAAA6tSqGBQlHYAABgAAAAF0Uk5TAEDm2GYAAAAZSURBVAjXY+BawcCgGsbAMIGxAQODxIHyAIsgB7CF1qipAAAAAElFTkSuQmCC") 22.2222% / 1 / 0 repeat; border-style: solid; border-width: 5.25px; image-rendering: pixelated; border-radius: 13.125px; padding: 2.625px;')   
+        element5bDialog.setAttribute("style", ' display: flex; flex-direction: row; border-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6DAAAABGdBTUEAALGPC/xhBQAAAAlQTFRFAAAA6tSqGBQlHYAABgAAAAF0Uk5TAEDm2GYAAAAZSURBVAjXY+BawcCgGsbAMIGxAQODxIHyAIsgB7CF1qipAAAAAElFTkSuQmCC") 22.2222% / 1 / 0 repeat; border-style: solid; border-width: 5.25px; image-rendering: pixelated; border-radius: 13.125px; padding: 2.625px;')   
     
         element6bDialog = document.createElement('div')
         element6bDialog.setAttribute("class", "absolute flex")
@@ -241,7 +241,7 @@ for (let x=0; x < findinventory.length; x++) {
         element6bDialog.appendChild(element7bDialog)
         element5bDialog.appendChild(element5b_bDialog)
         // 
-        GetAllData()
+        grubshopValue()
         for (let x =0; x < grubList.length; x++){
             let Elem1 = document.createElement('div')
             Elem1.setAttribute("class", "relative")
