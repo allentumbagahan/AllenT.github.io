@@ -1,7 +1,7 @@
 /*Go To https://allentumbagahan.github.io/MySunflowerlandBottingAndManager/read.me For More Info*/
 addJavascript('https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js', 'head')
 addJavascript('https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js', 'head')
-addJavascript('https://allentumbagahan.github.io/MySunflowerlandBottingAndManager/init-firebase.js', 'body')
+import { loadToDb, SaveToDb } from "./init-firebase"
 
 main = document.getElementsByClassName("w-full h-full relative")
 plotToClick = []
@@ -353,7 +353,7 @@ for (let x=0; x < findinventory.length; x++) {
     }
     function GetLandId(){
         let a = document.getElementsByClassName("text-white mb-1 text-sm")[0]
-        LandId = a.textContent
+        LandId = a.innerHTML
         LandId = LandId.replace("Land ", "")
 
     }
