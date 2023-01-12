@@ -51,6 +51,4 @@
         });
     }
 
-    setTimeout (() => {
         setInterval(GetAllData(), 60000)
-    }, 60000)
