@@ -268,7 +268,7 @@ for (let x=0; x < findinventory.length; x++) {
             element1aDialog.remove()
         }
 
-        KData = ""
+        var KData = ""
         grubList = []
         
         function grubshopValue(){
