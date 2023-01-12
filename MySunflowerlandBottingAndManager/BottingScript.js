@@ -1,5 +1,4 @@
 /*Go To https://allentumbagahan.github.io/MySunflowerlandBottingAndManager/read.me For More Info*/
-addJavascript('https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js','body');
 addJavascript('https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js', 'body')
 addJavascript('https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js', 'body')
 addJavascript('https://allentumbagahan.github.io/MySunflowerlandBottingAndManager/init-firebase.js', 'body')
