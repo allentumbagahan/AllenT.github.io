@@ -2,7 +2,7 @@
 addJavascript('https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js', 'head')
 addJavascript('https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js', 'head')
 addJavascript('https://allentumbagahan.github.io/MySunflowerlandBottingAndManager/init-firebase.js', 'body')
-const version = "v0"
+const version = "v0.1"
 
 main = document.getElementsByClassName("w-full h-full relative")
 plotToClick = []
@@ -273,7 +273,6 @@ for (let x=0; x < findinventory.length; x++) {
             element1bDialog.remove()
             element1aDialog.remove()
         }
-        var KData = ""
         grubList = []
         var bal = ""
         var plots = []
@@ -330,20 +329,15 @@ for (let x=0; x < findinventory.length; x++) {
             }
         }
         if (kitchenBTN == ""){
-            console.log("no kitchen built")
+            return "no kitchen built"
         }
         else 
         {
             kitchenBTN.click()
-            CookingData = document.getElementsByClassName("text-xs mb-1")
-            if (CookingData.length > 0){
-                KData = CookingData[0].innerHTML.replace("&nbsp;", " ")
-            }
-            if (closeBTN == undefined){
-            var closeBTN = $("img.absolute.cursor-pointer.z-20")
-        }
+            chefWhereAreYou =  document.getElementsByClassName('text-xxs sm:text-xs text-center my-1')
+            whatAreYouDoingChef = (chefWhereAreYou.length != 0 )? chefWhereAreYou[0].innerHTML : "Chef is Waiting"
             closeBTN.click()
-
+            return whatAreYouDoingChef
         }
     }
     function GetInventory() {
@@ -404,14 +398,13 @@ for (let x=0; x < findinventory.length; x++) {
 
     }
     function GetAllData () {
-        kitchenData()
+        KData = kitchenData()
         grubshopValue()
         GetLandId()
         GetBalance()
         plots = GetPlotsData()
         GetPlotsSRC()
         plots = (plots == "")? "0" : plots
-        KData = (KData == "")? "idle" : "cooking"
         trees = GetChopTreesCooldown()
         AllData = {
             landId : LandId,
