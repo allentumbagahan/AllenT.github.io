@@ -316,7 +316,7 @@ for (let x=0; x < findinventory.length; x++) {
             if (AllImage[x].src == kitchenB64){
                 kitchenBTN = AllImage[x]
             }
-            if (AllImage[x].src == closeB64){
+            if (AllImage[x].getAttribute("class") == "absolute cursor-pointer z-20"){
                 closeBTN = AllImage[x]
             }
         }
