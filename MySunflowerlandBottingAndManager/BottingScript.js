@@ -354,8 +354,8 @@ for (let x=0; x < findinventory.length; x++) {
     }
     function GetLandId(){
         let a = document.getElementsByClassName("text-white mb-1 text-sm")[0]
-        LandId = a.innerHTML
-        LandId = LandId.replace("Land ", "")
+        LandId = window.location.hash
+        LandId = LandId.replace("#/land/", "")
 
     }
     function GetAllData() {
