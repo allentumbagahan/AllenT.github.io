@@ -2,7 +2,7 @@
 addJavascript('https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js', 'head')
 addJavascript('https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js', 'head')
 addJavascript('https://allentumbagahan.github.io/MySunflowerlandBottingAndManager/init-firebase.js', 'body')
-const version = "v0.1"
+const version = "v0.2"
 
 main = document.getElementsByClassName("w-full h-full relative")
 plotToClick = []
