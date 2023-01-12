@@ -21,9 +21,10 @@
     function SaveToDb(data){
     
     //Add data
-        const { landId, kitchen, grublist } = data
+        const { landId, kitchen, grublist, balance } = data
         db.collection("Accounts").doc(`${landId}`)
         .set({
+            balance: balance,
             kitchen: kitchen,
             grublist: grublist
         })

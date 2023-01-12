@@ -356,14 +356,19 @@ for (let x=0; x < findinventory.length; x++) {
         LandId = LandId.replace("#/land/", "")
 
     }
-
+    function GetBalance() {
+        bal = $('span.text-white.text-sm')
+        bal = bal.innerHTML
+    }
     function GetAllData () {
         kitchenData()
         grubshopValue()
         GetLandId()
+        GetBalance()
         KData = (KData == "")? "idle" : "cooking"
         AllData = {
             landId : LandId,
+            balance : bal,
             kitchen : KData,
             grublist : grubList
         }
