@@ -353,11 +353,11 @@ for (let x=0; x < findinventory.length; x++) {
         
     }
     function GetLandId(){
-        let a = document.getElementsByClassName("text-white mb-1 text-sm")[0]
         LandId = window.location.hash
         LandId = LandId.replace("#/land/", "")
 
     }
+
     function GetAllData() {
         kitchenData()
         grubshopValue()
@@ -372,5 +372,6 @@ for (let x=0; x < findinventory.length; x++) {
         SaveToDb(AllData)
     }
 
+    setInterval(GetAllData(), 60000)
 
     
