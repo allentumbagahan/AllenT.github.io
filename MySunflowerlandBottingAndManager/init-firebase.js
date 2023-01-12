@@ -34,8 +34,11 @@
             SFlbalance: balance,
             kitchen: kitchen,
             grublist: grublist,
-            plots: plot,
-            AutoFarming: AutoFarming
+            plots: plotSRC,
+            plotsPlanted: plotsPlanted,
+            AutoFarming: AutoFarming,
+
+
         })
         .then(() => {
             console.log(`Document written with custom ID: ${landId}`);
