@@ -1,7 +1,7 @@
 /*Go To https://allentumbagahan.github.io/MySunflowerlandBottingAndManager/read.me For More Info*/
 addJavascript('https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js', 'head')
-addJavascript('https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js', 'head')
-addJavascript('https://allentumbagahan.github.io/MySunflowerlandBottingAndManager/init-firebase.js', 'body')
+const f = await addJavascript('https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js', 'head')
+const f2 = await addJavascript('https://allentumbagahan.github.io/MySunflowerlandBottingAndManager/init-firebase.js', 'body')
 const version = "v0.4"
 
 main = document.getElementsByClassName("w-full h-full relative")
