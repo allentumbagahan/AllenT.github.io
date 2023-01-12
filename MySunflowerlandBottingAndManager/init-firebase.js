@@ -28,15 +28,20 @@
             balance, 
             AutoFarming, 
             plotSRC, 
-            plotsPlanted } = data
+            plotsPlanted,
+            trees,
+            AutoFarmVersion } = data
         db.collection("Accounts").doc(`${landId}`)
         .set({
+
             SFlbalance: balance,
             kitchen: kitchen,
+            trees: trees,
             grublist: grublist,
             plots: plotSRC,
             plotsPlanted: plotsPlanted,
             AutoFarming: AutoFarming,
+            AutoFarmVersion: AutoFarmVersion
 
 
         })

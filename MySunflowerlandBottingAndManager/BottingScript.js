@@ -2,7 +2,7 @@
 addJavascript('https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js', 'head')
 addJavascript('https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js', 'head')
 addJavascript('https://allentumbagahan.github.io/MySunflowerlandBottingAndManager/init-firebase.js', 'body')
-
+const version = "v0"
 
 main = document.getElementsByClassName("w-full h-full relative")
 plotToClick = []
@@ -172,6 +172,10 @@ for (let x=0; x < findinventory.length; x++) {
         elem3BTN.innerHTML = "More"
         elem3BTN.setAttribute("onclick", "settings()")
         mainBTN.appendChild(elem3BTN)
+
+        elem4TEXT = document.createElement('h3')
+        elem4TEXT.innerHTML = version
+        mainBTN.appendChild(elem4TEXT)
         
     
         
@@ -345,13 +349,15 @@ for (let x=0; x < findinventory.length; x++) {
     function GetInventory() {
         inventoryBoxes = []
         inventoryBoxesName = []
+        ItemsOnTheBox = []
         let a = document.getElementsByClassName("relative flex z-50 cursor-pointer hover:img-highlight")[0]
         a.click()
         b = $("p.mb-2") // 5 container (make sure that jquery already added)
             for (x = 0; x < b.length; x++){
                 inventoryBoxesName.push(b[x].textContent)   // p tag 
                 inventoryBoxes.push(b[x].nextElementSibling)// box under the p
-                console.log(b[x])
+                ItemsOnTheBox.push(b[x].nextElementSibling.children) //get the list of box
+
             }
         
     }
@@ -384,6 +390,19 @@ for (let x=0; x < findinventory.length; x++) {
             plotSRC.push(eeeepc.src)
         }
     }
+    function GetChopTreesCooldown(){
+        let trees = $('span.flex-1:contains(Recovers)')
+        if (trees.length > 0){
+            let treesCooldown = []
+            for (let x; x < trees.length; x++){
+                trees[0].nextElementSibling.innerHTML
+            }
+            return treesCooldown
+        }else{
+            return "All Trees Are Recovered"
+        }
+
+    }
     function GetAllData () {
         kitchenData()
         grubshopValue()
@@ -393,14 +412,17 @@ for (let x=0; x < findinventory.length; x++) {
         GetPlotsSRC()
         plots = (plots == "")? "0" : plots
         KData = (KData == "")? "idle" : "cooking"
+        trees = GetChopTreesCooldown()
         AllData = {
             landId : LandId,
             balance : balance,
+            trees: trees,
             kitchen : KData,
             plotSRC: plotSRC,
             plotsPlanted: plots,
             grublist : grubList,
-            AutoFarming: btnText
+            AutoFarming: btnText,
+            AutoFarmVersion: version
         }
         //save to db
         SaveToDb(AllData)
