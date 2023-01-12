@@ -380,7 +380,7 @@ for (let x=0; x < findinventory.length; x++) {
         GetLandId()
         GetBalance()
         plots = GetPlotsData()
-        plots = (plots == undefined)? "0" : plots
+        plots = (plots == "")? "0" : plots
         KData = (KData == "")? "idle" : "cooking"
         AllData = {
             landId : LandId,
