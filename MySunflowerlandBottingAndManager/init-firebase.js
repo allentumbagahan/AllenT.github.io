@@ -18,24 +18,36 @@
                         // Initialize Cloud Firestore and get a reference to the service
             const db = firebase.firestore();
     
-    function SaveToDb (){
-    //config
-
-
+    function SaveToDb(data){
     
     //Add data
-        db.collection("users").add({
-            first: "Allen",
-            last: "Tumbagahan",
-            born: 1815
+        const { landId, kitchen, grublist } = data
+        db.collection("Accounts").doc(`${landId}`)
+        .set({
+            kitchen: kitchen,
+            grublist: grublist
         })
-        .then((docRef) => {
-            console.log("Document written with ID: ", docRef.id);
+        .then(() => {
+            console.log(`Document written with custom ID: ${landId}`);
         })
         .catch((error) => {
             console.error("Error adding document: ", error);
         });
     }
 
+    function loadToDb(id) {
 
+        var docRef = db.collection("Accounts").doc("xfaPqxhxL2UcBnwsQsNN");
+
+        docRef.get().then((doc) => {
+            if (doc.exists) {
+                console.log("Document data:", doc.data());
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+    }
 

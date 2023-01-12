@@ -363,6 +363,8 @@ for (let x=0; x < findinventory.length; x++) {
             kitchen : KData,
             grublist : grubList
         }
+        //save to db
+        SaveToDb(AllData)
     }
 
 
