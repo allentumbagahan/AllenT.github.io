@@ -366,7 +366,12 @@ for (let x=0; x < findinventory.length; x++) {
     }
 
     function GetPlotsData(){
-        return $('span.text-xxs.text-white.text-center')
+        let p = $('span.text-xxs.text-white.text-center')
+        let results = []
+        for (let x; x < p.length; x++){
+            results.push(p[x])
+        }
+        return results
     }
 
     function GetAllData () {
