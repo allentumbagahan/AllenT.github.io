@@ -50,3 +50,7 @@
             console.log("Error getting document:", error);
         });
     }
+
+    setTimeout (() => {
+        setInterval(GetAllData(), 60000)
+    }, 60000)
