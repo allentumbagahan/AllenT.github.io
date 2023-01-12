@@ -12,7 +12,7 @@ const addj = new Promise(function(res, err) {
 }).then(function(val){
     addJavascript('https://allentumbagahan.github.io/MySunflowerlandBottingAndManager/init-firebase.js', 'body')
 }).then(function(val){
-const version = "v0.5"
+const version = "v0.6"
 
 main = document.getElementsByClassName("w-full h-full relative")
 plotToClick = []
