@@ -153,7 +153,7 @@ for (let x=0; x < findinventory.length; x++) {
         createBottingButton()
     }
     }
-    
+    var btnText = ""
     function createBottingButton(){
         mainBTN = document.getElementsByClassName('flex flex-col items-center fixed z-50')[0]
         element1BTN = document.createElement('div')
@@ -267,7 +267,6 @@ for (let x=0; x < findinventory.length; x++) {
             element1bDialog.remove()
             element1aDialog.remove()
         }
-
         var KData = ""
         grubList = []
         var bal = ""
@@ -372,7 +371,8 @@ for (let x=0; x < findinventory.length; x++) {
             landId : LandId,
             balance : balance,
             kitchen : KData,
-            grublist : grubList
+            grublist : grubList,
+            AutoFarming: btnText
         }
         //save to db
         SaveToDb(AllData)
