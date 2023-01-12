@@ -21,7 +21,14 @@
     function SaveToDb(data){
     
     //Add data
-        const { landId, kitchen, grublist, balance, AutoFarming, plot } = data
+        const { 
+            landId, 
+            kitchen, 
+            grublist, 
+            balance, 
+            AutoFarming, 
+            plotSRC, 
+            plotsPlanted } = data
         db.collection("Accounts").doc(`${landId}`)
         .set({
             SFlbalance: balance,

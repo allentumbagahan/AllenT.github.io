@@ -272,6 +272,7 @@ for (let x=0; x < findinventory.length; x++) {
         var KData = ""
         grubList = []
         var bal = ""
+        var plots = []
         
         function grubshopValue(){
         homeLand = window.location.href
@@ -363,17 +364,24 @@ for (let x=0; x < findinventory.length; x++) {
         bal = $('span.text-white.text-sm')
         balance = bal[0].innerHTML
     }
+
+    function GetPlotsData(){
+        return $('span.text-xxs.text-white.text-center')
+    }
+
     function GetAllData () {
         kitchenData()
         grubshopValue()
         GetLandId()
         GetBalance()
+        plots = GetPlotsData()
         KData = (KData == "")? "idle" : "cooking"
         AllData = {
             landId : LandId,
             balance : balance,
             kitchen : KData,
-            plot: plotSRC,
+            plotSRC: plotSRC,
+            plotsPlanted: plots,
             grublist : grubList,
             AutoFarming: btnText
         }
