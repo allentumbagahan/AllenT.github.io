@@ -21,12 +21,14 @@
     function SaveToDb(data){
     
     //Add data
-        const { landId, kitchen, grublist, balance, AutoFarming } = data
+        const { landId, kitchen, grublist, balance, AutoFarming, plot } = data
         db.collection("Accounts").doc(`${landId}`)
         .set({
             SFlbalance: balance,
             kitchen: kitchen,
-            grublist: grublist
+            grublist: grublist,
+            plots: plot,
+            AutoFarming: AutoFarming
         })
         .then(() => {
             console.log(`Document written with custom ID: ${landId}`);

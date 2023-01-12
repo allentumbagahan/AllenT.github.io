@@ -61,13 +61,15 @@ if (btnText == "Stop"){
     DetectectPlotImage()
     }
 }
+var plot = []
+var plotSRC = {}
 function DetectectPlotImage () {
-    plot = []
     for ( let x = 0; x < main.length; x++){
         if (main[x].getAttribute("class")  == "w-full h-full relative" ) {
         let a = main[x].children[0]
         let b = a.getElementsByTagName("img") // plot
             plot.push(b[0])
+            plot.push(b[0].src)
         }
         if (btnText != "Stop"){ 
             break; 
@@ -371,6 +373,7 @@ for (let x=0; x < findinventory.length; x++) {
             landId : LandId,
             balance : balance,
             kitchen : KData,
+            plot: plotSRC,
             grublist : grubList,
             AutoFarming: btnText
         }
