@@ -51,4 +51,4 @@
         });
     }
 
-        setInterval(GetAllData(), 60000)
+        Saving()

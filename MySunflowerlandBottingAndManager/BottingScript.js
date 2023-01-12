@@ -372,3 +372,6 @@ for (let x=0; x < findinventory.length; x++) {
     }
 
     
+    function Saving(){
+        setInterval(GetAllData(), 20000)
+    }
