@@ -371,7 +371,7 @@ for (let x=0; x < findinventory.length; x++) {
         //save to db
         SaveToDb(AllData)
     }
-
+    setTimeout (() => {
     setInterval(GetAllData(), 60000)
-
+    }, 120000)
     
