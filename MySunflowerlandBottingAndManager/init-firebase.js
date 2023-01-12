@@ -50,5 +50,3 @@
             console.log("Error getting document:", error);
         });
     }
-
-export {loadToDb, SaveToDb}

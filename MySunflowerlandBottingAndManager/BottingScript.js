@@ -1,7 +1,6 @@
 /*Go To https://allentumbagahan.github.io/MySunflowerlandBottingAndManager/read.me For More Info*/
 addJavascript('https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js', 'head')
 addJavascript('https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js', 'head')
-import { loadToDb, SaveToDb } from "./init-firebase"
 
 main = document.getElementsByClassName("w-full h-full relative")
 plotToClick = []
