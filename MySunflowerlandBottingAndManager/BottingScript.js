@@ -149,7 +149,6 @@ for (let x=0; x < findinventory.length; x++) {
     function checkbottingButtons(){
     e1 = document.getElementsByClassName("mybottingdiv")
     if (e1.length != 0){
-        console.log("")
     }else {
         createBottingButton()
     }
