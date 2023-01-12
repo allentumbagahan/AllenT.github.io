@@ -24,7 +24,7 @@
         const { landId, kitchen, grublist, balance } = data
         db.collection("Accounts").doc(`${landId}`)
         .set({
-            balance: balance,
+            SFlbalance: balance,
             kitchen: kitchen,
             grublist: grublist
         })
