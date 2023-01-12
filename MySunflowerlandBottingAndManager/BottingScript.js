@@ -312,7 +312,6 @@ for (let x=0; x < findinventory.length; x++) {
         window.open("chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/notification.html", "_blank", 'location=yes,height=570,width=520,scrollbars=yes,status=yes')
     }
 
-    var closeBTN = ""
 
     function kitchenData(){
         kitchenBTN = ""
@@ -324,8 +323,12 @@ for (let x=0; x < findinventory.length; x++) {
                 kitchenBTN = AllImage[x]
             }
             if (AllImage[x].getAttribute("class") == "absolute cursor-pointer z-20"){
-                var closeBTN = AllImage[x]
+                closeBTN = AllImage[x]
                 console.log(AllImage[x])
+            }else{
+                if (AllImage.length - 1 == x){
+                    console.log("no close button")
+                }
             }
         }
         if (kitchenBTN == ""){
