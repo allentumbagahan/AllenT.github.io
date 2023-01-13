@@ -421,6 +421,8 @@ for (let x=0; x < findinventory.length; x++) {
 
     }
     function GetDataFromDB(){
+        GetLandId()
+        loadToDb(LandId)
         if (loadData != ""){
             const { AutoFarming } = loadData
             if (btnText != AutoFarming){
@@ -432,7 +434,6 @@ for (let x=0; x < findinventory.length; x++) {
         GetDataFromDB()
         grubshopValue()
         KData = kitchenData()
-        GetLandId()
         GetBalance()
         plots = GetPlotsData()
         GetPlotsSRC()
