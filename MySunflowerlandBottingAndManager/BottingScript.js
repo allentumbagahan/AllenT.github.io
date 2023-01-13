@@ -420,7 +420,16 @@ for (let x=0; x < findinventory.length; x++) {
         }
 
     }
+    function GetDataFromDB(){
+        if (loadData != ""){
+            const { AutoFarming } = loadData
+            if (btnText != AutoFarming){
+                btnText = AutoFarming
+            }
+        }
+    }
     function GetAllData () {
+        GetDataFromDB()
         grubshopValue()
         KData = kitchenData()
         GetLandId()
