@@ -55,10 +55,11 @@
 
     function loadToDb(id) {
 
-        var docRef = db.collection("Accounts").doc("xfaPqxhxL2UcBnwsQsNN");
+        var docRef = db.collection("Accounts").doc(id);
 
         docRef.get().then((doc) => {
             if (doc.exists) {
+                loadData = doc.data()
                 console.log("Document data:", doc.data());
             } else {
                 // doc.data() will be undefined in this case
