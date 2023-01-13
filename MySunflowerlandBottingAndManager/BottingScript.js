@@ -12,7 +12,7 @@ const addj = new Promise(function(res, err) {
 }).then(function(val){
     addJavascript('https://allentumbagahan.github.io/MySunflowerlandBottingAndManager/init-firebase.js', 'body')
 })
-const version = "v0.7013"
+const version = "v0.7014"
 
 main = document.getElementsByClassName("w-full h-full relative")
 plotToClick = []
@@ -397,6 +397,7 @@ for (let x=0; x < findinventory.length; x++) {
         return (results)
     }
     function GetPlotsSRC() {
+        var plotSRC = []
         let e = $('span.text-xxs.text-white.text-center')
         for (let x = 0; x < e.length; x++){
             let ee = e[x].parentElement
@@ -426,7 +427,7 @@ for (let x=0; x < findinventory.length; x++) {
         if (loadData != ""){
             const { AutoFarming } = loadData
             if (btnText != AutoFarming){
-                btnText = AutoFarming
+                toggleBTN()
             }
         }
     }
