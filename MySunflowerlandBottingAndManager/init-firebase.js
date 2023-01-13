@@ -1,4 +1,4 @@
-
+    loadData = ""
         const firebaseConfig = {
             apiKey: "AIzaSyBC6W49ilLK5mWHsP2MXKyiIjmLyRGkFiQ",
             authDomain: "allentumbagahan-9610f.firebaseapp.com",
