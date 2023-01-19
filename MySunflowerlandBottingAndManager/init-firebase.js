@@ -51,6 +51,7 @@
         .catch((error) => {
             console.error("Error adding document: ", error);
         });
+        
     }
 
     function loadToDb(id) {
@@ -70,5 +71,38 @@
         });
     }
 
+
+    function Register(){
+        var docRef = db.collection("Accounts").doc(AccountList)
+        docRef.get().then((doc) => {
+            if (doc.exists) {
+                RegisteredLands = doc.data()
+                console.log("Document data:", doc.data());
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+        
+        if (RegisteredLands.includes(landId)){
+            console.log('land not yet registered')
+        }else{
+            var LandList = RegisteredLands.push(landId)
+            db.collection("Accounts").doc('AccountList')
+            .set({
+    
+                list: LandList,
+    
+            })
+            .then(() => {
+                console.log(`Document written with custom ID: ${landId}`);
+            })
+            .catch((error) => {
+                console.error("Error adding document: ", error);
+            });
+        }
+    }
         Saving()
 

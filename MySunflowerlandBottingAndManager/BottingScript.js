@@ -459,5 +459,9 @@ for (let x=0; x < findinventory.length; x++) {
 
     
     function Saving(){
-        setInterval(GetAllData, 20000)
+        setInterval(GetAllData, 35000)
     }
+    function GettingData(){
+        setInterval(GetAllData, 10000)
+    }
+    Register()

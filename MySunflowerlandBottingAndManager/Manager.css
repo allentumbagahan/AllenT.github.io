@@ -1,0 +1,97 @@
+
+body, html {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    margin: 0ch;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+#background {
+    background-color: #201E20;
+    height: max-content;
+    width: 100%;
+
+}
+
+#head1 {
+    background-color: #DDC3A5;
+    padding: 5px;
+    padding-left: 40px;
+    opacity: 20;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.headertext {
+    color:  #201E20;
+}
+
+.box {
+    height: max-content;
+    padding: 40px;
+    padding-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+
+}
+
+.card {
+    background-color: #E0A96D;
+    border-radius: 15px;
+    height: 350px;
+    width: 450px;
+    padding: 10px;
+    margin: 25px;
+    box-shadow: 5px 5px #8d7e7e;
+    opacity: 0.5;
+}
+.card:hover { 
+    opacity: 1;
+    box-shadow: 0px 0px #8d7e7e;
+    transform: translate(5px, 5px);
+}
+.profile {
+    height: 100px;
+    width: 100px;
+    border: #aa9f94 solid 3px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+}
+.container1 {
+    display: flex;
+    flex-direction: row;
+}
+
+.icon {
+    margin: 12px;
+    height: 0.4in;
+    width: 0.4in;
+}
+
+.textbox1 {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    margin-left: 10px;
+}
+
+h3 {
+    color: aliceblue;
+}
+
+.container2 {
+    margin-left: 5px;
+    width: 80%;
+}
+
+#landId {
+    text-align: center;
+    width: 100%;
+}
