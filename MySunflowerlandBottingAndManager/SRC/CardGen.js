@@ -19,8 +19,9 @@ class Card {
         this.elem11= this.elem11
     }
     GetDataToDb() {
-        this.data = loadToDb(this.id)
-        console.log(this.data)
+        const { SFlbalance } = loadToDb(this.id)
+        this.bal = SFlbalance
+        console.log(this.bal)
     }
     CreateCardView(){
         this.elem1 = document.createElement('div')
