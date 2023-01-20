@@ -25,9 +25,8 @@ function loadToDb(id) {
 
     docRef.get().then((doc) => {
         if (doc.exists) {
-            let loadData = doc.data()
             console.log("Document data:", doc.data());
-            return loadData
+            return doc.data()
         } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
