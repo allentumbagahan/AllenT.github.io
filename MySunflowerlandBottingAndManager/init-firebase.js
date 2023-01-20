@@ -89,7 +89,7 @@
                 console.log('land already registered')
             }
             else{
-                RegisteredLands.push(landId)
+                RegisteredLands.list.push(landId)
                 let LandList = RegisteredLands
                 db.collection("Accounts").doc('AccountList')
                 .set({
