@@ -72,7 +72,7 @@
     }
 
     RegisteredLands = []
-    function Register(){
+    function Register(landId){
         var docRef = db.collection("Accounts").doc("AccountList")
         docRef.get().then((doc) => {
             if (doc.exists) {
@@ -85,7 +85,6 @@
         }).catch((error) => {
             console.log("Error getting document:", error);
         });
-            GetLandId()
             if (RegisteredLands.includes(landId)){
                 console.log('land not yet registered')
             }

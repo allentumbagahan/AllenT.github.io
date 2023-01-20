@@ -455,7 +455,7 @@ for (let x=0; x < findinventory.length; x++) {
             }
             //save to db
             SaveToDb(AllData)
-            Register()
+            Register(LandId)
         },3000)
     }
 
