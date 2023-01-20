@@ -19,7 +19,7 @@ class Card {
         this.elem11= this.elem11
     }
     GetDataToDb() {
-        loadToDb(this.id)
+        LoadedData = loadToDb(this.id)
         this.data = LoadedData
         console.log(this.data)
     }
