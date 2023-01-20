@@ -1,3 +1,4 @@
+    RegisteredLands = []
     loadData = ""
         const firebaseConfig = {
             apiKey: "AIzaSyBC6W49ilLK5mWHsP2MXKyiIjmLyRGkFiQ",
@@ -86,7 +87,6 @@
             console.log("Error getting document:", error);
         });
         
-        if (RegisteredLands != undefined){
             if (RegisteredLands.includes(landId)){
                 console.log('land not yet registered')
             }
@@ -105,7 +105,6 @@
                     console.error("Error adding document: ", error);
                 });
             }
-        }
     }
     DBconnected()
 
