@@ -85,7 +85,7 @@
         }).catch((error) => {
             console.log("Error getting document:", error);
         });
-        
+            GetLandId()
             if (RegisteredLands.includes(landId)){
                 console.log('land not yet registered')
             }
