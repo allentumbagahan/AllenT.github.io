@@ -1,4 +1,3 @@
-    RegisteredLands = []
     loadData = ""
         const firebaseConfig = {
             apiKey: "AIzaSyBC6W49ilLK5mWHsP2MXKyiIjmLyRGkFiQ",
@@ -72,7 +71,7 @@
         });
     }
 
-
+    RegisteredLands = []
     function Register(){
         var docRef = db.collection("Accounts").doc("AccountList")
         docRef.get().then((doc) => {
