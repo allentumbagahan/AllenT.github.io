@@ -90,7 +90,7 @@
             }
             else{
                 RegisteredLands.list.push(landId)
-                let LandList = RegisteredLands
+                let LandList = RegisteredLands.list
                 db.collection("Accounts").doc('AccountList')
                 .set({
         
