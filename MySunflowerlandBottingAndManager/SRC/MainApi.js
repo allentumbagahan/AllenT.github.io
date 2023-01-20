@@ -1,4 +1,4 @@
-
+var LoadedData
 
 const firebaseConfig = {
     apiKey: "AIzaSyBC6W49ilLK5mWHsP2MXKyiIjmLyRGkFiQ",
@@ -22,21 +22,19 @@ var docAccountList = db.collection("Accounts").doc("AccountList")
 
 function loadToDb(id) {
     var docRef = db.collection("Accounts").doc(id);
-    var LoadedData;
 
     docRef.get().then((doc) => {
         if (doc.exists) {
             console.log("Document data:", doc.data());
-            LoadedData =  doc.data()
+            LoadedData = doc.data()
         } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
-            LoadedData =  "No such document!"
+            LoadedData = "No such document!"
         }
     }).catch((error) => {
         console.log("Error getting document:", error);
     });
-    return LoadedData
 }
 
 function loadAllLands() {
