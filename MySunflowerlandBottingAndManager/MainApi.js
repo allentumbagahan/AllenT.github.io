@@ -1,5 +1,4 @@
-import { initializeApp } from "/firebase/app"; 
-import { getFirestore } from "/firebase/firestore";
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyBC6W49ilLK5mWHsP2MXKyiIjmLyRGkFiQ",
@@ -13,9 +12,10 @@ const firebaseConfig = {
   };
   
     // Initialize Firebase
-    const app = initializeApp(firebaseConfig)
+    firebase.initializeApp(firebaseConfig);
     // Initialize Cloud Firestore and get a reference to the service
-    const db = getFirestore(app);
+    const db = firebase.firestore();
+
 
 
 var docAccountList = db.collection("Accounts").doc("AccountList")
