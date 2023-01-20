@@ -73,7 +73,7 @@
 
 
     function Register(){
-        var docRef = db.collection("Accounts").doc(AccountList)
+        var docRef = db.collection("Accounts").doc("AccountList")
         docRef.get().then((doc) => {
             if (doc.exists) {
                 RegisteredLands = doc.data()

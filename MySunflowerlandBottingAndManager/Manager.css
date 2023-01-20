@@ -28,7 +28,6 @@ body, html {
 }
 
 .box {
-    height: max-content;
     padding: 40px;
     padding-top: 20px;
     display: flex;
@@ -94,4 +93,9 @@ h3 {
 #landId {
     text-align: center;
     width: 100%;
+}
+
+.fixheight {
+    min-height: 100%;
+    max-height: max-content;
 }

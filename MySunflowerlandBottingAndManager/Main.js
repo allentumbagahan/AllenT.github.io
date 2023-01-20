@@ -1,6 +1,6 @@
 function loadToDb(id) {
 
-    var docRef = db.collection("Accounts").doc(id);
+    var docRef = db.collection("Accounts").doc("AccountList");
 
     docRef.get().then((doc) => {
         if (doc.exists) {
@@ -14,3 +14,8 @@ function loadToDb(id) {
         console.log("Error getting document:", error);
     });
 }
+
+function loadAll() {
+    All 
+}
+setInterval(loadAll, 20000)
