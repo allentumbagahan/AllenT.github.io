@@ -4,7 +4,7 @@ class Card {
     constructor(id){
         this.id = id
         this.chef = this.chef
-        this.bal = balance
+        this.bal = this.bal
         this.data = this.data
         this.elem1 = this.elem1
         this.elem2 = this.elem2
