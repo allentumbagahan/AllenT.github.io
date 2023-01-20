@@ -19,8 +19,7 @@ class Card {
         this.elem11= this.elem11
     }
     GetDataToDb() {
-        loadToDb(this.id)
-        console.log(this.bal)
+        console.log(loadToDb(this.id))
     }
     CreateCardView(){
         this.elem1 = document.createElement('div')
