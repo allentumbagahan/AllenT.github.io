@@ -22,6 +22,7 @@ var docAccountList = db.collection("Accounts").doc("AccountList")
 
 function loadToDb(id) {
     var docRef = db.collection("Accounts").doc(id);
+    var LoadedData;
 
     docRef.get().then((doc) => {
         if (doc.exists) {
@@ -34,7 +35,6 @@ function loadToDb(id) {
         }
     }).catch((error) => {
         console.log("Error getting document:", error);
-        LoadedData =  "Error getting document"
     });
     return LoadedData
 }
