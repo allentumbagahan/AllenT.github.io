@@ -458,10 +458,10 @@ for (let x=0; x < findinventory.length; x++) {
     }
 
     
-    function Saving(){
+    function DBconnected(){
         setInterval(GetAllData, 35000)
+        Register()
     }
     function GettingData(){
         setInterval(GetAllData, 10000)
     }
-    Register()
