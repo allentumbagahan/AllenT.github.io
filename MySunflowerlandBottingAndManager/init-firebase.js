@@ -86,10 +86,11 @@
             console.log("Error getting document:", error);
         });
             if (RegisteredLands.list.includes(landId)){
-                console.log('land not yet registered')
+                console.log('land already registered')
             }
             else{
-                var LandList = RegisteredLands.push(landId)
+                RegisteredLands.push(landId)
+                let LandList = RegisteredLands
                 db.collection("Accounts").doc('AccountList')
                 .set({
         
