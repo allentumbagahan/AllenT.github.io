@@ -19,8 +19,7 @@ class Card {
         this.elem11= this.elem11
     }
     GetDataToDb() {
-        LoadedData = loadToDb(this.id)
-        this.data = LoadedData
+        this.data = loadToDb(this.id)
         console.log(this.data)
     }
     CreateCardView(){
