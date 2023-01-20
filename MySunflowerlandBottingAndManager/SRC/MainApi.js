@@ -25,14 +25,17 @@ function loadToDb(id) {
 
     docRef.get().then((doc) => {
         if (doc.exists) {
-            loadData = doc.data()
+            let loadData = doc.data()
             console.log("Document data:", doc.data());
+            return loadData
         } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
+            return false
         }
     }).catch((error) => {
         console.log("Error getting document:", error);
+        return false
     });
 }
 
@@ -50,4 +53,6 @@ function loadAllLands() {
     });
 }
 
-loadAllLands()
+function ConnectToApi() {
+    ConnectHandshake()
+}
