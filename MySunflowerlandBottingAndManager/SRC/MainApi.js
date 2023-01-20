@@ -1,4 +1,4 @@
-var LoadedData
+var LoadedData = ""
 
 const firebaseConfig = {
     apiKey: "AIzaSyBC6W49ilLK5mWHsP2MXKyiIjmLyRGkFiQ",
@@ -42,6 +42,7 @@ function loadAllLands() {
         if (doc.exists) {
             RegisteredLands = doc.data()
             console.log("Document data:", doc.data());
+            GenCards()
         } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
