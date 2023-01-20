@@ -86,22 +86,25 @@
             console.log("Error getting document:", error);
         });
         
-        if (RegisteredLands.includes(landId)){
-            console.log('land not yet registered')
-        }else{
-            var LandList = RegisteredLands.push(landId)
-            db.collection("Accounts").doc('AccountList')
-            .set({
-    
-                list: LandList,
-    
-            })
-            .then(() => {
-                console.log(`Document written with custom ID: ${landId}`);
-            })
-            .catch((error) => {
-                console.error("Error adding document: ", error);
-            });
+        if (RegisteredLands != undefined){
+            if (RegisteredLands.includes(landId)){
+                console.log('land not yet registered')
+            }
+            else{
+                var LandList = RegisteredLands.push(landId)
+                db.collection("Accounts").doc('AccountList')
+                .set({
+        
+                    list: LandList,
+        
+                })
+                .then(() => {
+                    console.log(`Document written with custom ID: ${landId}`);
+                })
+                .catch((error) => {
+                    console.error("Error adding document: ", error);
+                });
+            }
         }
     }
     DBconnected()

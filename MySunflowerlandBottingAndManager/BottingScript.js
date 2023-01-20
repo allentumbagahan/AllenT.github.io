@@ -40,7 +40,7 @@ function getGoblinsBase64Conditonal(src){
     return (r)
 }
 
-setInterval(FindPlotButtton, 5000)
+
 
 function FindPlotButtton () {
     checkbottingButtons()
@@ -441,6 +441,7 @@ for (let x=0; x < findinventory.length; x++) {
             GetPlotsSRC()
             plots = (plots == "")? "0" : plots
             trees = GetChopTreesCooldown()
+            FindPlotButtton()
             AllData = {
                 landId : LandId,
                 balance : balance,
