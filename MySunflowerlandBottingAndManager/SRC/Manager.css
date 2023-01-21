@@ -37,6 +37,7 @@ h2 #mainHeaderText {
     text-align: center;
     color: aliceblue;
     align-self: center;
+    text-size-adjust: initial;
 }
 
 .headertext {
