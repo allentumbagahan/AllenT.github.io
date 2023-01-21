@@ -98,6 +98,7 @@ function ConnectHandshake(){
 
 }
 function GenCards(){
+    clear(mainBox)
     AllLands = RegisteredLands.list
     for (x = 0; x < AllLands.length; x++){
         cards.push(new Card(AllLands[x]))
@@ -108,5 +109,8 @@ function GenCards(){
     LastGenCount = AllLands.length
 }
 
+function clear(elem) {
+    elem.innerHTML = '';
+  }
 ConnectToApi()
 
