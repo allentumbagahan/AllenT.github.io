@@ -58,11 +58,7 @@ async function GetSFLPrice(){
         method: "GET",
         headers: {
             "content-type": "application/json;charset=UTF-8",
-            accept: "application/json",
-            "Access-Control-Allow-Origin": "https://allentumbagahan.github.io",
-            "Access-Control-Request-Method": "*",
-            "Access-Control-Allow-Methods": "POST, PUT, DELETE, GET, OPTIONS"
-
+            accept: "application/json"
         }
     })
     return await url.json()
