@@ -8,7 +8,6 @@ body, html {
 #background {
     background-color: #201E20;
     height: max-content;
-    width: 100%;
 
 }
 
@@ -62,7 +61,8 @@ h2 #mainHeaderText {
     background-color: #E0A96D;
     border-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6DAAAABGdBTUEAALGPC/xhBQAAAAlQTFRFAAAA6tSqGBQlHYAABgAAAAF0Uk5TAEDm2GYAAAAZSURBVAjXY+BawcCgGsbAMIGxAQODxIHyAIsgB7CF1qipAAAAAElFTkSuQmCC");
     border-radius: 15px;
-    min-width: fit-content;
+    min-width: 300px; 
+    min-height: 150px;
     height: fit-content;
     width: fit-content;
     padding: 10px;
