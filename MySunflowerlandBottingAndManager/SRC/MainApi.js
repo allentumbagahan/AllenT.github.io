@@ -53,6 +53,25 @@ function loadAllLands() {
     });
 }
 
+async function GetSFLPrice(){
+    const url = await window.fetch('https://api.coingecko.com/api/v3/simple/price?ids=sunflower-land&vs_currencies=PHP', {
+        method: "GET",
+        headers: {
+            "content-type": "application/json;charset=UTF-8",
+            accept: "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Request-Method": "*"
+
+        }
+    })
+    a = await url.json()
+    console.log(a)
+}
+
 function ConnectToApi() {
     ConnectHandshake()
+    setInterval(function(){
+        GetSFLPrice()
+        //document.getElementById('sfl/php').innerHTML = `SFL : ₱${a}`
+    }, 2000)
 }
