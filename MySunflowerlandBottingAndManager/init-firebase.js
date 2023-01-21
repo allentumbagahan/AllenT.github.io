@@ -74,71 +74,44 @@
         
     }
 
-    RegisteredLands = { list : [] }
+    
     function Register(landId){
-            if (RegisteredLands.list.length > 0) {
-                if (RegisteredLands.list.includes(landId)){
-                    console.log('land already registered')
-                }
-                else
-                {
-                    var docRef = db.collection("Accounts").doc("AccountList")
-                    docRef.get().then((doc) => {
-                        if (doc.exists) {
-                            RegisteredLands = doc.data()
-                            console.log("Document data:", doc.data());
-                        } else {
-                            // doc.data() will be undefined in this case
-                            console.log("No such document!");
-                        }
-                    }).catch((error) => {
-                        console.log("Error getting document:", error);
-                    });
-                    
-                    console.log('saving')
-                    RegisteredLands.list.push(landId)
-                    console.log(RegisteredLands.list + 'registered')
-                    db.collection("Accounts").doc('AccountList')
-                    .set({
-            
-                        list: RegisteredLands.list
-            
-                    })
-                    .then(() => {
-                        console.log(`Document written with custom ID: ${landId}`);
-                        var docRef = db.collection("Accounts").doc("AccountList")
-                        docRef.get().then((doc) => {
-                            if (doc.exists) {
-                                RegisteredLands = doc.data()
-                                console.log("Document data:", doc.data());
-                            } else {
-                                // doc.data() will be undefined in this case
-                                console.log("No such document!");
-                            }
-                        }).catch((error) => {
-                            console.log("Error getting document:", error);
-                        });
-                        
-                    })
-                    .catch((error) => {
-                        console.error("Error adding document: ", error);
-                    });
-                    
-                }
-            }else{
-                var docRef = db.collection("Accounts").doc("AccountList")
-                docRef.get().then((doc) => {
-                    if (doc.exists) {
-                        RegisteredLands = doc.data()
-                        console.log("Document data:", doc.data());
-                    } else {
-                        // doc.data() will be undefined in this case
-                        console.log("No such document!");
+        RegisteredLands = { list : [] }
+        var docRef = db.collection("Accounts").doc("AccountList")
+        docRef.get().then((doc) => {
+            if (doc.exists) {
+                RegisteredLands = doc.data()
+                if (RegisteredLands.list.length > 0) {
+                    if (RegisteredLands.list.includes(landId)){
+                        console.log('land already registered')
                     }
-                }).catch((error) => {
-                    console.log("Error getting document:", error);
-                });
+                    else
+                    {
+                        RegisteredLands = doc.data()
+                        RegisteredLands.list.push(landId)
+                        db.collection("Accounts").doc('AccountList')
+                        .set({
+                
+                            list: RegisteredLands.list
+                
+                        })
+                        .then(() => {
+                            console.log('registration finished')
+                        }) .catch((error) => {
+                            console.log("Error registration document:", error);
+                        });
+                    }
+                }else{
+    
+                }
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
             }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+
 
     }
 
