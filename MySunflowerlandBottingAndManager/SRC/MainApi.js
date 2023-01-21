@@ -66,8 +66,4 @@ async function GetSFLPrice(){
 
 function ConnectToApi() {
     ConnectHandshake()
-    setInterval(function(){
-        console.log(GetSFLPrice())
-        //document.getElementById('sfl/php').innerHTML = `SFL : ₱${a}`
-    }, 2000)
 }
