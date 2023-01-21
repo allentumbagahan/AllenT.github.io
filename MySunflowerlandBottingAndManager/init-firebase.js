@@ -72,15 +72,17 @@
         
     }
 
-    RegisteredLands = []
+    RegisteredLands = { list : [] }
     function Register(landId){
-            if (RegisteredLands.length > 0) {
+            if (RegisteredLands.list.length > 0) {
                 if (RegisteredLands.list.includes(landId)){
                     console.log('land already registered')
                 }
-                else{
+                else
+                {
+                    console.log('saving')
                     RegisteredLands.list.push(landId)
-                    console.log(RegisteredLands.list)
+                    console.log(RegisteredLands.list + 'registered')
                     db.collection("Accounts").doc('AccountList')
                     .set({
             
