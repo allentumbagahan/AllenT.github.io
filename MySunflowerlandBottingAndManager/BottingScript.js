@@ -12,6 +12,7 @@ const addj = new Promise(function(res, err) {
 }).then(function(val){
     addJavascript('https://allentumbagahan.github.io/MySunflowerlandBottingAndManager/init-firebase.js', 'body')
 })
+
 const version = "v0.7019"
 
 main = document.getElementsByClassName("w-full h-full relative")
@@ -432,31 +433,40 @@ for (let x=0; x < findinventory.length; x++) {
         }
     }
     function GetAllData () {
-        GetDataFromDB()
-        setTimeout(()=>{
-            grubshopValue()
-            KData = kitchenData()
-            GetBalance()
-            plots = GetPlotsData()
-            GetPlotsSRC()
-            plots = (plots == "")? "0" : plots
-            trees = GetChopTreesCooldown()
-            FindPlotButtton()
-            AllData = {
-                landId : LandId,
-                balance : balance,
-                trees: trees,
-                kitchen : KData,
-                plotSRC: plotSRC,
-                plotsPlanted: plots,
-                grublist : grubList,
-                AutoFarming: btnText,
-                AutoFarmVersion: version
-            }
-            //save to db
-            SaveToDb(AllData)
-            Register(LandId)
-        },3000)
+        try {
+            let L = document.getElementsByClassName('text-white mb-1 text-sm')
+        if (L.length > 0){
+            GetDataFromDB()
+            setTimeout(()=>{
+                grubshopValue()
+                KData = kitchenData()
+                GetBalance()
+                plots = GetPlotsData()
+                GetPlotsSRC()
+                plots = (plots == "")? "0" : plots
+                trees = GetChopTreesCooldown()
+                FindPlotButtton()
+                AllData = {
+                    landId : LandId,
+                    balance : balance,
+                    trees: trees,
+                    kitchen : KData,
+                    plotSRC: plotSRC,
+                    plotsPlanted: plots,
+                    grublist : grubList,
+                    AutoFarming: btnText,
+                    AutoFarmVersion: version
+                }
+                //save to db
+                SaveToDb(AllData)
+                Register(LandId)
+            },3000)
+        }
+        }
+        catch(err){
+            console.log('cant find element:' + err)
+        }
+
     }
 
     
