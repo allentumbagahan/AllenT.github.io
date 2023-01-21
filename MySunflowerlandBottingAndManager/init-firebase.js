@@ -1,5 +1,5 @@
     loadData = ""
-
+    setTimeout(ConfigDB(), 5000)
     function ConfigDB(){
 
         const firebaseConfig = {
