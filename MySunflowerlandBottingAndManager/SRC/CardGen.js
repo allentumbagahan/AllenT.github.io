@@ -94,7 +94,7 @@ function ConnectHandshake(){
                 GenCards()
             }
         }, 
-        15000)
+        5000)
 
 }
 function GenCards(){
@@ -107,5 +107,6 @@ function GenCards(){
     }
     LastGenCount = AllLands.length
 }
+
 ConnectToApi()
 
