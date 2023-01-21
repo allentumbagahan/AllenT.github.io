@@ -2,7 +2,6 @@
 body, html {
     height: 100%;
     width: 100%;
-    overflow: hidden;
     margin: 0ch;
     overflow-x: hidden;
 }
@@ -29,6 +28,9 @@ body, html {
     background-attachment: scroll;
     align-content: center !important;
     height: fit-content;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
 } 
 
 h2 #mainHeaderText {
