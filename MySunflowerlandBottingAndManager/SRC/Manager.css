@@ -5,7 +5,6 @@ body, html {
     overflow: hidden;
     margin: 0ch;
     overflow-x: hidden;
-    overflow-y: auto;
 }
 #background {
     background-color: #201E20;
@@ -15,12 +14,29 @@ body, html {
 }
 
 #head1 {
-    background-color: #DDC3A5;
+    display: flex;
+    flex-direction: row;
+    background-color: #b48842e6;
     padding: 5px;
     padding-left: 40px;
-    opacity: 20;
+    opacity: 1;
+    border-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6DAAAABGdBTUEAALGPC/xhBQAAAAlQTFRFAAAA6tSqGBQlHYAABgAAAAF0Uk5TAEDm2GYAAAAZSURBVAjXY+BawcCgGsbAMIGxAQODxIHyAIsgB7CF1qipAAAAAElFTkSuQmCC");
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
+    border-top: 0px;
+    border: #5d3e02;
+    border-style: solid;
+    background-attachment: scroll;
+    align-content: center !important;
+    height: fit-content;
+} 
+
+h2 #mainHeaderText {
+    margin: 10px;
+    height: 100px !important;
+    text-align: center;
+    color: aliceblue;
+    align-self: center;
 }
 
 .headertext {
@@ -28,6 +44,7 @@ body, html {
 }
 
 .box {
+    overflow-x: hidden;
     overflow-y: auto;
     padding: 40px;
     padding-top: 20px;
@@ -40,9 +57,11 @@ body, html {
 
 .card {
     background-color: #E0A96D;
+    border-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6DAAAABGdBTUEAALGPC/xhBQAAAAlQTFRFAAAA6tSqGBQlHYAABgAAAAF0Uk5TAEDm2GYAAAAZSURBVAjXY+BawcCgGsbAMIGxAQODxIHyAIsgB7CF1qipAAAAAElFTkSuQmCC");
     border-radius: 15px;
-    height: 350px;
-    width: 450px;
+    min-width: fit-content;
+    height: fit-content;
+    width: fit-content;
     padding: 10px;
     margin: 25px;
     box-shadow: 5px 5px #8d7e7e;
@@ -99,4 +118,25 @@ h3 {
 .fixheight {
     min-height: 100%;
     max-height: max-content;
+}
+
+#background {
+    background-image: url("data:image/webp;base64,UklGRogBAABXRUJQVlA4THwBAAAvP8APAB+goG0U6F7wrwCJ2BESEJXq/zVfyAQsNvp3lMI9/3FuqC3+g+Q2kiRJskZu7Tf36JYnChgFztZsBYrRKAUIwB4ZNatCRP8nIN3nsocuu4DaxnfWBt18vaHOnKvhE0qpyC24VEod4Ox+pU5Sdfz7WfHKXlu8HnA2Nuypo5tAbHYD0kAdtVEzdaQO1IGiQQVt6iwdOZtjaaTOg2XMz1upaDxSjddUHRr3UmVtsxT3UVf5rVi6mtmYV9Gh9R8rVrc66GZeZUepcT4uBqlOHtBwUDr4seZSJw8oCSpQ4QawRFkGfUkF1+dRE3htlPPBfqaDpcGdpUEqqgNUZ2puwdocRiPVzBqrs4cuL8ZrNuvi5ckWV/N5W+rIb8BycDXgzv6d1+dWHcb5QEc2sfTlUSq5DXUeqgE6aUp1AOR2W5sDzi91QF08N4BS4fV56GQZlAPgKEk1uEwp1XHeKAM43OfzVqpX8Yn7eH5199XEZ3ZU93rl/2TnxVwXJw==");
+}
+
+#sflBalance {
+    opacity: 20;
+}
+
+i {
+    color: #c5c829;
+}
+
+#logo {
+    display: block;
+    width: 50px;
+    height: 50px;
+    align-content: center;
+    transform: translateY(+10%);
+    margin-left: 50px;
 }

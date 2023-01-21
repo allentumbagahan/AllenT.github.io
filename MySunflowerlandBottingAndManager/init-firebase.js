@@ -1,4 +1,7 @@
     loadData = ""
+
+    function ConfigDB(){
+
         const firebaseConfig = {
             apiKey: "AIzaSyBC6W49ilLK5mWHsP2MXKyiIjmLyRGkFiQ",
             authDomain: "allentumbagahan-9610f.firebaseapp.com",
@@ -10,13 +13,12 @@
             measurementId: "G-NRS398L5KQ"
           };
           
-    
-    
-    
         // Initialize Firebase
             firebase.initializeApp(firebaseConfig)
                         // Initialize Cloud Firestore and get a reference to the service
-            const db = firebase.firestore();
+            db = firebase.firestore();
+            DBconnected()
+    }
     
     function SaveToDb(data){
     
@@ -126,5 +128,6 @@
             }
 
     }
-    DBconnected()
+
+
 

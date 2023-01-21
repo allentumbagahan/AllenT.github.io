@@ -18,6 +18,8 @@ const firebaseConfig = {
 
 
 
+
+
 var docAccountList = db.collection("Accounts").doc("AccountList")
 
 function loadToDb(id) {
