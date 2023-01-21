@@ -59,19 +59,19 @@ async function GetSFLPrice(){
         headers: {
             "content-type": "application/json;charset=UTF-8",
             accept: "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Request-Method": "*"
+            "Access-Control-Allow-Origin": "https://allentumbagahan.github.io",
+            "Access-Control-Request-Method": "*",
+            "Access-Control-Allow-Methods": "POST, PUT, DELETE, GET, OPTIONS"
 
         }
     })
-    a = await url.json()
-    console.log(a)
+    return await url.json()
 }
 
 function ConnectToApi() {
     ConnectHandshake()
     setInterval(function(){
-        GetSFLPrice()
+        console.log(GetSFLPrice())
         //document.getElementById('sfl/php').innerHTML = `SFL : ₱${a}`
     }, 2000)
 }
