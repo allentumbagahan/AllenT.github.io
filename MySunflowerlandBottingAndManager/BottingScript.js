@@ -442,7 +442,6 @@ for (let x=0; x < findinventory.length; x++) {
         try {
             let L = document.getElementsByClassName('text-white mb-1 text-sm')
         if (L.length > 0){
-            GetDataFromDB()
             setTimeout(()=>{
                 grubshopValue()
                 KData = kitchenData()
@@ -465,6 +464,7 @@ for (let x=0; x < findinventory.length; x++) {
                 //save to db
                 SaveToDb(AllData)
                 Register(LandId)
+                GetDataFromDB()
             },3000)
         }
         }
