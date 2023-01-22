@@ -364,7 +364,12 @@ for (let x=0; x < findinventory.length; x++) {
                 }
                 chefWhereAreYou =  document.getElementsByClassName('text-xxs sm:text-xs text-center my-1')
                 whatAreYouDoingChef = (chefWhereAreYou.length != 0 )? chefWhereAreYou[0].innerHTML : "Chef is Waiting"
-                closeBTN.click()
+                try {
+                    closeBTN.click()
+                }
+                catch{
+                    whatAreYouDoingChef = "close btn"
+                }
             }
 
             return whatAreYouDoingChef
@@ -443,7 +448,7 @@ for (let x=0; x < findinventory.length; x++) {
             let L = document.getElementsByClassName('text-white mb-1 text-sm')
         if (L.length > 0){
             setTimeout(()=>{
-                GetLandId()
+                GetLandId() 
                 grubshopValue()
                 KData = kitchenData()
                 GetBalance()
