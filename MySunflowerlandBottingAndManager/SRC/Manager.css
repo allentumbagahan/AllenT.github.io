@@ -74,6 +74,8 @@ h2 #mainHeaderText {
     opacity: 1;
     box-shadow: 0px 0px #8d7e7e;
     transform: translate(5px, 5px);
+    border: #645202 5px;
+    border-style: double;
 }
 .profile {
     height: 100px;
@@ -160,4 +162,17 @@ i {
 
 #CardContainer {
     margin-top: 100px;
+}
+#container2{
+    visibility: collapse;
+
+}
+
+
+#container2:hover {
+    visibility: visible;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 150px;
 }

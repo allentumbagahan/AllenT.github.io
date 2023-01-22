@@ -21,7 +21,7 @@ class card {
         this.elem1_1_2_1_2 = this.elem1_1_2_1_2
         this.elem1_1_2_2_1 = this.elem1_1_2_2_1
         this.elem1_1_2_2_2 = this.elem1_1_2_2_2
-        this.elem11 = this.elem11
+        this.elem1_2 = this.elem1_2
         this.grublist = { 
             grubElem : [],
             grubImg : []
@@ -82,13 +82,50 @@ class card {
         this.elem1_1_2_2.appendChild(this.elem1_1_2_2_1)
         this.elem1_1_2_2_2 = document.createElement('h3')
         this.elem1_1_2_2.appendChild(this.elem1_1_2_2_2)
+        this.elem1_2 = document.createElement('div')
+        this.elem1_2.setAttribute('id', 'container2')
+        this.elem1.appendChild(this.elem1_2)
+        for (let x =0; x < 12; x++){
+            let Elem1 = document.createElement('div')
+            Elem1.setAttribute("class", "relative")
+            Elem1.setAttribute("style", "position: relative")
+            let Elem2 = document.createElement('div')
+            Elem2.setAttribute("class", "bg-brown-600 cursor-pointer relative cursor-pointer")
+            Elem2.setAttribute("style", 'width: 47.25px; height: 47.25px; margin: 7.875px 7.875px 5.25px 5.25px; border-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6DAAAABGdBTUEAALGPC/xhBQAAAAlQTFRFAAAA7qRoGBQlo4eEUgAAAAF0Uk5TAEDm2GYAAAAZSURBVAjXY+BawcCgGsbAMIGxAQODxIHyAIsgB7CF1qipAAAAAElFTkSuQmCC") 22.2222% / 1 / 0 repeat; border-style: solid; border-width: 5.25px; image-rendering: pixelated; border-radius: 13.125px;  --tw-bg-opacity: 1;background-color: rgb(185 111 80 / var(--tw-bg-opacity)); position: relative;')
+            let Elem3 = document.createElement('div')
+            Elem3.setAttribute("class", "absolute flex justify-center items-center w-full h-full")
+            Elem3.setAttribute("style", "justify-content: center; align-items: center; width: 100%; display: flex; position: absolute;")
+            let Elem4 = document.createElement('div')
+            Elem4.setAttribute("class", "flex justify-center items-center")
+            Elem4.setAttribute("style", "width: 36.75px; height: 36.75px; justify-content: center; align-items: center; display: flex; ")
+            let Elem5 = document.createElement('img')
+            this.grublist.grubElem.push(Elem5)
+            Elem5.setAttribute("class", "relative")
+            Elem5.setAttribute("style", "position: relative")
+            Elem5.setAttribute("alt", "item")
+            //Elem5.setAttribute("src", `${grubList[x]}`)
+            Elem5.setAttribute("style", "opacity: 1; transform: scale(2.625);   position: relative;  display: block; vertical-align: middle;")
+            Elem4.appendChild(Elem5)
+            Elem3.appendChild(Elem4)
+            Elem2.appendChild(Elem3)
+            Elem1.appendChild(Elem2)
+            this.elem1_2.appendChild(Elem1)
+            }
+    
+        }
 
-    }
     UpdateProperty(){
         this.chef = this.data.kitchen
         this.bal = this.data.SFlbalance
         this.elem1_1_2_1_2.innerHTML = this.bal
         this.elem1_1_2_2_2.innerHTML = this.chef
+        this.grublist.grubImg = this.data.grublist
+        this.UpdateView()
+    }
+    UpdateView(){
+        for(let x =0; x < this.grublist.grubElem.length; x++){
+            this.grublist.grubElem[x].setAttribute("src", `${this.grublist.grubImg[x]}`)
+        }
     }
 }
 
