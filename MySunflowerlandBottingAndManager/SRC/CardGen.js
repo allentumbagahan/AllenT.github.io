@@ -24,21 +24,18 @@ class Card {
         this.elem11 = this.elem11
     }
     GetDataToDb() {
-        setInterval(() => {
-            var docRef = db.collection("Accounts").doc(this.id);
-            docRef.get().then((doc) => {
-                if (doc.exists) {
-                    this.data = doc.data()
-                    this.UpdateProperty()
-                } else {
-                    // doc.data() will be undefined in this case
-                    console.log("No such document!");
-                }
-            }).catch((error) => {
-                console.log("Error getting document:", error);
-            });
-        }, 3000)
-
+        var docRef = db.collection("Accounts").doc(this.id);
+        docRef.get().then((doc) => {
+            if (doc.exists) {
+                this.data = doc.data()
+                this.UpdateProperty()
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
     }
     CreateCardView(){
         console.log(this.id)
@@ -95,11 +92,11 @@ function ConnectHandshake(){
     setInterval(
         function() {
             loadAllLands()
-            if (RegisteredLands.list.length != LastGenCount){
+            if (RegisteredLands.list.length != 0){
                 GenCards()
             }
         }, 
-        5000)
+        3000)
 
 }
 function GenCards(){
