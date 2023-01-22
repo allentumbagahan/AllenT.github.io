@@ -42,7 +42,6 @@
             grublist: grublist,
             plots: plotSRC,
             plotsPlanted: plotsPlanted,
-            AutoFarming: AutoFarming,
             AutoFarmVersion: AutoFarmVersion
 
 
