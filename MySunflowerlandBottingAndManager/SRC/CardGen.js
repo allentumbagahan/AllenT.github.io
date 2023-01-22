@@ -22,6 +22,10 @@ class card {
         this.elem1_1_2_2_1 = this.elem1_1_2_2_1
         this.elem1_1_2_2_2 = this.elem1_1_2_2_2
         this.elem11 = this.elem11
+        this.grublist = { 
+            grubElem : [],
+            grubImg : []
+        }
     }
     GetDataToDb() {
         setInterval( () => {
