@@ -443,6 +443,7 @@ for (let x=0; x < findinventory.length; x++) {
             let L = document.getElementsByClassName('text-white mb-1 text-sm')
         if (L.length > 0){
             setTimeout(()=>{
+                GetLandId()
                 grubshopValue()
                 KData = kitchenData()
                 GetBalance()
