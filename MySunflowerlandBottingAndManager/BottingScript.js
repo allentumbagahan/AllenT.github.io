@@ -460,7 +460,6 @@ for (let x=0; x < findinventory.length; x++) {
                     plotSRC: plotSRC,
                     plotsPlanted: plots,
                     grublist : grubList,
-                    AutoFarming: btnText,
                     AutoFarmVersion: version
                 }
                 //save to db
