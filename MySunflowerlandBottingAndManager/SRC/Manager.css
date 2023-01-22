@@ -3,21 +3,18 @@ body, html {
     height: 100%;
     width: 100%;
     margin: 0ch;
-    overflow-x: hidden;
-}
-#background {
     background-color: #201E20;
-    height: max-content;
+    overflow-y: hidden;
+    background-image: url("data:image/webp;base64,UklGRogBAABXRUJQVlA4THwBAAAvP8APAB+goG0U6F7wrwCJ2BESEJXq/zVfyAQsNvp3lMI9/3FuqC3+g+Q2kiRJskZu7Tf36JYnChgFztZsBYrRKAUIwB4ZNatCRP8nIN3nsocuu4DaxnfWBt18vaHOnKvhE0qpyC24VEod4Ox+pU5Sdfz7WfHKXlu8HnA2Nuypo5tAbHYD0kAdtVEzdaQO1IGiQQVt6iwdOZtjaaTOg2XMz1upaDxSjddUHRr3UmVtsxT3UVf5rVi6mtmYV9Gh9R8rVrc66GZeZUepcT4uBqlOHtBwUDr4seZSJw8oCSpQ4QawRFkGfUkF1+dRE3htlPPBfqaDpcGdpUEqqgNUZ2puwdocRiPVzBqrs4cuL8ZrNuvi5ckWV/N5W+rIb8BycDXgzv6d1+dWHcb5QEc2sfTlUSq5DXUeqgE6aUp1AOR2W5sDzi91QF08N4BS4fV56GQZlAPgKEk1uEwp1XHeKAM43OfzVqpX8Yn7eH5199XEZ3ZU93rl/2TnxVwXJw==");
 
 }
-
 #head1 {
     display: flex;
     flex-direction: row;
     background-color: #b48842e6;
     padding: 5px;
     padding-left: 40px;
-    opacity: 1;
+    opacity: 20;
     border-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6DAAAABGdBTUEAALGPC/xhBQAAAAlQTFRFAAAA6tSqGBQlHYAABgAAAAF0Uk5TAEDm2GYAAAAZSURBVAjXY+BawcCgGsbAMIGxAQODxIHyAIsgB7CF1qipAAAAAElFTkSuQmCC");
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
@@ -27,8 +24,10 @@ body, html {
     background-attachment: scroll;
     align-content: center !important;
     height: fit-content;
-    width: 100%;
-    position: relative;
+    width: 97.25%;
+    position: fixed;
+    overflow: hidden;
+    justify-content: space-between;
     overflow: hidden;
 } 
 
@@ -69,6 +68,7 @@ h2 #mainHeaderText {
     margin: 25px;
     box-shadow: 5px 5px #8d7e7e;
     opacity: 0.5;
+    scroll-snap-align: start;
 }
 .card:hover { 
     opacity: 1;
@@ -142,4 +142,23 @@ i {
     align-content: center;
     transform: translateY(+10%);
     margin-left: 50px;
+}
+
+#sflDiv {
+    display: flex;
+    flex-direction: row;
+    justify-self: end;
+    min-height: fit-content;
+    border-color: #c5c829;
+    border-radius: 30px;
+    border-style: solid;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #aa9f94;
+}
+
+#CardContainer {
+    margin-top: 100px;
+    overflow-y: auto;
 }

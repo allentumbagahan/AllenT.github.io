@@ -10,13 +10,17 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 </head>
 <body>
+    <header id="head1" class="headertext">
+        <img id="logo" src="https://assets.coingecko.com/coins/images/25514/small/download.png?1652164203" alt="">
+        <h2><strong id="mainHeaderText" >SunflowerlandBottingManager</strong></h2>
+        <div id="sflDiv" >
+            <h2><strong id="TotalSFLHeaderText" >Total Ingame SFL: </strong></h2>
+            <h2><strong id="TotalSFL" > 0 </strong></h2>
+        </div>
+    </header>
     <div id="background" class="fixheight">
-        <header id="head1" class="headertext">
-            <img id="logo" src="https://assets.coingecko.com/coins/images/25514/small/download.png?1652164203" alt="">
-            <h2><strong id="mainHeaderText" >SunflowerlandBottingManager</strong></h2>
-        </header>
 
-            <div class="box fixheight">
+            <div class="box fixheight" id="CardContainer">
 
                 <div class="card">
                     <div class="container1">
@@ -40,5 +44,6 @@
     </div>
     <script src="./SRC/MainApi.js" defer></script>
     <script src="./SRC/CardGen.js" defer></script>
+    <script src="./SRC/main.js" defer></script>
 </body>
 </html>
