@@ -398,6 +398,7 @@ for (let x=0; x < findinventory.length; x++) {
 
             }
             ItemsOnTheBox[0][0].children[0].click() // click first seed
+            document.querySelector("body > div.fade.modal.show > div > div > div > div > div.absolute.flex > img").click()
         
     }
     function GetLandId(){
