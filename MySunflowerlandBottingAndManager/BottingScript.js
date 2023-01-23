@@ -114,7 +114,7 @@ function harvestORplant(){
                 console.log("no handle")
             }
         }else{
-            console.log("already planted")
+            console.log("already planted")  
         }
         if (btnText != "Stop"){ 
             break; 
@@ -143,15 +143,24 @@ function clickElement(e){
 }
 
 function getFirstHandleValue() {
-    let Elem1 = document.querySelector("span")
+    let Elem1 = document.getElementsByTagName("span")
     let Elem2 = []
     for (let x = 0; x < Elem1.length; x++){
         if (Elem1[x].getAttribute("style") == "line-height: 12px; height: 14px;"){
             Elem2.push(Elem1[x])
         }
     }
-    handle1Value = Elem2[0].innerHTML
-    return (handle1Value)
+    try {
+        if (Elem2[0].innerHTML != undefined){
+            handle1Value = Elem2[0].innerHTML
+            return (handle1Value)
+        }else{
+            return ("0")
+        }
+    }
+    catch{
+        return ("0")
+    }
 }
 //Baka Allen Tumbagahan yan
 /*
@@ -388,6 +397,7 @@ for (let x=0; x < findinventory.length; x++) {
                 ItemsOnTheBox.push(b[x].nextElementSibling.children) //get the list of box
 
             }
+            ItemsOnTheBox[0][0].children[0].click() // click first seed
         
     }
     function GetLandId(){
