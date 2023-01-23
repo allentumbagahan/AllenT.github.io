@@ -19,7 +19,7 @@ const addj = new Promise(function(res, err) {
     addJavascript('https://allentumbagahan.github.io/MySunflowerlandBottingAndManager/init-firebase.js', 'body')
 })
 
-const version = "v0.7019"
+const version = "v0.7020"
 
 main = document.getElementsByClassName("w-full h-full relative")
 plotToClick = []
