@@ -28,7 +28,6 @@ class card {
         }
     }
     GetDataToDb() {
-        setInterval( () => {
             var docRef = db.collection("Accounts").doc(this.id);
             docRef.get().then((doc) => {
                 if (doc.exists) {
@@ -41,8 +40,6 @@ class card {
             }).catch((error) => {
                 console.log("Error getting document:", error);
             }); 
-        },
-        3000)
     }
     CreateCardView(){
         console.log(this.id)

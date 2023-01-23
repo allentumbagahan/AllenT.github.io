@@ -445,16 +445,7 @@ for (let x=0; x < findinventory.length; x++) {
         }
 
     }
-    function GetDataFromDB(){
-        GetLandId()
-        loadToDb(LandId)
-        if (loadData != ""){
-            const { AutoFarming } = loadData
-            if (btnText != AutoFarming){
-                toggleBTN()
-            }
-        }
-    }
+
     function GetAllData () {
         try {
             let L = document.getElementsByClassName('text-white mb-1 text-sm')
@@ -482,7 +473,6 @@ for (let x=0; x < findinventory.length; x++) {
                 //save to db
                 SaveToDb(AllData)
                 Register(LandId)
-                GetDataFromDB()
             },3000)
         }
         }
