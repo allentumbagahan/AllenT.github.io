@@ -47,17 +47,18 @@ h2 #mainHeaderText {
 .box {
     overflow-x: hidden;
     padding: 40px;
-    padding-top: 20px;
+    padding-top: 200px;
+    padding-bottom: 400px;
     display: flex;
     flex-wrap: wrap;
     align-content: center;
     justify-content: center;
-
 }
 
 .card {
     background-color: #E0A96D;
-    border-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6DAAAABGdBTUEAALGPC/xhBQAAAAlQTFRFAAAA6tSqGBQlHYAABgAAAAF0Uk5TAEDm2GYAAAAZSURBVAjXY+BawcCgGsbAMIGxAQODxIHyAIsgB7CF1qipAAAAAElFTkSuQmCC");
+    border: #645202 5px;
+    border-style: double;
     border-radius: 15px;
     min-width: 200px; 
     min-height: 150px;
@@ -65,14 +66,12 @@ h2 #mainHeaderText {
     width: fit-content;
     padding: 10px;
     margin: 25px;
-    box-shadow: 5px 5px #8d7e7e;
-    opacity: 0.5;
+    opacity: 1;
     scroll-snap-align: start;
 }
 .card:hover { 
+    background-color: #bbb50fa7;
     opacity: 1;
-    box-shadow: 0px 0px #8d7e7e;
-    transform: translate(5px, 5px);
     border: #645202 5px;
     border-style: double;
 }
@@ -160,16 +159,35 @@ i {
     margin-top: 100px;
 }
 
-
-#container2:hover {
+#container2 {
     visibility: visible;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-self: center;
+    align-self: center;
+    min-height: 150px;
+    max-width: 300px;
 }
 
-#container2 {
-    visibility: visible;
+.goneCard {
+    visibility: hidden;
+    opacity: 0;
+    background-color: #E0A96D;
+    border-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6DAAAABGdBTUEAALGPC/xhBQAAAAlQTFRFAAAA6tSqGBQlHYAABgAAAAF0Uk5TAEDm2GYAAAAZSURBVAjXY+BawcCgGsbAMIGxAQODxIHyAIsgB7CF1qipAAAAAElFTkSuQmCC");
+    border-radius: 15px;
+    min-width: 200px; 
+    min-height: 150px;
+    height: fit-content;
+    width: fit-content;
+    padding: 10px;
+    margin: 25px;
+    box-shadow: 5px 5px #8d7e7e;
+    opacity: 0.5;
+    scroll-snap-align: start;
+}
+#gonecontainer2 {
+    visibility: hidden;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

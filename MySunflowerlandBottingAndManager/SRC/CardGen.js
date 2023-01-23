@@ -118,6 +118,7 @@ class card {
         this.elem1_1_2_2_2.innerHTML = this.chef
         this.grublist.grubImg = this.data.grublist
         this.UpdateView()
+        observer.observe(this.elem1)
     }
     UpdateView(){
         for(let x =0; x < this.grublist.grubElem.length; x++){
@@ -129,26 +130,33 @@ class card {
 
 function ConnectHandshake(){
     loadAllLands()
-    if (RegisteredLands.list.length != LastGenListCount){
-        GenCards()
-    }
-    Calculate()
+    setTimeout(() => {
+        if (RegisteredLands.list.length != LastGenListCount){
+            GenCards()
+        }
+        Calculate()
+
+    }, 5000)
 
 }
-function GenCards(){
+async function GenCards(){
     TotalBalance = 0
     clear(mainBox)
     AllLands = RegisteredLands.list
-
-    for (x = 0; x < AllLands.length; x++){
-        cards.push(new card(AllLands[x]))
-        console.log(AllLands[x])
-        cards[x].CreateCardView()
-        cards[x].GetDataToDb()
-    }
-
+    let build = new Promise((res, err) => {
+        for (x = 0; x < AllLands.length; x++){
+            cards.push(new card(AllLands[x]))
+            console.log(AllLands[x])
+            cards[x].CreateCardView()
+            cards[x].GetDataToDb()
+            if (x == ( AllLands.length -1 )){
+                res(true)
+                console.log('true')
+            }
+        }
+    })
     LastGenListCount = RegisteredLands.list.length
-    ob()
+    let results = await build
 }
 
 function clear(elem) {
