@@ -60,7 +60,7 @@ h2 #mainHeaderText {
     background-color: #E0A96D;
     border-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6DAAAABGdBTUEAALGPC/xhBQAAAAlQTFRFAAAA6tSqGBQlHYAABgAAAAF0Uk5TAEDm2GYAAAAZSURBVAjXY+BawcCgGsbAMIGxAQODxIHyAIsgB7CF1qipAAAAAElFTkSuQmCC");
     border-radius: 15px;
-    min-width: 300px; 
+    min-width: 200px; 
     min-height: 150px;
     height: fit-content;
     width: fit-content;
@@ -110,10 +110,6 @@ h3 {
     color: aliceblue;
 }
 
-.container2 {
-    margin-left: 5px;
-    width: 80%;
-}
 
 #landId {
     text-align: center;
@@ -163,10 +159,6 @@ i {
 #CardContainer {
     margin-top: 100px;
 }
-#container2{
-    visibility: collapse;
-
-}
 
 
 #container2:hover {
@@ -174,5 +166,15 @@ i {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    height: 150px;
+}
+
+#container2 {
+    visibility: visible;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-self: center;
+    align-self: center;
+    min-height: 150px;
+    max-width: 300px;
 }

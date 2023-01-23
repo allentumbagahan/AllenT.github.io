@@ -85,7 +85,7 @@ class card {
         for (let x =0; x < 12; x++){
             let Elem1 = document.createElement('div')
             Elem1.setAttribute("class", "relative")
-            Elem1.setAttribute("style", "position: relative")
+            Elem1.setAttribute("style", "position: relative;     height: fit-content; max-height: fit-content;")
             let Elem2 = document.createElement('div')
             Elem2.setAttribute("class", "bg-brown-600 cursor-pointer relative cursor-pointer")
             Elem2.setAttribute("style", 'width: 47.25px; height: 47.25px; margin: 7.875px 7.875px 5.25px 5.25px; border-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6DAAAABGdBTUEAALGPC/xhBQAAAAlQTFRFAAAA7qRoGBQlo4eEUgAAAAF0Uk5TAEDm2GYAAAAZSURBVAjXY+BawcCgGsbAMIGxAQODxIHyAIsgB7CF1qipAAAAAElFTkSuQmCC") 22.2222% / 1 / 0 repeat; border-style: solid; border-width: 5.25px; image-rendering: pixelated; border-radius: 13.125px;  --tw-bg-opacity: 1;background-color: rgb(185 111 80 / var(--tw-bg-opacity)); position: relative;')
