@@ -143,10 +143,10 @@ function clickElement(e){
 }
 
 function getFirstHandleValue() {
-    let Elem1 = document.getElementsByClassName(" text-white text-xxs")
+    let Elem1 = document.querySelector("span")
     let Elem2 = []
     for (let x = 0; x < Elem1.length; x++){
-        if (Elem1[x].getAttribute("class") == " text-white text-xxs"){
+        if (Elem1[x].getAttribute("style") == "line-height: 12px; height: 14px;"){
             Elem2.push(Elem1[x])
         }
     }
