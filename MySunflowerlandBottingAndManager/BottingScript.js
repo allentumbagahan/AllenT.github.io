@@ -112,6 +112,7 @@ function harvestORplant(){
                 }, 1000);
             }else{
                 console.log("no handle")
+                GetInventory()
             }
         }else{
             console.log("already planted")  
@@ -399,7 +400,7 @@ for (let x=0; x < findinventory.length; x++) {
             }
             ItemsOnTheBox[0][0].children[0].click() // click first seed
             document.querySelector("body > div.fade.modal.show > div > div > div > div > div.absolute.flex > img").click()
-        
+        FindPlotButtton()
     }
     function GetLandId(){
         LandId = window.location.hash
