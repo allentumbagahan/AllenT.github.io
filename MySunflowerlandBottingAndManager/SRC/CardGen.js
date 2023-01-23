@@ -128,28 +128,27 @@ class card {
 
 
 function ConnectHandshake(){
-    setInterval(
-        function() {
-            loadAllLands()
-            if (RegisteredLands.list.length != LastGenListCount){
-                GenCards()
-            }
-            Calculate()
-        }, 
-        5000)
+    loadAllLands()
+    if (RegisteredLands.list.length != LastGenListCount){
+        GenCards()
+    }
+    Calculate()
 
 }
 function GenCards(){
     TotalBalance = 0
     clear(mainBox)
     AllLands = RegisteredLands.list
+
     for (x = 0; x < AllLands.length; x++){
         cards.push(new card(AllLands[x]))
         console.log(AllLands[x])
         cards[x].CreateCardView()
         cards[x].GetDataToDb()
     }
+
     LastGenListCount = RegisteredLands.list.length
+    ob()
 }
 
 function clear(elem) {
