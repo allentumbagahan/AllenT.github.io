@@ -1,6 +1,6 @@
     loadData = ""
     setTimeout(ConfigDB(), 5000)
-    function ConfigDB(){
+    async function ConfigDB(){
 
         const firebaseConfig = {
             apiKey: "AIzaSyBC6W49ilLK5mWHsP2MXKyiIjmLyRGkFiQ",
@@ -14,10 +14,18 @@
           };
           
         // Initialize Firebase
-            firebase.initializeApp(firebaseConfig)
-                        // Initialize Cloud Firestore and get a reference to the service
-            db = firebase.firestore();
-            DBconnected()
+
+            const inzApp = new Promise ((res, err) => {
+                if('firebase' in window){
+                    res(true)
+                }
+            })
+            if (await inzApp){
+                firebase.initializeApp(firebaseConfig)
+                // Initialize Cloud Firestore and get a reference to the service
+               db = firebase.firestore();
+               DBconnected()
+            }
     }
     
     function SaveToDb(data){
