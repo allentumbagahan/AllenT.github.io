@@ -134,7 +134,7 @@ function ConnectHandshake(){
         if (RegisteredLands.list.length != LastGenListCount){
             GenCards()
         }
-        Calculate()
+
 
     }, 5000)
 
@@ -150,13 +150,15 @@ async function GenCards(){
             cards[x].CreateCardView()
             cards[x].GetDataToDb()
             if (x == ( AllLands.length -1 )){
-                res(true)
+                res()
                 console.log('true')
             }
         }
     })
     LastGenListCount = RegisteredLands.list.length
-    let results = await build
+    if (await build){
+        Calculate()
+    }
 }
 
 function clear(elem) {
