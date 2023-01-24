@@ -1,12 +1,8 @@
 
-body, html {
-    height: 100%;
-    width: 100%;
-    margin: 0ch;
+body{
+    margin: 0px;
     background-color: #201E20;
-    
     background-image: url("data:image/webp;base64,UklGRogBAABXRUJQVlA4THwBAAAvP8APAB+goG0U6F7wrwCJ2BESEJXq/zVfyAQsNvp3lMI9/3FuqC3+g+Q2kiRJskZu7Tf36JYnChgFztZsBYrRKAUIwB4ZNatCRP8nIN3nsocuu4DaxnfWBt18vaHOnKvhE0qpyC24VEod4Ox+pU5Sdfz7WfHKXlu8HnA2Nuypo5tAbHYD0kAdtVEzdaQO1IGiQQVt6iwdOZtjaaTOg2XMz1upaDxSjddUHRr3UmVtsxT3UVf5rVi6mtmYV9Gh9R8rVrc66GZeZUepcT4uBqlOHtBwUDr4seZSJw8oCSpQ4QawRFkGfUkF1+dRE3htlPPBfqaDpcGdpUEqqgNUZ2puwdocRiPVzBqrs4cuL8ZrNuvi5ckWV/N5W+rIb8BycDXgzv6d1+dWHcb5QEc2sfTlUSq5DXUeqgE6aUp1AOR2W5sDzi91QF08N4BS4fV56GQZlAPgKEk1uEwp1XHeKAM43OfzVqpX8Yn7eH5199XEZ3ZU93rl/2TnxVwXJw==");
-
 }
 #head1 {
     display: flex;
@@ -21,14 +17,16 @@ body, html {
     border-top: 0px;
     border: #5d3e02;
     border-style: solid;
-    background-attachment: scroll;
     align-content: center !important;
     height: fit-content;
-    width: 97.25%;
     position: fixed;
     overflow: hidden;
-    justify-content: space-between;
-    overflow: hidden;
+    justify-content: flex-start;
+    width: inherit;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    left: 0;
 } 
 
 h2 #mainHeaderText {
@@ -37,7 +35,8 @@ h2 #mainHeaderText {
     text-align: center;
     color: aliceblue;
     align-self: center;
-    text-size-adjust: initial;
+    text-align: center;
+    font-size: 3em;
 }
 
 .headertext {
@@ -133,26 +132,28 @@ i {
 }
 
 #logo {
-    display: block;
-    width: 50px;
-    height: 50px;
-    align-content: center;
-    transform: translateY(+10%);
-    margin-left: 50px;
+    margin-left: 250px;
+    margin-right: 30px;
+    width: 5vh;
+    height: 5vh;
+    align-self: center;
 }
 
 #sflDiv {
     display: flex;
     flex-direction: row;
-    justify-self: end;
-    min-height: fit-content;
-    border-color: #c5c829;
-    border-radius: 30px;
-    border-style: solid;
-    padding: 5px;
+    max-height: 50%;
     padding-left: 10px;
     padding-right: 10px;
-    background-color: #aa9f94;
+    min-width: max-content;
+    border-color: rgb(197, 200, 41);
+    border-radius: 30px;
+    border-style: solid;
+    position: absolute;
+    background-color: rgb(170, 159, 148);
+    right: 10px;
+    align-self: center;
+    align-items: center;
 }
 
 #CardContainer {

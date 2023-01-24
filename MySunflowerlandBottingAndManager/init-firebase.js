@@ -36,7 +36,6 @@
             kitchen, 
             grublist, 
             balance, 
-            AutoFarming, 
             plotSRC, 
             plotsPlanted,
             trees,

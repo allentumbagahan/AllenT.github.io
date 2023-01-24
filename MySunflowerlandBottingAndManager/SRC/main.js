@@ -1,3 +1,5 @@
+//document.body.style = `height: ${visualViewport.height}; width: ${visualViewport.width};`
+//document.getElementById('head1').setAttribute `height: ${visualViewport.height}; width: ${visualViewport.width};`
 if ('IntersectionObserver' in window) {
   // supported 
   console.log('supported')
@@ -7,6 +9,7 @@ if ('IntersectionObserver' in window) {
 
 
 let r = document.getElementById('background')
+// observerForEachCard
 const observer = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {

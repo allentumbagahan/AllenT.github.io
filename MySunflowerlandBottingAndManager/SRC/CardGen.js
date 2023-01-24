@@ -150,9 +150,10 @@ async function GenCards(){
             cards[x].CreateCardView()
             cards[x].GetDataToDb()
             if (x == ( AllLands.length -1 )){
-                res()
-                console.log('true')
+                res(true)
+                console.log('true loop')
             }
+            console.log(x + " " + (AllLands.length -1))
         }
     })
     LastGenListCount = RegisteredLands.list.length
@@ -161,7 +162,7 @@ async function GenCards(){
     }
 }
 
-function clear(elem) {
+function clear(elem) { 
     elem.innerHTML = '';
   }
 
