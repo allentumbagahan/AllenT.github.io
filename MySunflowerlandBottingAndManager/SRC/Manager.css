@@ -169,6 +169,7 @@ i {
     align-self: center;
     min-height: 150px;
     max-width: 300px;
+    justify-content: center;
 }
 
 .goneCard {
