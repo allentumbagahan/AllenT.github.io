@@ -493,7 +493,7 @@ for (let x=0; x < findinventory.length; x++) {
        if(KData == 'no kitchen'){
         try{
             // go to workshop
-            document.querySelector("#editing-overlay\\ z-20\\ absolute > div > div.relative.w-full.h-full > div:nth-child(23) > div > img.absolute.bottom-0").click()
+            document.querySelector("#editing-overlay\\ z-20\\ absolute > div > div.relative.w-full.h-full > div:nth-child(21) > div > img.absolute.bottom-0").click()
             try{
                 // select pickaxe
                 document.querySelector("body > div.fade.modal.show > div > div > div.bg-brown-600.text-white.relative > div > div:nth-child(2) > div > div.w-full.max-h-48.sm\\:max-h-96.sm\\:w-3\\/5.h-fit.overflow-y-auto.scrollable.overflow-x-hidden.p-1.mt-1.sm\\:mt-0.sm\\:mr-1.flex.flex-wrap > div:nth-child(1) > div > div > div > img").click()
