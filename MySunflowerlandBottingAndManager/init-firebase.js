@@ -1,6 +1,13 @@
     loadData = ""
     ConfigOneTime = 0
-    ConfigDB()
+    const checkfirebase = new Promise((res, err) => {
+        if('firebase' in window){
+            res(true)
+        }
+    })
+    if (await checkfirebase){
+        ConfigDB()
+    }
     async function ConfigDB(){
         const firebaseConfig = {
             apiKey: "AIzaSyBC6W49ilLK5mWHsP2MXKyiIjmLyRGkFiQ",
