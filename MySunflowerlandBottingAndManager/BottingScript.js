@@ -493,7 +493,7 @@ for (let x=0; x < findinventory.length; x++) {
     }
 
     function ChopTrees() {
-        
+    console.log(GetChopTreesCooldown())
        if(KData == 'no kitchen'){
         if (treesRecovered > 0){
             try{
