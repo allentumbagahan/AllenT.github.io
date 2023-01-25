@@ -19,7 +19,7 @@
         }
         
         const inzApp = new Promise ((res, err) => {
-            if(!firebase.apps.length){
+            if('firestore' in firebase){
                 res(true)
             }
         })
