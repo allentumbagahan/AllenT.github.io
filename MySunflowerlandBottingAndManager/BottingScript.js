@@ -378,7 +378,7 @@ for (let x=0; x < findinventory.length; x++) {
                     closeBTN.click()
                 }
                 catch{
-                    whatAreYouDoingChef = "close btn"
+                    whatAreYouDoingChef = "no kitchen"
                 }
             }
 
@@ -437,7 +437,7 @@ for (let x=0; x < findinventory.length; x++) {
         if (trees.length > 0){
             let treesCooldown = []
             for (let x; x < trees.length; x++){
-                trees[0].nextElementSibling.innerHTML
+                treesCooldown.push(trees[0].nextElementSibling.innerHTML)
             }
             return treesCooldown
         }else{
@@ -473,6 +473,7 @@ for (let x=0; x < findinventory.length; x++) {
                 //save to db
                 SaveToDb(AllData)
                 Register(LandId)
+                ChopTrees()
             },3000)
         }
         }
@@ -485,4 +486,45 @@ for (let x=0; x < findinventory.length; x++) {
     
     function DBconnected(){
         setInterval(GetAllData, 20000)
+    }
+
+    function ChopTrees() {
+        
+       if(KData == 'no kitchen'){
+        try{
+            // go to workshop
+            document.querySelector("#editing-overlay\\ z-20\\ absolute > div > div.relative.w-full.h-full > div:nth-child(23) > div > img.absolute.bottom-0").click()
+            try{
+                // select pickaxe
+                document.querySelector("body > div.fade.modal.show > div > div > div.bg-brown-600.text-white.relative > div > div:nth-child(2) > div > div.w-full.max-h-48.sm\\:max-h-96.sm\\:w-3\\/5.h-fit.overflow-y-auto.scrollable.overflow-x-hidden.p-1.mt-1.sm\\:mt-0.sm\\:mr-1.flex.flex-wrap > div:nth-child(1) > div > div > div > img").click()
+                try {
+                    //buy pickaxe
+                    document.querySelector("body > div.fade.modal.show > div > div > div.bg-brown-600.text-white.relative > div > div:nth-child(2) > div > div.bg-brown-600.text-white.flex.flex-col.w-full.sm\\:flex-1 > button").click()
+                    try {
+                        //close
+                        document.querySelector("body > div.fade.modal.show > div > div > div.bg-brown-600.text-white.relative > div > div.absolute.flex > img").click()
+                        let getT = GetChopTreesCooldown
+                        if (getT != 'All Trees Are Recovered'){
+                            document.getElementsByClassName('group cursor-pointer w-full h-full').forEach((element) => {
+                                element.click()
+                                element.click()
+                                element.click()
+                            });
+                        }
+                    } catch  {
+                        console.log('no close button')
+                    }
+                } catch  {
+                    console.log('insufficient balance')
+                }
+            }
+            catch{
+                console.log('out of pickaxe ')
+            }
+        }
+        catch{
+            console.log(' no workshop')
+            workshop = 0
+        }
+       }
     }
