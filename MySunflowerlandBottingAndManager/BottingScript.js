@@ -463,7 +463,11 @@ for (let x=0; x < findinventory.length; x++) {
                 plots = (plots == "")? "0" : plots
                 trees = GetChopTreesCooldown()
                 FindPlotButtton()
+                d = new Date()
+                sec = d.getTime()
+                const date =  new Date(sec).toLocaleString('en-GB',{timeZone:'UTC'})
                 AllData = {
+                    date : date,
                     landId : LandId,
                     balance : balance,
                     trees: trees,

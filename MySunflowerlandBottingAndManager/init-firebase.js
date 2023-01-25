@@ -36,6 +36,7 @@
     
     //Add data
         const { 
+            date,
             landId, 
             kitchen, 
             grublist, 
@@ -46,7 +47,7 @@
             AutoFarmVersion } = data
         db.collection("Accounts").doc(`${landId}`)
         .set({
-
+            date: date,
             SFlbalance: balance,
             kitchen: kitchen,
             trees: trees,
