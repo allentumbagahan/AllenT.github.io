@@ -492,7 +492,7 @@ for (let x=0; x < findinventory.length; x++) {
     function ChopTrees() {
         
        if(KData == 'no kitchen'){
-        if (trees != "All Trees Are Recovered"){
+        if (treesRecovered > 0){
             try{
                 // go to workshop
                 document.querySelector("#editing-overlay\\ z-20\\ absolute > div > div.relative.w-full.h-full > div:nth-child(21) > div > img.absolute.bottom-0").click()
