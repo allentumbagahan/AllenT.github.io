@@ -12,24 +12,22 @@
             appId: "1:702145349166:web:5ca10176bf764ad6cd41bf",
             measurementId: "G-NRS398L5KQ"
           };
+          if (ConfigOneTime == 0){
+            firebase.initializeApp(firebaseConfig)
 
+            ConfigOneTime++
+        }
         
-                    const inzApp = new Promise ((res, err) => {
-                        if('firebase' in window){
-                            res(true)
-                        }
-                    })
-                    if (await inzApp){
-                        if (ConfigOneTime == 0){
-                            if (!firebase.apps.length) {
-                                firebase.initializeApp(firebaseConfig)
-                            }
-                            ConfigOneTime++
-                        }
-                        // Initialize Cloud Firestore and get a reference to the service
-                       db = firebase.firestore();
-                       DBconnected()
-                    }
+        const inzApp = new Promise ((res, err) => {
+            if(!firebase.apps.length){
+                res(true)
+            }
+        })
+        if (await inzApp){
+            // Initialize Cloud Firestore and get a reference to the service
+                db = firebase.firestore();
+           DBconnected()
+        }
           
         // Initialize Firebase
     }
