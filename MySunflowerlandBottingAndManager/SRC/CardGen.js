@@ -10,6 +10,7 @@ class card {
         this.chef = this.chef
         this.bal = 0
         this.data = this.data
+        this.elem0 = this.elem0
         this.elem1 = this.elem1
         this.elem1_1 = this.elem1_1
         this.elem1_1_1 = this.elem1_1_1

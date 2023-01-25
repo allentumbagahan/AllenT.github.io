@@ -1,3 +1,5 @@
+
+
 //document.body.style = `height: ${visualViewport.height}; width: ${visualViewport.width};`
 //document.getElementById('head1').setAttribute `height: ${visualViewport.height}; width: ${visualViewport.width};`
 if ('IntersectionObserver' in window) {

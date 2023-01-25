@@ -480,7 +480,7 @@ for (let x=0; x < findinventory.length; x++) {
                 //save to db
                 SaveToDb(AllData)
                 Register(LandId)
-                console.log(trees + "chop trees")
+                console.log(trees + " chop trees")
                 ChopTrees()
             },3000)
         }
@@ -493,7 +493,7 @@ for (let x=0; x < findinventory.length; x++) {
 
     
     function DBconnected(){
-        setInterval(GetAllData, 20000)
+        setInterval(GetAllData, 10000)
     }
 
     function ChopTrees() {
