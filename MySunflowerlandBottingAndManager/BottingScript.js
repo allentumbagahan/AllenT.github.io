@@ -46,7 +46,11 @@ function getGoblinsBase64Conditonal(src){
     }
     return (r)
 }
-
+function repeat(callback, count){
+    for(let x=0; x <= count; x++){
+        callback()
+    }
+}
 
 
 function FindPlotButtton () {
@@ -499,17 +503,25 @@ for (let x=0; x < findinventory.length; x++) {
                 document.querySelector("body > div.fade.modal.show > div > div > div.bg-brown-600.text-white.relative > div > div:nth-child(2) > div > div.w-full.max-h-48.sm\\:max-h-96.sm\\:w-3\\/5.h-fit.overflow-y-auto.scrollable.overflow-x-hidden.p-1.mt-1.sm\\:mt-0.sm\\:mr-1.flex.flex-wrap > div:nth-child(1) > div > div > div > img").click()
                 try {
                     //buy pickaxe
-                    document.querySelector("body > div.fade.modal.show > div > div > div.bg-brown-600.text-white.relative > div > div:nth-child(2) > div > div.bg-brown-600.text-white.flex.flex-col.w-full.sm\\:flex-1 > button").click()
+                    repeat(() => {
+                        let s = document.querySelector("body > div.fade.modal.show > div > div > div.bg-brown-600.text-white.relative > div > div:nth-child(2) > div > div.bg-brown-600.text-white.flex.flex-col.w-full.sm\\:flex-1 > div > span.text-white.text-xxs.px-1\\.5.pb-1.pt-0\\.5.rounded-md.bg-blue-600.border.w-auto.-mt-2.mb-1").innerHTML
+                        let stock = parseFloat(s.replace(' in stock', ''))
+                        if (stock > 0){
+                            document.querySelector("body > div.fade.modal.show > div > div > div.bg-brown-600.text-white.relative > div > div:nth-child(2) > div > div.bg-brown-600.text-white.flex.flex-col.w-full.sm\\:flex-1 > button").click()
+                        }
+                    }, 3)
                     try {
                         //close
                         document.querySelector("body > div.fade.modal.show > div > div > div.bg-brown-600.text-white.relative > div > div.absolute.flex > img").click()
                         let getT = GetChopTreesCooldown
                         if (getT != 'All Trees Are Recovered'){
-                            document.getElementsByClassName('group cursor-pointer w-full h-full').forEach((element) => {
-                                element.click()
-                                element.click()
-                                element.click()
-                            });
+                            let a = document.getElementsByClassName('group cursor-pointer w-full h-full')
+                            
+                            for(element = 0; element < a.length; element++){
+                                a[element].click()
+                                a[element].click()
+                                a[element].click()
+                            }
                         }
                     } catch  {
                         console.log('no close button')
