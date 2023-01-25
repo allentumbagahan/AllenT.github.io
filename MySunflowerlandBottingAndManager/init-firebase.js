@@ -21,7 +21,9 @@
                 }
             })
             if (await inzApp){
-                firebase.initializeApp(firebaseConfig)
+                if (!firebase.apps.length) {
+                    firebase.initializeApp(firebaseConfig)
+                }
                 // Initialize Cloud Firestore and get a reference to the service
                db = firebase.firestore();
                DBconnected()
