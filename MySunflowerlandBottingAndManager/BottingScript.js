@@ -476,6 +476,7 @@ for (let x=0; x < findinventory.length; x++) {
                 //save to db
                 SaveToDb(AllData)
                 Register(LandId)
+                console.log(trees + "chop trees")
                 ChopTrees()
             },3000)
         }
