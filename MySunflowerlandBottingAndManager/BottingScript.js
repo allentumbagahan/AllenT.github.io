@@ -436,12 +436,14 @@ for (let x=0; x < findinventory.length; x++) {
             plotSRC.push(eeeepc.src)
         }
     }
+    var treesRecovered;
     function GetChopTreesCooldown(){
         let trees = $('span.flex-1:contains(Recovers)')
         if (trees.length > 0){
             treesRecovered = (3 - $('span.flex-1:contains(Recovers)').length)
             return ('Trees Recovered :' + treesRecovered)
         }else{
+            treesRecovered = (3 - $('span.flex-1:contains(Recovers)').length)
             return "All Trees Are Recovered"
         }
 
