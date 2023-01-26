@@ -1,13 +1,6 @@
     loadData = ""
     ConfigOneTime = 0
-    const checkfirebase = new Promise((res, err) => {
-        if('firebase' in window){
-            res(true)
-        }
-    })
-    if (await checkfirebase){
-        ConfigDB()
-    }
+    ConfigDB()
     async function ConfigDB(){
         const firebaseConfig = {
             apiKey: "AIzaSyBC6W49ilLK5mWHsP2MXKyiIjmLyRGkFiQ",
@@ -20,9 +13,17 @@
             measurementId: "G-NRS398L5KQ"
           };
           if (ConfigOneTime == 0){
-            firebase.initializeApp(firebaseConfig)
+            const checkfirebase = new Promise((res, err) => {
+                if('firebase' in window){
+                    res(true)
+                }
+            })
+            if (await checkfirebase){
+                        // Initialize Firebase
+                firebase.initializeApp(firebaseConfig)
+                ConfigOneTime++
+            }
 
-            ConfigOneTime++
         }
         
         const inzApp = new Promise ((res, err) => {
@@ -36,7 +37,7 @@
            DBconnected()
         }
           
-        // Initialize Firebase
+
     }
     
     function SaveToDb(data){
