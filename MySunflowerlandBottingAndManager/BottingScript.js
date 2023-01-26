@@ -316,33 +316,35 @@ for (let x=0; x < findinventory.length; x++) {
         var plots = []
         
         function grubshopValue(){
-        homeLand = window.location.href
-        grubList = []
-        checkIMAGEBASE64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAALBAMAAAC5XnFsAAAABGdBTUEAALGPC/xhBQAAAA9QTFRFAAAA////Y8dNJitEJlxCc7QKQgAAAAF0Uk5TAEDm2GYAAAA9SURBVAjXJYvBDQAgDAJJuoEjoAMY2wls95/JEnkc3AOg41u0MVWHCXPjyp6HlQhy1UZcCaIksJJI/9kbDyamCA9kAzYMAAAAAElFTkSuQmCC"
-
-        //Go to helios
-        window.location.href += "/helios"
-
-        //Get GrubshopLocation
-        grubshopBtn = document.getElementsByClassName("relative w-full h-full cursor-pointer hover:img-highlight")[1]
-        grubshopBtn.click()
+            if (!window.location.href.includes('https://sunflower-land.com/play/#/retreat')){
+                homeLand = window.location.href
+                grubList = []
+                checkIMAGEBASE64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAALBAMAAAC5XnFsAAAABGdBTUEAALGPC/xhBQAAAA9QTFRFAAAA////Y8dNJitEJlxCc7QKQgAAAAF0Uk5TAEDm2GYAAAA9SURBVAjXJYvBDQAgDAJJuoEjoAMY2wls95/JEnkc3AOg41u0MVWHCXPjyp6HlQhy1UZcCaIksJJI/9kbDyamCA9kAzYMAAAAAElFTkSuQmCC"
         
-        //Get GrubShopItemContainer in which contains all sellable item
-        GrubShopItemContainer = document.getElementsByClassName("flex flex-wrap")[1]
-        GrubShopItemContainerItemsList = GrubShopItemContainer.children
-
-        //Get item that doesnt fulfill
-        for (let x=0; x<GrubShopItemContainerItemsList.length; x++){
-            thisItem = GrubShopItemContainerItemsList[x].children[0]
-            //GrubShopItemContainerItemsList[x].children[0]
-
-            //Get img that contain check image
-            AllImage = thisItem.getElementsByTagName('img')
-            Lastimage = AllImage[AllImage.length - 1]
-            grubList.push(Lastimage.src)
-        }
-        //Back to home land
-        window.location.href = homeLand
+                //Go to helios
+                window.location.href += "/helios"
+        
+                //Get GrubshopLocation
+                grubshopBtn = document.getElementsByClassName("relative w-full h-full cursor-pointer hover:img-highlight")[1]
+                grubshopBtn.click()
+                
+                //Get GrubShopItemContainer in which contains all sellable item
+                GrubShopItemContainer = document.getElementsByClassName("flex flex-wrap")[1]
+                GrubShopItemContainerItemsList = GrubShopItemContainer.children
+        
+                //Get item that doesnt fulfill
+                for (let x=0; x<GrubShopItemContainerItemsList.length; x++){
+                    thisItem = GrubShopItemContainerItemsList[x].children[0]
+                    //GrubShopItemContainerItemsList[x].children[0]
+        
+                    //Get img that contain check image
+                    AllImage = thisItem.getElementsByTagName('img')
+                    Lastimage = AllImage[AllImage.length - 1]
+                    grubList.push(Lastimage.src)
+                }
+                //Back to home land
+                window.location.href = homeLand
+            }
     }
 
     function kitchenData(){
@@ -494,6 +496,7 @@ for (let x=0; x < findinventory.length; x++) {
 
     
     function DBconnected(){
+        console.log('connected to database')
         setInterval(GetAllData, 10000)
     }
 

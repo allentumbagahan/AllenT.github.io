@@ -4,6 +4,7 @@ kICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD8AAAAyCAYAAADrwQMBAAAAA
 var cards = []
 var TotalBalance = 0
 LastGenListCount = 0
+UpdatedElement = 0
 class card {
     constructor(id){
         this.date = this.date
@@ -33,6 +34,7 @@ class card {
             grubImg : []
         }
     }
+    
     GetDataToDb() {
             var docRef = db.collection("Accounts").doc(this.id);
             docRef.get().then((doc) => {
@@ -156,6 +158,7 @@ class card {
         this.elem1_3_1.innerHTML = this.trees
         this.UpdateView()
         observer.observe(this.elem1)
+        UpdatedElement++
     }
     UpdateView(){
         for(let x =0; x < this.grublist.grubElem.length; x++){
@@ -164,6 +167,13 @@ class card {
     }
 }
 
+function Calculate(){
+    TotalBalance = 0
+    cards.forEach((card) => {
+        TotalBalance = TotalBalance + parseFloat(card.bal)
+    });
+    document.getElementById('TotalSFL').innerHTML = " " + TotalBalance
+}
 
 function ConnectHandshake(){
     loadAllLands()
@@ -177,6 +187,7 @@ function ConnectHandshake(){
 
 }
 async function GenCards(){
+    UpdatedElement = 0
     TotalBalance = 0
     clear(mainBox)
     AllLands = RegisteredLands.list
@@ -186,21 +197,22 @@ async function GenCards(){
         cards[x].CreateCardView()
         cards[x].GetDataToDb()
         if (x == ( AllLands.length -1 )){
-            res(true)
             console.log('true loop')
         }
 
     }
+    LastGenListCount = RegisteredLands.list.length
     let build = new Promise((res) => {
         cards.forEach((element) => {
-            if (element.bal > 0){
+            console.log(UpdatedElement)
+            if (UpdatedElement == LastGenListCount){
                 res(true)
             }
         });
     })
-    LastGenListCount = RegisteredLands.list.length
     if (await build){
         Calculate()
+        console.log(Calculate() + 'calculate')
     }
 }
 
@@ -214,12 +226,6 @@ function ComputeTotalbal(val) {
     
 }
 
-function Calculate(){
-    TotalBalance = 0
-    cards.forEach((card) => {
-        TotalBalance = TotalBalance + parseFloat(card.bal)
-    });
-    document.getElementById('TotalSFL').innerHTML = " " + TotalBalance
-}
+
 ConnectToApi()
 
