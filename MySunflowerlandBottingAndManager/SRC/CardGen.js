@@ -180,18 +180,23 @@ async function GenCards(){
     TotalBalance = 0
     clear(mainBox)
     AllLands = RegisteredLands.list
-    let build = new Promise((res, err) => {
-        for (x = 0; x < AllLands.length; x++){
-            cards.push(new card(AllLands[x]))
-            console.log(AllLands[x])
-            cards[x].CreateCardView()
-            cards[x].GetDataToDb()
-            if (x == ( AllLands.length -1 )){
-                res(true)
-                console.log('true loop')
-            }
-            console.log(x + " " + (AllLands.length -1))
+    for (x = 0; x < AllLands.length; x++){
+        cards.push(new card(AllLands[x]))
+        console.log(AllLands[x])
+        cards[x].CreateCardView()
+        cards[x].GetDataToDb()
+        if (x == ( AllLands.length -1 )){
+            res(true)
+            console.log('true loop')
         }
+
+    }
+    let build = new Promise((res) => {
+        cards.forEach((element) => {
+            if (element.bal > 0){
+                res(true)
+            }
+        });
     })
     LastGenListCount = RegisteredLands.list.length
     if (await build){
