@@ -515,7 +515,7 @@ for (let x=0; x < findinventory.length; x++) {
                             if (stock > 0){
                                 document.querySelector("body > div.fade.modal.show > div > div > div.bg-brown-600.text-white.relative > div > div:nth-child(2) > div > div.bg-brown-600.text-white.flex.flex-col.w-full.sm\\:flex-1 > button").click()
                             }
-                        }, 3)
+                        }, treesRecovered)
                         try {
                             //close
                             document.querySelector("body > div.fade.modal.show > div > div > div.bg-brown-600.text-white.relative > div > div.absolute.flex > img").click()
