@@ -12,13 +12,19 @@
             appId: "1:702145349166:web:5ca10176bf764ad6cd41bf",
             measurementId: "G-NRS398L5KQ"
           };
+          const checkfirebase = new Promise((res, err) => {
+              if('firebase' in window){
+                  res(true)
+              }
+          })
+          const inzApp = new Promise ((res, err) => {
+              if('firestore' in firebase){
+                  res(true)
+              }
+          })
           if (ConfigOneTime == 0){
-            const checkfirebase = new Promise((res, err) => {
-                if('firebase' in window){
-                    res(true)
-                }
-            })
             if (await checkfirebase){
+                console.log("initializing firebase")
                         // Initialize Firebase
                 firebase.initializeApp(firebaseConfig)
                 ConfigOneTime++
@@ -26,13 +32,9 @@
 
         }
         
-        const inzApp = new Promise ((res, err) => {
-            if('firestore' in firebase){
-                res(true)
-            }
-        })
         if (await inzApp){
             // Initialize Cloud Firestore and get a reference to the service
+            console.log("initializing Cloud Firestore")
                 db = firebase.firestore();
            DBconnected()
         }
