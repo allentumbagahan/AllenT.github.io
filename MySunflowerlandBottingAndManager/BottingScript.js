@@ -68,7 +68,7 @@ if (btnText == "Stop"){
     if (chestBtn.length > 0){
         chestBtn[0].click()
     }
-    closeBtn = document.getElementsByClassName("bg-brown-200 w-full p-1 text-white text-shadow text-sm object-contain justify-center items-center hover:bg-brown-300 cursor-pointer flex disabled:opacity-50  w-full mt-1")
+    closeBtn = document.querySelector("body > div:nth-child(10) > div > div > div > div > div > button")
     if (closeBtn.length > 0){
         closeBtn[0].click()
     }
@@ -135,16 +135,22 @@ function clickElement(e){
     setTimeout(() => {
         if (btnText == "Stop"){ 
             let h1 = getFirstHandleValue()
-            try{
-                if (e.src == selectedplotBtn){
-                    if (parseInt(h1) > 0){
-                        e.click()
-                        console.log(e)
-                        console.log("done")
+
+            if (parseInt(h1) > 0){
+                try{
+                    if (e === undefined){
+                        console.log('undefined button')
+                    }else{
+                        if ('click' in e){
+                            e.click()
+                            console.log(e)
+                            console.log("done")
+                        }
                     }
+                }catch(err){
+                    console.log(err)
                 }
-            }catch{
-            }
+            }       
         }
     }, 1000)
 
@@ -195,7 +201,7 @@ for (let x=0; x < findinventory.length; x++) {
         element1BTN = document.createElement('div')
         element1BTN.setAttribute("class", "mybottingdiv")
         elem2BTN = document.createElement('button')
-        elem2BTN.innerHTML = "Start"
+        elem2BTN.innerHTML = "Click All Plot"
         elem2BTN.setAttribute("onclick", "toggleBTN()")
         mainBTN.appendChild(element1BTN)
         element1BTN.appendChild(elem2BTN)
@@ -215,9 +221,7 @@ for (let x=0; x < findinventory.length; x++) {
         
     }
     function toggleBTN() {
-        btnText = (elem2BTN.innerHTML == "Stop")? "Start" : "Stop"
-        console.log(btnText)
-        elem2BTN.innerHTML = btnText
+        FindPlotButtton()
     }
     function settings(){
             
