@@ -211,4 +211,18 @@ i {
 
 #date{
     margin-bottom: 10px;
+    text-align: center;
+    border: #5d3e02 solid 2px;
+    border-radius: 20px;
+    --tw-bg-opacity: 1;
+    background-color: rgb(185 111 80 / var(--tw-bg-opacity));
+}
+
+#trees{
+    margin-bottom: 10px;
+    text-align: center;
+    border: #5d3e02 solid 2px;
+    border-radius: 20px;
+    --tw-bg-opacity: 1;
+    background-color: rgb(185 111 80 / var(--tw-bg-opacity));
 }

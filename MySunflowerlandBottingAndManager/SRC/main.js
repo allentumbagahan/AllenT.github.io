@@ -21,6 +21,8 @@ const observer = new IntersectionObserver(
         //entry.target.style = intersecting ? 'visibility: visible' : 'opacity: 0; visibility: collapse'
         entry.target.style = intersecting? `height: fit-content;` : `height: 150px;`
         entry.target.children[1].style = intersecting? `visibility: 1;` : `visibility: collapse`
+        entry.target.children[2].style = intersecting? `visibility: 1;` : `visibility: collapse`
+        entry.target.children[3].style = intersecting? `visibility: 1;` : `visibility: collapse`
         /*if (intersecting){
           entry.target.setAttribute("class", "card")
           entry.target.children[1].setAttribute("id", "container2")
@@ -32,7 +34,6 @@ const observer = new IntersectionObserver(
         console.log(parseFloat(entry.intersectionRatio))      
       }
     },
-    // 👇 Threshold is 100%
     { rootMargin: '-500px 0px -700px 0px',
       root: null,
       }

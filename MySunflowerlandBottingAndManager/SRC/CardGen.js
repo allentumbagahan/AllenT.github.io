@@ -6,11 +6,16 @@ var TotalBalance = 0
 LastGenListCount = 0
 class card {
     constructor(id){
+        this.date = this.date
+        this.trees = this.trees
         this.id = id
         this.chef = this.chef
         this.bal = 0
         this.data = this.data
-        this.elem0 = this.elem0
+        this.elem1_4 = this.elem1_4
+        this.elem1_4_1 = this.elem1_4_1 // date
+        this.elem1_3 = this.elem1_3
+        this.elem1_3_1 = this.elem1_3_1
         this.elem1 = this.elem1
         this.elem1_1 = this.elem1_1
         this.elem1_1_1 = this.elem1_1_1
@@ -44,45 +49,72 @@ class card {
     }
     CreateCardView(){
         console.log(this.id)
+
         this.elem1 = document.createElement('div')
         this.elem1.setAttribute('class', 'card')
         mainBox.appendChild(this.elem1)
+
         this.elem1_1 = document.createElement('div')
         this.elem1_1.setAttribute('class', 'container1')
         this.elem1.appendChild(this.elem1_1)
+
         this.elem1_1_1 = document.createElement('div')
         this.elem1_1_1.setAttribute('class', 'profile')
         this.elem1_1.appendChild(this.elem1_1_1)
+
         this.elem1_1_1_1 = document.createElement('h2')
         this.elem1_1_1_1.setAttribute('id', 'landId')
         this.elem1_1_1_1.innerHTML = this.id
         this.elem1_1_1.appendChild(this.elem1_1_1_1)
+
         this.elem1_1_2 = document.createElement('div')
         this.elem1_1_2.setAttribute('class', 'container2')
         this.elem1_1.appendChild(this.elem1_1_2)
+
         this.elem1_1_2_1 = document.createElement('div')
         this.elem1_1_2_1.setAttribute('class', 'textbox1')
         this.elem1_1_2.appendChild(this.elem1_1_2_1)
+
         this.elem1_1_2_2 = document.createElement('div')
         this.elem1_1_2_2.setAttribute('class', 'textbox1')
         this.elem1_1_2_2.setAttribute('id', 'chef')
         this.elem1_1_2.appendChild(this.elem1_1_2_2)
+
         this.elem1_1_2_1_1 = document.createElement('img')
         this.elem1_1_2_1_1.setAttribute('class', 'icon')
         this.elem1_1_2_1_1.setAttribute("src", `${sflICON}`)
         this.elem1_1_2_1.appendChild(this.elem1_1_2_1_1)
+
         this.elem1_1_2_1_2 = document.createElement('h3')
         this.elem1_1_2_1_2.setAttribute('id', 'sflBalance')
         this.elem1_1_2_1.appendChild(this.elem1_1_2_1_2)
+
         this.elem1_1_2_2_1 = document.createElement('img')
         this.elem1_1_2_2_1.setAttribute('class', 'icon')
         this.elem1_1_2_2_1.setAttribute("src", `${kICON}`)
         this.elem1_1_2_2.appendChild(this.elem1_1_2_2_1)
+
         this.elem1_1_2_2_2 = document.createElement('h3')
         this.elem1_1_2_2.appendChild(this.elem1_1_2_2_2)
+
         this.elem1_2 = document.createElement('div')
         this.elem1_2.setAttribute('id', 'container2')
         this.elem1.appendChild(this.elem1_2)
+
+        this.elem1_3 = document.createElement('div')
+        this.elem1_3.setAttribute('class', 'fh mxf ')
+        this.elem1.appendChild(this.elem1_3)
+        this.elem1_3_1 = document.createElement('h3')
+        this.elem1_3_1.setAttribute('id', 'trees')
+        this.elem1_3.appendChild(this.elem1_3_1)
+        
+        this.elem1_4 = document.createElement('div')
+        this.elem1_4.setAttribute('class', 'fh mxf ')
+        this.elem1.appendChild(this.elem1_4)
+        this.elem1_4_1 = document.createElement('h3')
+        this.elem1_4_1.setAttribute('id', 'date')
+        this.elem1_4.appendChild(this.elem1_4_1)
+
         for (let x =0; x < 12; x++){
             let Elem1 = document.createElement('div')
             Elem1.setAttribute("class", "relative")
@@ -117,7 +149,11 @@ class card {
         this.bal = this.data.SFlbalance
         this.elem1_1_2_1_2.innerHTML = this.bal
         this.elem1_1_2_2_2.innerHTML = this.chef
-        this.grublist.grubImg = this.data.grublist
+        this.grublist.grubImg = this.data.grublist 
+        this.date = this.data.date
+        this.trees = this.data.trees
+        this.elem1_4_1.innerHTML = this.date
+        this.elem1_3_1.innerHTML = this.trees
         this.UpdateView()
         observer.observe(this.elem1)
     }

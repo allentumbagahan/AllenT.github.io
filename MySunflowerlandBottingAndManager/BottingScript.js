@@ -442,7 +442,7 @@ for (let x=0; x < findinventory.length; x++) {
         let trees = $('span.flex-1:contains(Recovers)')
         if (trees.length > 0){
             treesRecovered = (3 - $('span.flex-1:contains(Recovers)').length)
-            return ('Trees Recovered :' + treesRecovered)
+            return ('Trees Recovered : ' + treesRecovered)
         }else{
             treesRecovered = (3 - $('span.flex-1:contains(Recovers)').length)
             return "All Trees Are Recovered"
@@ -466,7 +466,7 @@ for (let x=0; x < findinventory.length; x++) {
                 FindPlotButtton()
                 d = new Date()
                 sec = d.getTime()
-                const date =  new Date(sec).toLocaleString('en-GB',{timeZone:'UTC'})
+                const date =  new Date(sec).toLocaleString("en-GB")
                 AllData = {
                     date : date,
                     landId : LandId,
@@ -497,13 +497,27 @@ for (let x=0; x < findinventory.length; x++) {
         setInterval(GetAllData, 10000)
     }
 
-    function ChopTrees() {
+    async function ChopTrees() {
     console.log(GetChopTreesCooldown())
+    workshopImage = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC8AAAAkCAYAAAAZ4GNvAAAAAXNSR0IArs4c6QAABQBJREFUWIW9mH9IW1cUxz/PhtRaoWx0Vceoq+LsaByjM1BhSWGrRBAnhbLh2Ma2ZsVRnB1bO2fL5h+r1fWP1pWCdG1XSlEK/WtBqOhkJn9Yp23H6qBtSOwPma1rx4RiJIpvfzzf7XvP95K8GPeF4P1xzr3fc+65x3OfRAaxe6iGkD8mJ5PznF4jqe1U5M30z1QEcNhVTISQPybfGutjcDRiKXPq7CVC/n5B+NS5Tlt7bC8vptRVKQOSIL97qEYIhD+cEIuXnHtBwoAzFQHLxQdHIzR//X1CAusLikQ7mawRrUcOiLal59152Yw8nLW1sIqJlxvT0rMLHXk1/vJBEFdP4YH7GTx714pT8LZXyQ9uxLl9YWDJyQDcczkzTnbjWJxTZy+JfpZRoLPwb1qKF2gpXgCUEwDIL3MSDs7J4eCc7G2vkt090+SXOanpbrR94ZaDPR/vEm2d5/M/cFB//rmnfR6LE3hwfh5QjAMgF+gB+A1ve5Wslfm/IMiHg3Oyu2eaAGv1JBdR4JKp7ZGIl2wSY5WAMzxO9eAMAPUohr8+H2DP1l0kgzYEQO9VU2xdretKnjafLEkS7p5pPq+v4I3Df1Du3cFosF+XFR5NRhk4+ArHOoeo9b1qura/K0y5dwd3wlFeLCkyldHiTjiq66eiAzAa7Cfv/VVkhZp6pXUbS8VE/vxj3WKtRw6w8523dOMrgWTE74Sj4gcQaupV8nygrkP6wlshLt5osD8jRIyeTUYu1bUfTSqyS/J8S/ECLRHFyxMDF/lm4KIYtwOVjLrRcqCGr/F0HAA13Y3y0JkYlcNR+p7k0PVtBQC3L/zCS++9CcCxziHiw1GGnGXUAjNTkwDkbChIuvkPO3LTJv5Z/xPLOYenzSc3RGK0aAbHhhVv9T3JIT6cuucUkleUzpbFwS25OgPtGK2sOQlMLfaUvxNvS+St9smOUFOvdKK7UebXGDdcfqrDB4kvilbnzujaV11++PNny81TIZQq6UTy64qcBOo6nhZmjvsjXL9WBDsPP5VyoWtfvzaG4/4IsM0WgZWC7sJOLF5OKySbN8PM1KRtb6cKh7Y2cedlM5KAYDqVZjrEUzG4prtRzgJoiMRorioUxNx52aIg07ZHHs7SXFWo20S9gOkQtNJNRrwhEgM0VWXOhgIdMTM0VxWKhbUbp2vAciGpYbM/GrckkijXWuH0uyWinem4P1qkvBUkUOJHJW/czN8V5tZYn+0NSl2VOgMyiaPGVKmF0UuJHtRm2F5eDCiGWyFVwxL9U8vo1wMtPtm3jy/91aZzpa7KjOwhygOkVRlZ0A5SKRXM5hoiMf5t05QH2pjPBK5fG2NwdLPoj/x+UzdvzFZ2LvSJ4jWE6jT1/P7Dn2b8IW0k/OPx44AS78tJr4G6DglWMOa10JJWkbOhwHaFaYRpqtRCfZfahfY1lumUKVLlSl7Y5TxCEt0D9cIm9TwszddmJ2F892qJ2w0L7X0w01U9nwUwfe+WpbKK9QVF4mckqn4mUX9apBPPqo6VrspX9+3xu/lNSwRnpib56Oo/bMrevGTOCuOzN/nptWdXpI4/5Bgn+NVlCTTkIbEBdpGMeDqZ5pBjHMCcPCgGNP+VzclthSKf1nQ3ynuv3OXkNn3JvPfKXQDT8VT1E40F6jokVbf1+VkdcVPyAJ42nxxq6pUSjRm/DqtEl6vvafPJoHwR0+oaxwD+Ay3FTaCIHua5AAAAAElFTkSuQmCC'
        if(KData == 'no kitchen'){
         if (treesRecovered > 0){
             try{
                 // go to workshop
-                document.querySelector("#editing-overlay\\ z-20\\ absolute > div > div.relative.w-full.h-full > div:nth-child(21) > div > img.absolute.bottom-0").click()
+                allimage = document.getElementsByTagName('img')
+                const findWorkshop = new Promise(function (res){
+                    for (element=0; element < allimage.length; element++){
+                        if (allimage[element].src == workshopImage){
+                            workshop = allimage[element]
+                            res(true)
+                            break;
+                        }
+                    }
+                })
+                if (await findWorkshop){
+                    workshop.click()
+                }
+                
                 try{
                     // select pickaxe
                     document.querySelector("body > div.fade.modal.show > div > div > div.bg-brown-600.text-white.relative > div > div:nth-child(2) > div > div.w-full.max-h-48.sm\\:max-h-96.sm\\:w-3\\/5.h-fit.overflow-y-auto.scrollable.overflow-x-hidden.p-1.mt-1.sm\\:mt-0.sm\\:mr-1.flex.flex-wrap > div:nth-child(1) > div > div > div > img").click()
