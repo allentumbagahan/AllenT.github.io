@@ -500,6 +500,7 @@ function Autofarm(seed, repeat){
     let a = repeat
     let e = 0
     pickSeed(seed)
+    IsPicking = false
     const timer = setInterval(()=> {   
         if(a == undefined || a == 0){
             a = 1000000
@@ -519,7 +520,7 @@ function Autofarm(seed, repeat){
                 pickSeed(seed)
             }
             else{
-                if (handleQuantity != 0 && readyPlots.length != 0){
+                if (handleQuantity != 0 && readyPlots.length != 0 && IsPicking == false){
                     try{
                         aa++
                         readyPlots[e].clickPlot()
@@ -537,6 +538,7 @@ function Autofarm(seed, repeat){
             }
         }
         else{
+            IsPicking = true
             clearInterval(timer)
             Autofarm(seed)
         }
