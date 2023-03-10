@@ -24,6 +24,10 @@ const cropListName = [
     "Radish Seed",
     "Wheat Seed",
     "Kale Seed"]
+
+// define seed in auto farm   
+var seedAuto = 0
+
 currentURl = window.location.href
 const version = 0.01
 var grubListItemName = []
@@ -252,6 +256,10 @@ function UpdateInGameData(id){
 
     /* Buttons and others container for botting */
 function createBottingButton(){
+    UpdateInGameData()
+    FindPlots()
+    UpdateReadyPlots()
+    
     mydiv = $("div[class='buttonsDiv']")
     if(mydiv.length != 0){
         mydiv[0].remove()
@@ -274,18 +282,39 @@ function createBottingButton(){
     elementForButtons.appendChild(elem3BTN)
 
 
+    
+    elem4BTN = document.createElement('button')
+    elem4BTN.innerHTML = `Starting Seed : ${cropListName[seedAuto]}`
+    elem4BTN.setAttribute("onclick", "changeSeedAuto()")
+    elementForButtons.appendChild(elem4BTN)
+
+    elem5BTN = document.createElement('button')
+    elem5BTN.innerHTML = `Stock : ${data.inventory[cropListName[seedAuto]]}`
+    elem5BTN.setAttribute("onclick", "changeSeedAuto()")
+    elementForButtons.appendChild(elem5BTN)
+
     elem1_3BTN = document.createElement('button')
-    elem1_3BTN.innerHTML = "Bot"
-    elem1_3BTN.setAttribute("onclick", `Autofarm("${cropListName[0]}")`)
+    elem1_3BTN.innerHTML = "Start Bot"
+    elem1_3BTN.setAttribute("onclick", `Autofarm("${cropListName[seedAuto]}")`)
     elementForButtons.appendChild(elem1_3BTN)
-
-
-    elem4TEXT = document.createElement('h3')
-    elem4TEXT.innerHTML = version
-    elementForButtons.appendChild(elem4TEXT)
+    
+    elem5TEXT = document.createElement('h3')
+    elem5TEXT.innerHTML = version
+    elementForButtons.appendChild(elem5TEXT)
     
 
     
+}
+function changeSeedAuto(){
+    if(seedAuto == 10){
+        seedAuto = 0
+    }
+    else{
+        seedAuto++ 
+    }
+
+    // update view
+    createBottingButton()
 }
 
 function settings(){
