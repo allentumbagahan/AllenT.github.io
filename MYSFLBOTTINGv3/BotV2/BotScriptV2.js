@@ -19,7 +19,7 @@ const cropListName = [
     "Carrot Seed",
     "Cabbage Seed",
     "Beetroot Seed",
-    "Caulifower Seed",
+    "Cauliflower Seed",
     "Parsnip Seed",
     "Radish Seed",
     "Wheat Seed",
@@ -221,7 +221,7 @@ for(let f=0; f < parents.length; f++){
 }
 }
 
-function UpdateInGameData(id){
+async function UpdateInGameData(id){
     async function GetSFLData(id){
         const url = await window.fetch(`https://api.sunflower-land.com/visit/${id}`, {
             method: "GET",
@@ -233,7 +233,7 @@ function UpdateInGameData(id){
         return await url.json()
     }
 
-    getData = GetSFLData(currentURl.replace('https://sunflower-land.com/play/#/land/', '')).then(function(val){
+     getData = await GetSFLData(currentURl.replace('https://sunflower-land.com/play/#/land/', '')).then(function(val){
         data = val.state
         inventory = data.inventory
         crops = {
@@ -250,16 +250,16 @@ function UpdateInGameData(id){
             Kale : data.inventory.Kale
         }
     })
+    console.log(data)
+    return true
 }
 
 
 
     /* Buttons and others container for botting */
 function createBottingButton(){
-    UpdateInGameData()
-    FindPlots()
-    UpdateReadyPlots()
-    
+
+
     mydiv = $("div[class='buttonsDiv']")
     if(mydiv.length != 0){
         mydiv[0].remove()
@@ -431,7 +431,7 @@ function buySeeds(seedName, count){
             if (x == (itemBox.children.length - 1)){
                 closebtn.click()
                 // then update data 
-                UpdateInGameData()
+                UpdateInGameData(LandId)
             }
         }, (1500*x))
     }
@@ -601,7 +601,7 @@ async function checkCaptcha(){
 }
 /* ---- */
 
-setup = () => {
+setup = async () => {
 function grubshopValue(){
     grubListItemName = []
     if (!window.location.href.includes('https://sunflower-land.com/play/#/retreat')){
@@ -643,34 +643,57 @@ function grubshopValue(){
         window.location.href = homeLand
     }
 }
-createBottingButton()
-FindPlots()
-UpdateReadyPlots()
-UpdateInGameData()
-GenerateFoodsRecipe()
-grubshopValue()
+GetLandId()
 
-foodsMission = []
+// fetch data 
 
-// set mission
-for (let x=0; grubListItemName.length > x; x++){
-    for(let y=0; foods.length > y; y++){
-        if (grubListItemName[x] == foods[y].Name){
-            console.log(grubListItemName[x])
-            console.log(foods[y].RecipeNeeded)
-            foodsMission.push(new food(foods[y].Name, foods[y].RecipeList, foods[y].RecipeNeeded))
+// wait then proceed
+a = await UpdateInGameData(LandId)
+
+const UpdateData = new Promise((res, err) => {
+    
+        // if data is json type then
+        if (a){
+            res()
         }
+    
+})
+
+UpdateData.then((val) => {
+    // after fetching data
+    console.log(data)
+    FindPlots()
+    UpdateReadyPlots()
+    GenerateFoodsRecipe()
+    grubshopValue()
+    createBottingButton()
+
+    foodsMission = []
+
+    // set mission
+    for (let x=0; grubListItemName.length > x; x++){
+        for(let y=0; foods.length > y; y++){
+            if (grubListItemName[x] == foods[y].Name){
+                console.log(grubListItemName[x])
+                console.log(foods[y].RecipeNeeded)
+                foodsMission.push(new food(foods[y].Name, foods[y].RecipeList, foods[y].RecipeNeeded))
+            }
+        }
+
+    // 
     }
+    /*
+    foodsMission.forEach((food) => {
+        setInterval(() => {
+            food.check()
+        }, 20000)
+    });*/
 
-// 
+    })
+
+
+
+
 }
 
-foodsMission.forEach((food) => {
-    setInterval(() => {
-        food.check()
-    }, 20000)
-});
-
-
-
-}
+setup()
