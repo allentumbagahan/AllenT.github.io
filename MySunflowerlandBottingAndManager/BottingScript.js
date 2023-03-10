@@ -52,7 +52,6 @@ function repeat(callback, count){
     }
 }
 
-
 function FindPlotButtton () {
     checkbottingButtons()
 if (btnText == "Stop"){  
