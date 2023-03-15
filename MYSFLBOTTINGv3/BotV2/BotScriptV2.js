@@ -1,5 +1,5 @@
 // script version
-const version = 0.06
+const version = 0.07
 
 function addJavascript(jsname,pos) {
     var th = document.getElementsByTagName(pos)[0];
@@ -46,7 +46,7 @@ function addJavascript(jsname,pos) {
                   res(true)
               }
           })
-          const inzApp = new Promise ((res, err) => {
+          const inzApp = new Promise ((res) => {
             try{
                 console.log("firestore in firebase")
                 if('firestore' in firebase){
