@@ -905,7 +905,6 @@ const UpdateData = new Promise((res) => {
 })
 
 UpdateData.then((val) => {
-    plotsCooldown = []
     // after fetching data
     console.log(data)
     FindPlots()
@@ -914,6 +913,7 @@ UpdateData.then((val) => {
     grubshopValue()
     createBottingButton()
     setInterval(()=>{
+        plotsCooldown = []
         UpdateInGameData(LandId)
         plots.forEach((plot) => {
             if (plot.plantCD != false){
