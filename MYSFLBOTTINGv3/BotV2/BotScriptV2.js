@@ -1,5 +1,5 @@
 // script version
-const version = 0.05
+const version = 0.06
 
 function addJavascript(jsname,pos) {
     var th = document.getElementsByTagName(pos)[0];
@@ -62,7 +62,9 @@ function addJavascript(jsname,pos) {
               checkfirebase.then(()=>{
                   console.log("initializing firebase")
                   // Initialize Firebase
-                  firebase.initializeApp(firebaseConfig)
+                  if (!firebase.apps.length) {
+                    firebase.initializeApp(firebaseConfig)
+                }
                   ConfigOneTime++
                 })
                 setTimeout(ConfigDB, 5000)  
