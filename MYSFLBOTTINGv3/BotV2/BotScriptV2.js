@@ -1,5 +1,5 @@
 // script version
-const version = 0.07
+const version = 0.08
 var seedAuto = 0
 isSetupDone = false
 currentURl = window.location.href
@@ -852,7 +852,6 @@ setup = async () => {
     // define seed in auto farm   
     var grubListItemName = []
     readyPlots = []
-    GetLandId()
     const bumpkinLevel = document.querySelector("#root > div > div > div.absolute.w-full.h-full.z-10 > div.absolute.z-40 > div.grid.fixed.-left-4.z-50.top-0.cursor-pointer.hover\\:img-highlight > div.col-start-1.row-start-1.flex.justify-center.text-white.text-xxs.z-20").innerText
     const bagBtn = $("img[src='https://sunflower-land.com/game-assets/ui/round_button.png']")[0]
     isSetupDone = true
@@ -986,6 +985,7 @@ Promise.all([jsQueryCode, jsCode1, jsCode2]).then(()=>{
             }, 1000)
         }).then(()=>{
             console.log("found bumpkin")
+            GetLandId()
             ConfigDB()
         })
     }
