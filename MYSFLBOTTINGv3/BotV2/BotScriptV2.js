@@ -293,8 +293,9 @@ for(let f=0; f < parents.length; f++){
 }
 
 async function UpdateInGameData(id){
-    async function GetSFLData(id){
-        const url = await window.fetch(`https://api.sunflower-land.com/visit/${id}`, {
+    ID = id
+    async function GetSFLData(){
+        const url = await window.fetch(`https://api.sunflower-land.com/visit/${ID}`, {
             method: "GET",
             headers: {
                 "content-type": "application/json;charset=UTF-8",
