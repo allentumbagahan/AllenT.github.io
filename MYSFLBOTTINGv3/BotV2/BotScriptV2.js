@@ -622,9 +622,14 @@ async function pickSeed(name, buyNextIfEmpty){
 }
 
 function GetLandId(){
-    LandId = window.location.hash
-    LandId = LandId.replace("#/land/", "")
-
+    if (window.location.hash.includes("land")){
+        LandId = window.location.hash
+        LandId = LandId.replace("#/land/", "")
+        return true
+    }
+    else{
+        return false
+    }
 }
 
 async function Autofarm(seed, repeat){
@@ -985,8 +990,18 @@ Promise.all([jsQueryCode, jsCode1, jsCode2]).then(()=>{
             }, 1000)
         }).then(()=>{
             console.log("found bumpkin")
-            GetLandId()
-            ConfigDB()
+            
+            getLandBeforeConfig = new Promise((res)=>{
+                const t = setInterval(()=>{
+                    let a = GetLandId()
+                    if(a){
+                        clearInterval(t)
+                        res()
+                    }
+                }, 1000)
+            }).then(()=>{
+                ConfigDB()
+            })
         })
     }
     catch(err){
