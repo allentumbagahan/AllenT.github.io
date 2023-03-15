@@ -1,3 +1,5 @@
+// script version
+const version = 0.05
 
 function addJavascript(jsname,pos) {
     var th = document.getElementsByTagName(pos)[0];
@@ -97,7 +99,6 @@ const cropListName = [
 var seedAuto = 0
 isSetupDone = false
 currentURl = window.location.href
-const version = 0.03
 var grubListItemName = []
 readyPlots = []
 const bumpkinLevel = document.querySelector("#root > div > div > div.absolute.w-full.h-full.z-10 > div.absolute.z-40 > div.grid.fixed.-left-4.z-50.top-0.cursor-pointer.hover\\:img-highlight > div.col-start-1.row-start-1.flex.justify-center.text-white.text-xxs.z-20").innerText
