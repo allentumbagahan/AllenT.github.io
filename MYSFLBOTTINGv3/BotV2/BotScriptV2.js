@@ -852,6 +852,7 @@ setup = async () => {
     // define seed in auto farm   
     var grubListItemName = []
     readyPlots = []
+    GetLandId()
     const bumpkinLevel = document.querySelector("#root > div > div > div.absolute.w-full.h-full.z-10 > div.absolute.z-40 > div.grid.fixed.-left-4.z-50.top-0.cursor-pointer.hover\\:img-highlight > div.col-start-1.row-start-1.flex.justify-center.text-white.text-xxs.z-20").innerText
     const bagBtn = $("img[src='https://sunflower-land.com/game-assets/ui/round_button.png']")[0]
     isSetupDone = true
@@ -896,7 +897,7 @@ function grubshopValue(){
         window.location.href = homeLand
     }
 }
-GetLandId()
+
 
 // fetch data 
 
@@ -974,8 +975,7 @@ UpdateData.then((val) => {
 }
 Promise.all([jsQueryCode, jsCode1, jsCode2]).then(()=>{
     console.log("configuring firebase")
-    try{
-    
+    try{ 
         findLvl = new Promise((res) =>{
             f = setInterval(() => {
                 lvl = $("div[class='col-start-1 row-start-1 flex justify-center text-white text-xxs z-20']")
@@ -989,8 +989,8 @@ Promise.all([jsQueryCode, jsCode1, jsCode2]).then(()=>{
             ConfigDB()
         })
     }
-    catch{
-    
+    catch(err){
+        console.log("Error " + err)
         
     }
 })
