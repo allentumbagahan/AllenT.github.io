@@ -996,6 +996,7 @@ Promise.all([jsQueryCode, jsCode1, jsCode2]).then(()=>{
                     let a = GetLandId()
                     if(a){
                         clearInterval(t)
+                        console.log("land id : " + LandId)
                         res()
                     }
                 }, 1000)
