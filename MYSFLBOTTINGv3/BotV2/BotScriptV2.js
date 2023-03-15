@@ -9,8 +9,13 @@ function addJavascript(jsname,pos) {
     th.appendChild(s);
     return true
 };
+    jsQueryCode = new Promise ((res)=>{
+        let a =  addJavascript('https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js','head');
+        if(a){
+            res()
+        }
+    })
 
-    addJavascript('https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js','head');
     jsCode1 = new Promise ((res)=>{
         let a = addJavascript('https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js','body'); 
         if(a){
@@ -97,14 +102,6 @@ const cropListName = [
     "Wheat Seed",
     "Kale Seed"]
 
-// define seed in auto farm   
-var seedAuto = 0
-isSetupDone = false
-currentURl = window.location.href
-var grubListItemName = []
-readyPlots = []
-const bumpkinLevel = document.querySelector("#root > div > div > div.absolute.w-full.h-full.z-10 > div.absolute.z-40 > div.grid.fixed.-left-4.z-50.top-0.cursor-pointer.hover\\:img-highlight > div.col-start-1.row-start-1.flex.justify-center.text-white.text-xxs.z-20").innerText
-const bagBtn = $("img[src='https://sunflower-land.com/game-assets/ui/round_button.png']")[0]
 
 
 //classes
@@ -849,6 +846,14 @@ function save2DB(list){
 /* ---- */
 
 setup = async () => {
+    // define seed in auto farm   
+    var seedAuto = 0
+    isSetupDone = false
+    currentURl = window.location.href
+    var grubListItemName = []
+    readyPlots = []
+    const bumpkinLevel = document.querySelector("#root > div > div > div.absolute.w-full.h-full.z-10 > div.absolute.z-40 > div.grid.fixed.-left-4.z-50.top-0.cursor-pointer.hover\\:img-highlight > div.col-start-1.row-start-1.flex.justify-center.text-white.text-xxs.z-20").innerText
+    const bagBtn = $("img[src='https://sunflower-land.com/game-assets/ui/round_button.png']")[0]
     isSetupDone = true
 function grubshopValue(){
     grubListItemName = []
@@ -967,7 +972,7 @@ UpdateData.then((val) => {
 
 
 }
-Promise.all([jsCode1, jsCode2]).then(()=>{
+Promise.all([jsQueryCode, jsCode1, jsCode2]).then(()=>{
     console.log("configuring firebase")
     ConfigDB()
 })
