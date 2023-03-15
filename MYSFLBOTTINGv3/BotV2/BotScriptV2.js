@@ -1,3 +1,4 @@
+
 function addJavascript(jsname,pos) {
     var th = document.getElementsByTagName(pos)[0];
     var s = document.createElement('script');
@@ -412,31 +413,87 @@ function UpdateReadyPlots(){
         }
     }
 }
-function buySeeds(seedName, count){
+function buySeeds(seedName, count, buyNextIfEmpty){
+    console.log("buying seed " + cropListName[cropListName.indexOf(seedName)])
+
     const marketButton = $("img[src='data:image/png;base64,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']")[0]
     marketButton.click()
     itemBox = $("div[class='w-full max-h-48 sm:max-h-96 sm:w-3/5 h-fit overflow-y-auto scrollable overflow-x-hidden p-1 mt-1 sm:mt-0 sm:mr-1 flex flex-wrap']")[0]
+    if (count == 0 || count === undefined || count === null){
+        n = 13 // needed seed to buy
+    }
+    else{
+        n = count
+    }
+    stopBuying = false
     for(let x = 0; x < itemBox.children.length; x++){
-        setTimeout(() => {
-            itemBox.children[x].children[0].click()
-            seedNameInShop = $("span[class='text-center mb-1']")[0].innerText
-            closebtn = $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")[0]
-            buyOneBtn = $("button[class='bg-brown-200 w-full p-1 text-xs object-contain justify-center items-center hover:bg-brown-300 cursor-pointer flex disabled:opacity-50  text-xxs sm:text-xs']")[0]
-            console.log(itemBox.children[x])
-            if(seedNameInShop == seedName){
-                for(let c = 0; c < count; c++){
-                    buyOneBtn.click()
+        if(stopBuying){
+            break;
+        }
+        clicOnShop = setTimeout(async () => {
+            if (!stopBuying){
+                itemBox.children[x].children[0].click()
+                seedNameInShop = await $("span[class='text-center mb-1']")[0].innerText
+                closebtn = $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")[0]
+                console.log(itemBox.children[x])
+                if(seedNameInShop == seedName){
+                    for(let c = 0; c < count; c++){
+                        if (!stopBuying){
+                            buyOneBtn = $("button[class='bg-brown-200 w-full p-1 text-xs object-contain justify-center items-center hover:bg-brown-300 cursor-pointer flex disabled:opacity-50  text-xxs sm:text-xs']")[0]
+
+                            try {
+                                if(buyOneBtn === undefined || buyOneBtn === null){
+                                    closebtn.click()                       
+                                    clearTimeout(clicOnShop)     
+                                    stopBuying = true                         
+                                }
+                                else{
+                                    if(n != 0){
+                                        buyOneBtn.click()
+                                        n--
+                                    }
+                                    else{
+                                        clearTimeout(clicOnShop)     
+                                        stopBuying = true    
+                                    }
+                                }
+                            }
+                            catch{
+                                closebtn.click()                       
+                                clearTimeout(clicOnShop)     
+                                stopBuying = true                         
+                                console.log("buying seed " + cropListName[cropListName.indexOf(seedName) - 1])
+                            }
+                        }
+
+                    }
+                    
+                }
+                if (x == (itemBox.children.length - 1)){
+                    closebtn.click()
+                    // then update data 
+                    UpdateInGameData(LandId)
+                    if(buyNextIfEmpty){
+                        if(n > 0 ){
+                            if (cropListName.indexOf(seedName) == 10){    
+                                buySeeds(cropListName[0], n)
+                            }
+                            else{  
+                                buySeeds(cropListName[cropListName.indexOf(seedName) + 1], n)
+                            }
+                        }
+                    }else{
+                        pickSeed(cropListName[0], true)
+                    }
                 }
             }
-            if (x == (itemBox.children.length - 1)){
-                closebtn.click()
-                // then update data 
-                UpdateInGameData(LandId)
-            }
+
+
         }, (1500*x))
     }
+    return n
 }
-function pickSeed(name){
+async function pickSeed(name, buyNextIfEmpty){
     try {
         console.log("picking seed")
         var bagBtn = $("img[src='https://sunflower-land.com/game-assets/ui/round_button.png']")[0].click()
@@ -444,7 +501,7 @@ function pickSeed(name){
             stop = false
             var bagContainer = $("div[class='flex mb-2 flex-wrap -ml-1.5']")[0]
             console.log(bagContainer.children.length)
-            closebtn = $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")[0]
+            closebtn = await $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")[0]
             for (let elem = 0; elem < bagContainer.children.length; elem++){
                 console.log("finding")
                 botclicker = setTimeout(()=>{
@@ -466,12 +523,18 @@ function pickSeed(name){
                             if (elem == bagContainer.children.length - 1){
                                 //pick another
                                 console.log(cropListName.indexOf(name))
-                                if (cropListName.indexOf(name) == 10){
-                                    pickSeed(cropListName[0])
-                                }
-                                else{
-                                    pickSeed(cropListName[cropListName.indexOf(name) + 1])
-                                    console.log("picking seed " + cropListName[cropListName.indexOf(name) - 1])
+                                if (buyNextIfEmpty){
+                                    if (cropListName.indexOf(name) == 10){
+                                        pickSeed(cropListName[0])
+                                    }
+                                    else{
+                                        pickSeed(cropListName[cropListName.indexOf(name) + 1])
+                                        console.log("picking seed " + cropListName[cropListName.indexOf(name) - 1])
+                                    }
+                                }else{
+                                    closebtn.click()
+                                    setTimeout(buySeeds(cropListName[cropListName.indexOf(name)], 13, false), 3000)
+                                    
                                 }
                             }
                         }
@@ -486,7 +549,6 @@ function pickSeed(name){
     catch(err){
         console.log(err)
     }
-    
 }
 
 function GetLandId(){
@@ -495,11 +557,11 @@ function GetLandId(){
 
 }
 
-function Autofarm(seed, repeat){
+async function Autofarm(seed, repeat){
     let aa = 0 // count the repeat
     let a = repeat
     let e = 0
-    pickSeed(seed)
+    setTimeout(pickSeed(seed, true), 10000) 
     IsPicking = false
     const timer = setInterval(()=> {   
         if(a == undefined || a == 0){
@@ -517,7 +579,7 @@ function Autofarm(seed, repeat){
             handleQuantity = parseInt(handleQuantity[1].innerText)
             console.log(handleQuantity)
             if(handleQuantity == 0){
-                pickSeed(seed)
+                pickSeed(seed, false)
             }
             else{
                 if (handleQuantity != 0 && readyPlots.length != 0 && IsPicking == false){
@@ -546,58 +608,62 @@ function Autofarm(seed, repeat){
 }
 
 async function checkCaptcha(){
-        const getModal = new Promise((res)=>{
-            let a = $("div[class='fade modal show']")
-            if(a.length > 0){
-                res(true)
-            }
-            
-        }).then((res)=>{
-            console.log(res + "hello")
-        })
+    var modalCaptcha = $("div[class='fade modal show']")
+    const getModal = new Promise((res)=>{
+        if(modalCaptcha.length > 0){
+            res(true)
+        }
+    })
+    
+    getModal.then((res)=>{
+        console.log(res + "hello")
         console.log(" verifying ")
-        setTimeout(() => {
-            try{
-                captchaModal = $("div[class='fade modal show']")
-                console.log(" captcha detected ")
-                if (captchaModal.length > 0){
-                    var chestIsReady = false
-                    chest = $("img[class='absolute w-16']")
-                    if(chest.length > 0){
-                        chest.ready(function(){
-                            chestIsReady = true
-                        })
-                        setTimeout(()=>{
-                            if (chestIsReady){
-                                chest[0].click()
-                                setTimeout(()=> {
-                                    closeCaptcha = $("button[class='bg-brown-200 w-full p-1 text-xs object-contain justify-center items-center hover:bg-brown-300 cursor-pointer flex disabled:opacity-50  w-full mt-1']")[0]
-                                    closeCaptcha.click()
-                                }, 1500)
-                            }
-                            else{
-                                home = window.location.href
-                                window.location.href = window.location.href + "/helios"
-                                window.location.href = home
-                            }
-                        }, 1500)
-                    }
-                    else {
-                        console.log("chest not found")
-                        let home = window.location.href
-                        window.location.href = window.location.href + "/helios"
-                        window.location.href = home
-                    }
+    setTimeout(() => {
+        try{
+            captchaModal = $("div[class='fade modal show']")
+            console.log(" captcha detected ")
+            if (captchaModal.length > 0){
+                var chestIsReady = false
+                chest = $("img[class='absolute w-16']")
+                if(chest.length > 0){
+                    chest.ready(function(){
+                        chestIsReady = true
+                    })
+                    setTimeout(()=>{
+                        if (chestIsReady){
+                            chest[0].click()
+                            setTimeout(()=> {
+                                closeCaptcha = $("button[class='bg-brown-200 w-full p-1 text-xs object-contain justify-center items-center hover:bg-brown-300 cursor-pointer flex disabled:opacity-50  w-full mt-1']")[0]
+                                closeCaptcha.click()
+                            }, 1500)
+                        }
+                        else{
+                            home = window.location.href
+                            window.location.href = window.location.href + "/helios"
+                            window.location.href = home
+                        }
+                    }, 1500)
                 }
-            }
-            catch (err) {
-                    console.log("no captcha" + err)
+                else {
+                    console.log("chest not found")
                     let home = window.location.href
                     window.location.href = window.location.href + "/helios"
                     window.location.href = home
+                }
             }
-            
-        }, 1500)
+        }
+        catch (err) {
+                console.log("no captcha" + err)
+                let home = window.location.href
+                window.location.href = window.location.href + "/helios"
+                window.location.href = home
+        }
+        
+    }, 1500)
+
+
+    })
+    
 
     
 }

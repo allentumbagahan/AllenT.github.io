@@ -25,7 +25,7 @@ var docAccountList = db.collection("Accounts").doc("AccountList")
 function loadToDb(id) {
     var docRef = db.collection("Accounts").doc(id);
 
-    docRef.get().then((doc) => {
+    docRef.onSnapshot((doc) => {
         if (doc.exists) {
             LoadedData = doc.data()
             console.log("Document data:", LoadedData);
