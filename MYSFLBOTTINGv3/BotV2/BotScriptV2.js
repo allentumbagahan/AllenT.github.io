@@ -913,16 +913,17 @@ UpdateData.then((val) => {
     GenerateFoodsRecipe()
     grubshopValue()
     createBottingButton()
-    plots.forEach((plot) => {
-        if (plot.plantCD != false){
-            plotsCooldown.push(plot.plantCD )
-        }
-    });
-    snapData(LandId)
-    d = new Date()
-    sec = d.getTime()
-    const DATE =  new Date(sec).toLocaleString("en-GB")
     setInterval(()=>{
+        UpdateInGameData(LandId)
+        plots.forEach((plot) => {
+            if (plot.plantCD != false){
+                plotsCooldown.push(plot.plantCD )
+            }
+        });
+        snapData(LandId)
+        d = new Date()
+        sec = d.getTime()
+        const DATE =  new Date(sec).toLocaleString("en-GB")
         SFLDatabaseToMyFirebaseData = { 
             date: DATE,
             landId: LandId, 
@@ -935,7 +936,7 @@ UpdateData.then((val) => {
         if(SFLDatabaseToMyFirebaseData != loadData){
             save2DB(SFLDatabaseToMyFirebaseData)
         }
-    }, 60000)
+    }, 120000)
     foodsMission = []
 
     // set mission
