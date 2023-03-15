@@ -83,7 +83,7 @@ function addJavascript(jsname,pos) {
             db = firebase.firestore();
             //start the script if the firebase is ready
             if (!isSetupDone){
-                setup()
+                setTimeout(setup, 7000)
             }
         })
 
