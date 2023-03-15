@@ -5,10 +5,77 @@ function addJavascript(jsname,pos) {
     s.setAttribute('type','text/javascript');
     s.setAttribute('src',jsname);
     th.appendChild(s);
-    };
+    return true
+};
 
     addJavascript('https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js','head');
+    jsCode1 = new Promise ((res)=>{
+        let a = addJavascript('https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js','body'); 
+        if(a){
+            res()
+        }
+    })
+    jsCode2 = new Promise ((res)=>{
+        let a = addJavascript('https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js','body');
+        if(a){
+            res()
+        }
+    })
 
+
+    landFirebaseLoc = ""
+    loadData = ""
+    ConfigOneTime = 0
+
+    async function ConfigDB(){
+        const firebaseConfig = {
+            apiKey: "AIzaSyBC6W49ilLK5mWHsP2MXKyiIjmLyRGkFiQ",
+            authDomain: "allentumbagahan-9610f.firebaseapp.com",
+            databaseURL: "https://allentumbagahan-9610f-default-rtdb.firebaseio.com",
+            projectId: "allentumbagahan-9610f",
+            storageBucket: "allentumbagahan-9610f.appspot.com",
+            messagingSenderId: "702145349166",
+            appId: "1:702145349166:web:5ca10176bf764ad6cd41bf",
+            measurementId: "G-NRS398L5KQ"
+          };
+          const checkfirebase = new Promise((res) => {
+            console.log("firebase in window")
+              if('firebase' in window){
+                  res(true)
+              }
+          })
+          const inzApp = new Promise ((res, err) => {
+            try{
+                console.log("firestore in firebase")
+                if('firestore' in firebase){
+                    res(true)
+                }
+            }
+            catch{
+
+            }
+          })
+          if (ConfigOneTime == 0){
+              console.log(checkfirebase)
+              checkfirebase.then(()=>{
+                  console.log("initializing firebase")
+                  // Initialize Firebase
+                  firebase.initializeApp(firebaseConfig)
+                  ConfigOneTime++
+                })
+                setTimeout(ConfigDB, 5000)  
+        }
+        inzApp.then(()=>{
+            // Initialize Cloud Firestore and get a reference to the service
+            console.log("initializing Cloud Firestore")
+            db = firebase.firestore();
+            //start the script if the firebase is ready
+            if (!isSetupDone){
+                setup()
+            }
+        })
+
+    }
 
 //make sure jquery was added
 
@@ -28,9 +95,9 @@ const cropListName = [
 
 // define seed in auto farm   
 var seedAuto = 0
-
+isSetupDone = false
 currentURl = window.location.href
-const version = 0.01
+const version = 0.03
 var grubListItemName = []
 readyPlots = []
 const bumpkinLevel = document.querySelector("#root > div > div > div.absolute.w-full.h-full.z-10 > div.absolute.z-40 > div.grid.fixed.-left-4.z-50.top-0.cursor-pointer.hover\\:img-highlight > div.col-start-1.row-start-1.flex.justify-center.text-white.text-xxs.z-20").innerText
@@ -667,9 +734,119 @@ async function checkCaptcha(){
 
     
 }
+
+function kitchenData(){
+    const kitchenB64 = "data:image/png;base64,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"
+    closeB64 = "data:image/png;base64,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"
+    let AllImage = document.getElementsByTagName("img")
+    var kitchenBTN;
+    // find kitchen buiding
+    for (let x=0; x<AllImage.length; x++){
+        if (AllImage[x].src == kitchenB64){
+           AllImage[x].click()
+           kitchenBTN = AllImage[x]
+           console.log('found and click kitchen')
+           break;
+        }
+    }
+    if (kitchenBTN == ""){
+        return "no kitchen built"
+    }
+    else 
+    {
+
+        // find close btn
+        whatAreYouDoingChef = ""
+        var closeBTN
+        findClose()
+        function findClose() {
+
+            for (let x=0; x<AllImage.length; x++){
+                if (AllImage[x].getAttribute("class") == "absolute cursor-pointer z-20"){
+                    closeBTN = AllImage[x]
+                    break;
+                }
+            }
+            chefWhereAreYou =  document.getElementsByClassName('text-xxs sm:text-xs text-center my-1')
+            whatAreYouDoingChef = (chefWhereAreYou.length != 0 )? chefWhereAreYou[0].innerHTML : "Chef is Waiting"
+            try {
+                closeBTN.click()
+            }
+            catch{
+                whatAreYouDoingChef = "no kitchen"
+            }
+        }
+
+        return whatAreYouDoingChef
+    }
+}   
+// firebase
+function snapData(id){
+    RegisteredLands = { list : [] }
+    var docRef = db.collection("Accounts").doc("AccountList")
+    docRef.get().then((doc) => {
+        if (doc.exists) {
+            // check if land already registered
+            RegisteredLands = doc.data()
+            if(RegisteredLands.list.includes(id)){
+                // already registered
+                landFirebaseLoc = db.collection("Accounts").doc(`${id}`)
+                landFirebaseLoc.onSnapshot((doc) => {
+                    if(doc.exists){
+                        // load land data
+                        loadData = doc.data()
+                        console.log(loadData)
+                    }
+                })
+            }
+            else{
+                // land registration
+                RegisteredLands = doc.data()
+                RegisteredLands.list.push(id)
+                db.collection("Accounts").doc('AccountList')
+                .set({
+                
+                    list: RegisteredLands.list
+                
+                })
+                .then(() => {
+                    console.log('registration finished')
+                }) .catch((error) => {
+                    console.log("Error registration document:", error);
+                });
+            }
+        }
+    })
+
+
+}
+function save2DB(list){
+    const { 
+        date,
+        landId, 
+        kitchen, 
+        grublist, 
+        balance, 
+        plotsPlanted,
+        trees,
+        AutoFarmVersion } = list
+        
+    if(landFirebaseLoc != ""){
+        landFirebaseLoc.set({
+            date: date,
+            SFlbalance: balance,
+            kitchen: kitchen,
+            trees: trees,
+            grublist: grublist,
+            plotsPlanted: plotsPlanted,
+            AutoFarmVersion: AutoFarmVersion
+        }).then()
+    }
+}
 /* ---- */
 
 setup = async () => {
+    isSetupDone = true
 function grubshopValue(){
     grubListItemName = []
     if (!window.location.href.includes('https://sunflower-land.com/play/#/retreat')){
@@ -718,7 +895,7 @@ GetLandId()
 // wait then proceed
 a = await UpdateInGameData(LandId)
 
-const UpdateData = new Promise((res, err) => {
+const UpdateData = new Promise((res) => {
     
         // if data is json type then
         if (a){
@@ -728,6 +905,7 @@ const UpdateData = new Promise((res, err) => {
 })
 
 UpdateData.then((val) => {
+    plotsCooldown = []
     // after fetching data
     console.log(data)
     FindPlots()
@@ -735,7 +913,29 @@ UpdateData.then((val) => {
     GenerateFoodsRecipe()
     grubshopValue()
     createBottingButton()
-
+    plots.forEach((plot) => {
+        if (plot.plantCD != false){
+            plotsCooldown.push(plot.plantCD )
+        }
+    });
+    snapData(LandId)
+    d = new Date()
+    sec = d.getTime()
+    const DATE =  new Date(sec).toLocaleString("en-GB")
+    setInterval(()=>{
+        SFLDatabaseToMyFirebaseData = { 
+            date: DATE,
+            landId: LandId, 
+            kitchen: kitchenData(), 
+            grublist: grubListItemName, 
+            balance: data.balance, 
+            plotsPlanted: plotsCooldown,
+            trees: "Trees Under Construction",
+            AutoFarmVersion: version } 
+        if(SFLDatabaseToMyFirebaseData != loadData){
+            save2DB(SFLDatabaseToMyFirebaseData)
+        }
+    }, 60000)
     foodsMission = []
 
     // set mission
@@ -763,5 +963,7 @@ UpdateData.then((val) => {
 
 
 }
-
-setup()
+Promise.all([jsCode1, jsCode2]).then(()=>{
+    console.log("configuring firebase")
+    ConfigDB()
+})

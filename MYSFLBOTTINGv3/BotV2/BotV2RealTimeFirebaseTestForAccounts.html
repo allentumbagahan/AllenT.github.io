@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script>
+        landFirebaseLoc = ""
+        loadData = ""
+        ConfigOneTime = 0
+        ConfigDB()
+        async function ConfigDB(){
+            const firebaseConfig = {
+                apiKey: "AIzaSyBC6W49ilLK5mWHsP2MXKyiIjmLyRGkFiQ",
+                authDomain: "allentumbagahan-9610f.firebaseapp.com",
+                databaseURL: "https://allentumbagahan-9610f-default-rtdb.firebaseio.com",
+                projectId: "allentumbagahan-9610f",
+                storageBucket: "allentumbagahan-9610f.appspot.com",
+                messagingSenderId: "702145349166",
+                appId: "1:702145349166:web:5ca10176bf764ad6cd41bf",
+                measurementId: "G-NRS398L5KQ"
+              };
+              const checkfirebase = new Promise((res, err) => {
+                  if('firebase' in window){
+                      res(true)
+                  }
+              })
+              const inzApp = new Promise ((res, err) => {
+                  if('firestore' in firebase){
+                      res(true)
+                  }
+              })
+              if (ConfigOneTime == 0){
+                checkfirebase.then(()=>{
+                    console.log("initializing firebase")
+                    // Initialize Firebase
+                    firebase.initializeApp(firebaseConfig)
+                    ConfigOneTime++
+                })
+            }
+            inzApp.then(()=>{
+                // Initialize Cloud Firestore and get a reference to the service
+                console.log("initializing Cloud Firestore")
+                db = firebase.firestore();
+            })
+              
+            
+        }
+        function snapData(id){
+            RegisteredLands = { list : [] }
+            var docRef = db.collection("Accounts").doc("AccountList")
+            docRef.get().then((doc) => {
+                if (doc.exists) {
+                    // check if land already registered
+                    RegisteredLands = doc.data()
+                    if(RegisteredLands.list.includes(id)){
+                        // already registered
+                        landFirebaseLoc = db.collection("Accounts").doc(`${id}`)
+                        landFirebaseLoc.onSnapshot((doc) => {
+                            if(doc.exists){
+                                // load land data
+                                loadData = doc.data()
+                                console.log(loadData)
+                            }
+                        })
+                    }
+                    else{
+                        // land registration
+                        RegisteredLands = doc.data()
+                        RegisteredLands.list.push(id)
+                        db.collection("Accounts").doc('AccountList')
+                        .set({
+                
+                            list: RegisteredLands.list
+                
+                        })
+                        .then(() => {
+                            console.log('registration finished')
+                        }) .catch((error) => {
+                            console.log("Error registration document:", error);
+                        });
+                    }
+                    
+                }
+            })
+    
+    
+        }
+        function save2DB(list){
+            const { 
+                date,
+                landId, 
+                kitchen, 
+                grublist, 
+                balance, 
+                plotSRC, 
+                plotsPlanted,
+                trees,
+                AutoFarmVersion } = list
+                
+            if(landFirebaseLoc != ""){
+                landFirebaseLoc.set({
+                    date: date,
+                    SFlbalance: balance,
+                    kitchen: kitchen,
+                    trees: trees,
+                    grublist: grublist,
+                    plots: plotSRC,
+                    plotsPlanted: plotsPlanted,
+                    AutoFarmVersion: AutoFarmVersion
+                })
+            }
+        }
+    </script>
+</body>
+</html>

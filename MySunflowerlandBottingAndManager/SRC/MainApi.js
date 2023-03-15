@@ -40,7 +40,7 @@ function loadToDb(id) {
 }
 
 function loadAllLands() {
-    docAccountList.get().then((doc) => {
+    docAccountList.onSnapshot((doc) => {
         if (doc.exists) {
             RegisteredLands = doc.data()
             console.log("Document data:", doc.data());
@@ -48,9 +48,7 @@ function loadAllLands() {
             // doc.data() will be undefined in this case
             console.log("No such document!");
         }
-    }).catch((error) => {
-        console.log("Error getting document:", error);
-    });
+    })
 }
 
 async function GetSFLPrice(){

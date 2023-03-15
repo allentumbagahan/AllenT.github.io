@@ -5,6 +5,9 @@ var cards = []
 var TotalBalance = 0
 LastGenListCount = 0
 UpdatedElement = 0
+
+
+
 class card {
     constructor(id){
         this.date = this.date
@@ -37,7 +40,7 @@ class card {
     
     GetDataToDb() {
             var docRef = db.collection("Accounts").doc(this.id);
-            docRef.get().then((doc) => {
+            docRef.onSnapshot((doc) => {
                 if (doc.exists) {
                     this.data = doc.data()
                     this.UpdateProperty()
@@ -45,9 +48,7 @@ class card {
                     // doc.data() will be undefined in this case
                     console.log("No such document!");
                 }
-            }).catch((error) => {
-                console.log("Error getting document:", error);
-            }); 
+            })
     }
     CreateCardView(){
         console.log(this.id)
@@ -162,7 +163,23 @@ class card {
     }
     UpdateView(){
         for(let x =0; x < this.grublist.grubElem.length; x++){
-            this.grublist.grubElem[x].setAttribute("src", `${this.grublist.grubImg[x]}`)
+            console.log(this.grublist.grubImg[x])
+            let a = ItemnameToImageData(this.grublist.grubImg[x])
+            console.log(a)
+            let ImageD = new Promise (async (res) => {
+                try {      
+                    if (a != undefined || a != null){
+                        res()
+                    }
+                }
+                catch {
+
+                }
+            })
+            ImageD.then(() => {
+                this.grublist.grubElem[x].setAttribute("src", `${a}`)
+            })
+
         }
     }
 }
