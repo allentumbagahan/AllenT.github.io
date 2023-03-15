@@ -83,7 +83,7 @@ function addJavascript(jsname,pos) {
             db = firebase.firestore();
             //start the script if the firebase is ready
             if (!isSetupDone){
-                setTimeout(setup, 7000)
+                setup()
             }
         })
 
@@ -974,5 +974,23 @@ UpdateData.then((val) => {
 }
 Promise.all([jsQueryCode, jsCode1, jsCode2]).then(()=>{
     console.log("configuring firebase")
-    ConfigDB()
+    try{
+    
+        findLvl = new Promise((res) =>{
+            f = setInterval(() => {
+                lvl = $("div[class='col-start-1 row-start-1 flex justify-center text-white text-xxs z-20']")
+                if(lvl.length != 0){
+                    clearInterval(f)
+                    res()
+                }
+            }, 1000)
+        }).then(()=>{
+            console.log("found bumpkin")
+            ConfigDB()
+        })
+    }
+    catch{
+    
+        
+    }
 })
