@@ -942,7 +942,6 @@ const UpdateData = new Promise((res) => {
     UpdateReadyPlots() 
     GenerateFoodsRecipe()
     grubshopValue()
-    createBottingButton()
     setInterval(async()=>{
         plotsCooldown = []
         await UpdateInGameData(LandId)
@@ -952,6 +951,7 @@ const UpdateData = new Promise((res) => {
             }
         });
         snapData(LandId)
+        createBottingButton()
         d = new Date()
         sec = d.getTime()
         const DATE =  new Date(sec).toLocaleString("en-GB")
