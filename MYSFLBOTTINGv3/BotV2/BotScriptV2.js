@@ -938,7 +938,6 @@ const UpdateData = new Promise((res) => {
 
 
     // after fetching data
-    console.log(data)
     FindPlots()
     UpdateReadyPlots() 
     GenerateFoodsRecipe()
