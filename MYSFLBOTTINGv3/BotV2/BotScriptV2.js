@@ -304,24 +304,25 @@ async function UpdateInGameData(id){
         })
         return await url.json()
     }
-
-     getData = await GetSFLData(currentURl.replace('https://sunflower-land.com/play/#/land/', '')).then(function(val){
-        data = val.state
-        inventory = data.inventory
-        crops = {
-            Sunflower : data.inventory.Sunflower,
-            Potato : data.inventory.Potato,
-            Pumpkin : data.inventory.Pumpkin,
-            Carrots : data.inventory.Carrots,
-            Cabbage : data.inventory.Cabbage,
-            Beetroot : data.inventory.Beetroot,
-            Cauliflower : data.inventory.Cauliflower,
-            Parsnip : data.inventory.Parsnip, 
-            Radish : data.inventory.Radish,
-            Wheat : data.inventory.Wheat,
-            Kale : data.inventory.Kale
-        }
-    })
+    setTimeout(async()=>{
+        getData = await GetSFLData(currentURl.replace('https://sunflower-land.com/play/#/land/', '')).then(function(val){
+           data = val.state
+           inventory = data.inventory
+           crops = {
+               Sunflower : data.inventory.Sunflower,
+               Potato : data.inventory.Potato,
+               Pumpkin : data.inventory.Pumpkin,
+               Carrots : data.inventory.Carrots,
+               Cabbage : data.inventory.Cabbage,
+               Beetroot : data.inventory.Beetroot,
+               Cauliflower : data.inventory.Cauliflower,
+               Parsnip : data.inventory.Parsnip, 
+               Radish : data.inventory.Radish,
+               Wheat : data.inventory.Wheat,
+               Kale : data.inventory.Kale
+           }
+       })
+    }, 10000)
     console.log(data)
     return true
 }
@@ -907,15 +908,15 @@ function grubshopValue(){
 // fetch data 
 
 // wait then proceed
+
 a = await UpdateInGameData(LandId)
+
 
 const UpdateData = new Promise((res) => {
         let tt = setInterval(()=>{
             if (a){
                 clearInterval(tt)
                 res()
-            }else{
-                a = UpdateInGameData(LandId)
             }
         }, 5000)
         // if data is json type then
