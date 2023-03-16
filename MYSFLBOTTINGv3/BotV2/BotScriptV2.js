@@ -959,7 +959,7 @@ const UpdateData = new Promise((res) => {
             date: DATE,
             landId: LandId, 
             kitchen: kitchenData(), 
-            grublist: grubListItemName, 
+            grublist: grubList, 
             balance: data.balance, 
             plotsPlanted: plotsCooldown,
             trees: "Trees Under Construction",

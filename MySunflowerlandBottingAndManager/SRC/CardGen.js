@@ -209,6 +209,7 @@ async function GenCards(){
     clear(mainBox)
     AllLands = RegisteredLands.list
     for (x = 0; x < AllLands.length; x++){
+        console.log(AllLands[x])
         cards.push(new card(AllLands[x]))
         console.log(AllLands[x])
         cards[x].CreateCardView()
