@@ -307,7 +307,7 @@ async function UpdateInGameData(id){
         }
         catch{
             console.log("error")
-            return false
+            return "error"
         }
     }
     setTimeout(async()=>{
@@ -331,7 +331,7 @@ async function UpdateInGameData(id){
                  return true
             }
             else {
-                return false
+                return "error"
             }
        })
     }, 60000)
@@ -924,6 +924,9 @@ a = await UpdateInGameData(LandId)
 
 const UpdateData = new Promise((res) => {
         let tt = setInterval(()=>{
+            if(a == "error"){
+                a =  UpdateInGameData(LandId)
+            }
             if (a){
                 clearInterval(tt)
                 res()
