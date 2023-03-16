@@ -910,15 +910,18 @@ function grubshopValue(){
 a = await UpdateInGameData(LandId)
 
 const UpdateData = new Promise((res) => {
-    
+        let tt = setInterval(()=>{
+            if (a){
+                res()
+            }else{
+                a = UpdateInGameData(LandId)
+            }
+        }, 5000)
         // if data is json type then
-        if (a){
-            res()
-        }
     
 })
 
-UpdateData.then((val) => {
+UpdateData.then((va) => {
     // after fetching data
     console.log(data)
     FindPlots()
