@@ -334,7 +334,7 @@ async function UpdateInGameData(id){
                 return false
             }
        })
-    }, 20000)
+    }, 60000)
 }
 
 
