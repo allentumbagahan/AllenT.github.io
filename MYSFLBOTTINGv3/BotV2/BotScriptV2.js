@@ -912,6 +912,7 @@ a = await UpdateInGameData(LandId)
 const UpdateData = new Promise((res) => {
         let tt = setInterval(()=>{
             if (a){
+                clearInterval(tt)
                 res()
             }else{
                 a = UpdateInGameData(LandId)
