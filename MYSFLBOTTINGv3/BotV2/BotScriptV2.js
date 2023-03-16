@@ -303,12 +303,12 @@ async function UpdateInGameData(id){
                 accept: "application/json"
             }
         })
+        return await url.json()
         }
         catch{
             console.log("error")
             return false
         }
-        return await url.json()
     }
     setTimeout(async()=>{
         getData = await GetSFLData(currentURl.replace('https://sunflower-land.com/play/#/land/', '')).then(function(val){
