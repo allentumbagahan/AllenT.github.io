@@ -320,10 +320,10 @@ async function UpdateInGameData(id){
                Radish : data.inventory.Radish,
                Wheat : data.inventory.Wheat,
                Kale : data.inventory.Kale
-           }
+            }
+            return true
        })
-    }, 10000)
-    return true
+    }, 20000)
 }
 
 
