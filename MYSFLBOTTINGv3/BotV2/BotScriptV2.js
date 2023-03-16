@@ -323,7 +323,6 @@ async function UpdateInGameData(id){
            }
        })
     }, 10000)
-    console.log(data)
     return true
 }
 
