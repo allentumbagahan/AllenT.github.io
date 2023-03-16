@@ -295,6 +295,7 @@ for(let f=0; f < parents.length; f++){
 async function UpdateInGameData(id){
     ID = id
     async function GetSFLData(){
+        try {
         const url = await window.fetch(`https://api.sunflower-land.com/visit/${ID}`, {
             method: "GET",
             headers: {
@@ -302,26 +303,36 @@ async function UpdateInGameData(id){
                 accept: "application/json"
             }
         })
+        }
+        catch{
+            console.log("error")
+            return false
+        }
         return await url.json()
     }
     setTimeout(async()=>{
         getData = await GetSFLData(currentURl.replace('https://sunflower-land.com/play/#/land/', '')).then(function(val){
-           data = val.state
-           inventory = data.inventory
-           crops = {
-               Sunflower : data.inventory.Sunflower,
-               Potato : data.inventory.Potato,
-               Pumpkin : data.inventory.Pumpkin,
-               Carrots : data.inventory.Carrots,
-               Cabbage : data.inventory.Cabbage,
-               Beetroot : data.inventory.Beetroot,
-               Cauliflower : data.inventory.Cauliflower,
-               Parsnip : data.inventory.Parsnip, 
-               Radish : data.inventory.Radish,
-               Wheat : data.inventory.Wheat,
-               Kale : data.inventory.Kale
+            if(val){
+                data = val.state
+                inventory = data.inventory
+                crops = {
+                    Sunflower : data.inventory.Sunflower,
+                    Potato : data.inventory.Potato,
+                    Pumpkin : data.inventory.Pumpkin,
+                    Carrots : data.inventory.Carrots,
+                    Cabbage : data.inventory.Cabbage,
+                    Beetroot : data.inventory.Beetroot,
+                    Cauliflower : data.inventory.Cauliflower,
+                    Parsnip : data.inventory.Parsnip, 
+                    Radish : data.inventory.Radish,
+                    Wheat : data.inventory.Wheat,
+                    Kale : data.inventory.Kale
+                 }
+                 return true
             }
-            return true
+            else {
+                return false
+            }
        })
     }, 20000)
 }
