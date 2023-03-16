@@ -918,7 +918,7 @@ function grubshopValue(){
 // fetch data 
 
 // wait then proceed
-
+/*
 a = await UpdateInGameData(LandId)
 
 
@@ -934,19 +934,19 @@ const UpdateData = new Promise((res) => {
         }, 5000)
         // if data is json type then
     
-})
+})*/
 
-UpdateData.then((va) => {
+
     // after fetching data
     console.log(data)
     FindPlots()
-    UpdateReadyPlots()
+    UpdateReadyPlots() 
     GenerateFoodsRecipe()
     grubshopValue()
     createBottingButton()
-    setInterval(()=>{
+    setInterval(async()=>{
         plotsCooldown = []
-        UpdateInGameData(LandId)
+        await UpdateInGameData(LandId)
         plots.forEach((plot) => {
             if (plot.plantCD != false){
                 plotsCooldown.push(plot.plantCD )
@@ -990,7 +990,7 @@ UpdateData.then((va) => {
         }, 20000)
     });*/
 
-    })
+   
 
 
 
