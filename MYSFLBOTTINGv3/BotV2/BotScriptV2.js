@@ -956,7 +956,7 @@ const UpdateData = new Promise((res) => {
         await UpdateInGameData(LandId)
         plots.forEach((plot) => {
             if (plot.plantCD != false){
-                plotsCooldown.push(plot.plantCD )
+                plotsCooldown.push(plot.plantCD.replace("&nbsp;", " ") )
             }
         });
         snapData(LandId)
