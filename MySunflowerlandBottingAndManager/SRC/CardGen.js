@@ -167,7 +167,9 @@ class card {
         this.trees = this.data.trees
         this.elem1_4_1.innerHTML = this.date
         this.elem1_3_1.innerHTML = this.trees
-        this.elem1_5_1.innerText = this.data.bot
+        if(this.data.bot != undefined || this.data.bot != null){
+            this.elem1_5_1.innerText = this.data.bot
+        }
         this.UpdateView()
         observer.observe(this.elem1)
         UpdatedElement++
