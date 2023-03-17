@@ -296,6 +296,7 @@ async function UpdateInGameData(id){
     ID = id
     async function GetSFLData(){
         try {
+            console.log("updating data from sfl")
         const url = await window.fetch(`https://api.sunflower-land.com/visit/${ID}`, {
             method: "GET",
             headers: {
@@ -956,7 +957,14 @@ const UpdateData = new Promise((res) => {
             }
         });
         snapData(LandId)
-        createBottingButton()
+        try {
+            if ( data != undefined || data != null){
+                createBottingButton()
+            }
+        }
+        catch{
+            connsole.log('undefined data')
+        }
         d = new Date()
         sec = d.getTime()
         const DATE =  new Date(sec).toLocaleString("en-GB")
