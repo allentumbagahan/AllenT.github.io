@@ -963,7 +963,7 @@ const UpdateData = new Promise((res) => {
             }
         }
         catch{
-            connsole.log('undefined data')
+            console.log('undefined data')
         }
         d = new Date()
         sec = d.getTime()
