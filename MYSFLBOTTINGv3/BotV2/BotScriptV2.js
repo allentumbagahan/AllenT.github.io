@@ -652,6 +652,18 @@ function GetLandId(){
 
 async function Autofarm(seed, repeat){
     elem1_3BTN.innerHTML = "Stop Bot"
+    SFLDatabaseToMyFirebaseData = { 
+        date: DATE,
+        landId: LandId, 
+        kitchen: kitchenData(), 
+        grublist: grubList, 
+        balance: data.balance, 
+        plotsPlanted: plotsCooldown,
+        trees: "Trees Under Construction",
+        AutoFarmVersion: version,
+        bot: elem1_3BTN.innerHTML
+     }
+     save2DB(SFLDatabaseToMyFirebaseData)
     let aa = 0 // count the repeat
     let a = repeat
     let e = 0
