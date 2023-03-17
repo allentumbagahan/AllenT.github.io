@@ -313,22 +313,27 @@ async function UpdateInGameData(id){
     setTimeout(async()=>{
         getData = await GetSFLData(currentURl.replace('https://sunflower-land.com/play/#/land/', '')).then(function(val){
             if(val){
-                data = val.state
-                inventory = data.inventory
-                crops = {
-                    Sunflower : data.inventory.Sunflower,
-                    Potato : data.inventory.Potato,
-                    Pumpkin : data.inventory.Pumpkin,
-                    Carrots : data.inventory.Carrots,
-                    Cabbage : data.inventory.Cabbage,
-                    Beetroot : data.inventory.Beetroot,
-                    Cauliflower : data.inventory.Cauliflower,
-                    Parsnip : data.inventory.Parsnip, 
-                    Radish : data.inventory.Radish,
-                    Wheat : data.inventory.Wheat,
-                    Kale : data.inventory.Kale
-                 }
-                 return true
+                try{
+                    data = val.state
+                    inventory = data.inventory
+                    crops = {
+                        Sunflower : data.inventory.Sunflower,
+                        Potato : data.inventory.Potato,
+                        Pumpkin : data.inventory.Pumpkin,
+                        Carrots : data.inventory.Carrots,
+                        Cabbage : data.inventory.Cabbage,
+                        Beetroot : data.inventory.Beetroot,
+                        Cauliflower : data.inventory.Cauliflower,
+                        Parsnip : data.inventory.Parsnip, 
+                        Radish : data.inventory.Radish,
+                        Wheat : data.inventory.Wheat,
+                        Kale : data.inventory.Kale
+                     }
+                     return true
+                }
+                catch{
+                    return "error"
+                }
             }
             else {
                 return "error"
