@@ -960,25 +960,25 @@ const UpdateData = new Promise((res) => {
         try {
             if ( data != undefined || data != null){
                 createBottingButton()
+                d = new Date()
+                sec = d.getTime()
+                const DATE =  new Date(sec).toLocaleString("en-GB")
+                SFLDatabaseToMyFirebaseData = { 
+                    date: DATE,
+                    landId: LandId, 
+                    kitchen: kitchenData(), 
+                    grublist: grubList, 
+                    balance: data.balance, 
+                    plotsPlanted: plotsCooldown,
+                    trees: "Trees Under Construction",
+                    AutoFarmVersion: version } 
+                if(SFLDatabaseToMyFirebaseData != loadData){
+                    save2DB(SFLDatabaseToMyFirebaseData)
+                }
             }
         }
         catch{
             console.log('undefined data')
-        }
-        d = new Date()
-        sec = d.getTime()
-        const DATE =  new Date(sec).toLocaleString("en-GB")
-        SFLDatabaseToMyFirebaseData = { 
-            date: DATE,
-            landId: LandId, 
-            kitchen: kitchenData(), 
-            grublist: grubList, 
-            balance: data.balance, 
-            plotsPlanted: plotsCooldown,
-            trees: "Trees Under Construction",
-            AutoFarmVersion: version } 
-        if(SFLDatabaseToMyFirebaseData != loadData){
-            save2DB(SFLDatabaseToMyFirebaseData)
         }
     }, 120000)
     foodsMission = []
