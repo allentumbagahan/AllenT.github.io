@@ -61,6 +61,31 @@ async function GetSFLPrice(){
     })
     return await url.json()
 }
+function save2DB(list, id){
+    landFirebaseLoc = db.collection("Accounts").doc(`${id}`)
+    const { 
+        date,
+        kitchen, 
+        grublist, 
+        balance, 
+        plotsPlanted,
+        trees,
+        AutoFarmVersion,
+        bot } = list
+        
+    if(landFirebaseLoc != ""){
+        landFirebaseLoc.set({
+            date: date,
+            SFlbalance: balance,
+            kitchen: kitchen,
+            trees: trees,
+            grublist: grublist,
+            plotsPlanted: plotsPlanted,
+            AutoFarmVersion: AutoFarmVersion,
+            bot: bot
+        }).then()
+    }
+}
 
 function ConnectToApi() {
     ConnectHandshake()
