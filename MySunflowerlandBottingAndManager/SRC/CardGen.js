@@ -10,6 +10,7 @@ UpdatedElement = 0
 
 class card {
     constructor(id){
+        this.countClick = 0
         this.date = this.date
         this.trees = this.trees
         this.id = id
@@ -181,7 +182,7 @@ class card {
             })
 
         }
-    }
+    }   
 }
 
 function Calculate(){
