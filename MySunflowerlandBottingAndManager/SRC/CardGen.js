@@ -119,6 +119,15 @@ class card {
         this.elem1_4_1.setAttribute('id', 'date')
         this.elem1_4.appendChild(this.elem1_4_1)
 
+        this.elem1_5 = document.createElement('button')
+        this.elem1_5.setAttribute('id', 'bot')
+        this.elem1_5.setAttribute("style", "display: block; margin-left: auto; margin-right: auto; border: #5d3e02 solid 2px; border-radius: 20px; --tw-bg-opacity: 1; background-color: rgb(185 111 80 / var(--tw-bg-opacity));")
+        this.elem1.appendChild(this.elem1_5)
+        this.elem1_5_1 = document.createElement('h3')
+        this.elem1_5_1.innerText = "START"
+        this.elem1_5.appendChild(this.elem1_5_1)
+
+
         for (let x =0; x < 12; x++){
             let Elem1 = document.createElement('div')
             Elem1.setAttribute("class", "relative")
@@ -158,6 +167,7 @@ class card {
         this.trees = this.data.trees
         this.elem1_4_1.innerHTML = this.date
         this.elem1_3_1.innerHTML = this.trees
+        this.elem1_5_1.innerText = this.data.bot
         this.UpdateView()
         observer.observe(this.elem1)
         UpdatedElement++
