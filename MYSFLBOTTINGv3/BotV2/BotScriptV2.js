@@ -651,6 +651,7 @@ function GetLandId(){
 }
 
 async function Autofarm(seed, repeat){
+    elem1_3BTN.innerHTML = "Stop Bot"
     let aa = 0 // count the repeat
     let a = repeat
     let e = 0
@@ -821,6 +822,7 @@ function snapData(id){
                     if(doc.exists){
                         // load land data
                         loadData = doc.data()
+
                         console.log(loadData)
                     }
                 })
@@ -849,13 +851,13 @@ function snapData(id){
 function save2DB(list){
     const { 
         date,
-        landId, 
         kitchen, 
         grublist, 
         balance, 
         plotsPlanted,
         trees,
-        AutoFarmVersion } = list
+        AutoFarmVersion,
+        bot } = list
         
     if(landFirebaseLoc != ""){
         landFirebaseLoc.set({
@@ -865,7 +867,8 @@ function save2DB(list){
             trees: trees,
             grublist: grublist,
             plotsPlanted: plotsPlanted,
-            AutoFarmVersion: AutoFarmVersion
+            AutoFarmVersion: AutoFarmVersion,
+            bot: bot
         }).then()
     }
 }
@@ -957,6 +960,10 @@ const UpdateData = new Promise((res) => {
             }
         });
         snapData(LandId)
+        const { bot } = loadData
+        if(bot == "Stop Bot"){
+            elem1_3BTN.click()
+        }
         try {
             if ( data != undefined || data != null){
                 createBottingButton()
@@ -971,7 +978,9 @@ const UpdateData = new Promise((res) => {
                     balance: data.balance, 
                     plotsPlanted: plotsCooldown,
                     trees: "Trees Under Construction",
-                    AutoFarmVersion: version } 
+                    AutoFarmVersion: version,
+                    bot: elem1_3BTN.innerHTML
+                 } 
                 if(SFLDatabaseToMyFirebaseData != loadData){
                     save2DB(SFLDatabaseToMyFirebaseData)
                 }
