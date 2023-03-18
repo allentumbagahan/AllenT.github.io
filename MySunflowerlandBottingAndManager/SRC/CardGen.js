@@ -213,7 +213,7 @@ class card {
         }
     }
     clickStartBot(){
-        switch(elem1_5_1){
+        switch(this.elem1_5_1.innerText){
             case "Start Bot":
                 this.bot = "Stop Bot"
                 BotSaveToDb(this.id, "Stop Bot")
