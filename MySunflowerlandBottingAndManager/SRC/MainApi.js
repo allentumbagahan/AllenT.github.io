@@ -92,6 +92,7 @@ function BotSaveToDb(id, buttonText){
     BotBtn.set({
         bot : buttonText
     })
+    console.log("saved " + buttonText + "  " + id)
 }
 
 function ConnectToApi() {
