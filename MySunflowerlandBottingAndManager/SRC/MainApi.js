@@ -87,6 +87,13 @@ function save2DB(list, id){
     }
 }
 
+function BotSaveToDb(id, buttonText){
+    BotBtn = db.collection("BotButton").doc(`${id}`)
+    BotBtn.set({
+        bot : buttonText
+    })
+}
+
 function ConnectToApi() {
     ConnectHandshake()
 }

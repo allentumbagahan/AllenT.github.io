@@ -10,6 +10,7 @@ UpdatedElement = 0
 
 class card {
     constructor(id){
+        this.bot = this.bot
         this.countClick = 0
         this.date = this.date
         this.trees = this.trees
@@ -41,10 +42,20 @@ class card {
     }
     
     GetDataToDb() {
-            var docRef = db.collection("Accounts").doc(this.id);
+            var docRef = db.collection("Accounts").doc(this.id)
+            var btndocRef = db.collection("BotButton").doc(this.id)
             docRef.onSnapshot((doc) => {
                 if (doc.exists) {
                     this.data = doc.data()
+                    this.UpdateProperty()
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            })
+            btndocRef.onSnapshot((doc) => {
+                if (doc.exists) {
+                    this.bot = doc.data()
                     this.UpdateProperty()
                 } else {
                     // doc.data() will be undefined in this case
@@ -169,8 +180,8 @@ class card {
         this.trees = this.data.trees
         this.elem1_4_1.innerHTML = this.date
         this.elem1_3_1.innerHTML = this.trees
-        if(this.data.bot != undefined || this.data.bot != null){
-            this.elem1_5_1.innerText = this.data.bot
+        if(this.bot != undefined || this.bot != null){
+            this.elem1_5_1.innerText = this.bot
         }
         this.UpdateView()
         observer.observe(this.elem1)
@@ -200,12 +211,12 @@ class card {
     clickStartBot(){
         switch(elem1_5_1){
             case "Start Bot":
-                this.data.bot = "Stop Bot"
-                save2DB(this.data, this.id)
+                this.bot = "Stop Bot"
+                BotSaveToDb(this.id, "Stop Bot")
                 break;
             case "Stop Bot":
-                this.data.bot = "Start Bot"
-                save2DB(this.data, this.id)
+                this.bot = "Start Bot"
+                BotSaveToDb(this.id, "Start Bot")
                 break;
         }
     }
