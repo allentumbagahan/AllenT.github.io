@@ -398,6 +398,7 @@ function clickBot(){
     switch(elem1_3BTN.innerHTML){
         case "Stop Bot":
             elem1_3BTN.innerHTML = "Start Bot"
+            clearInterval(timer)
             BotSaveToDb(LandId, elem1_3BTN.innerHTML)
             break
         case "Start Bot":
@@ -671,7 +672,7 @@ async function Autofarm(seed, repeat){
     let e = 0
     setTimeout(pickSeed(seed, true), 10000) 
     IsPicking = false
-    const timer = setInterval(()=> {   
+    var timer = setInterval(()=> {   
         if(a == undefined || a == 0){
             a = 1000000
         }
@@ -848,8 +849,7 @@ function snapData(id){
                         const { bot } = loadBtn
                         elem1_3BTN.innerText = bot
                         if ((data != undefined || data != null) && bot == "Stop Bot"){
-                            elem1_3BTN.click()
-                            console.log(loadBtn)
+                            Autofarm(cropListName[seedAuto]) // change seed type
                         }
                     }
                 })
