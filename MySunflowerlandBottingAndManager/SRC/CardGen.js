@@ -61,7 +61,7 @@ class card {
                     this.UpdateProperty()
                 } else {
                     // doc.data() will be undefined in this case
-                    console.log("No such document!");
+                    console.log(this.id + "No such document!");
                 }
             })
     }
