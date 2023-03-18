@@ -661,20 +661,6 @@ async function Autofarm(seed, repeat){
             BotSaveToDb(LandId, elem1_3BTN.innerHTML)
             break
     }
-
-
-    SFLDatabaseToMyFirebaseData = { 
-        date: DATE,
-        landId: LandId, 
-        kitchen: kitchenData(), 
-        grublist: grubList, 
-        balance: data.balance, 
-        plotsPlanted: plotsCooldown,
-        trees: "Trees Under Construction",
-        AutoFarmVersion: version,
-        bot: elem1_3BTN.innerHTML
-     }
-     save2DB(SFLDatabaseToMyFirebaseData)
     let aa = 0 // count the repeat
     let a = repeat
     let e = 0
@@ -887,8 +873,7 @@ function save2DB(list){
         balance, 
         plotsPlanted,
         trees,
-        AutoFarmVersion,
-        bot } = list
+        AutoFarmVersion } = list
         
     if(landFirebaseLoc != ""){
         landFirebaseLoc.set({
@@ -898,8 +883,7 @@ function save2DB(list){
             trees: trees,
             grublist: grublist,
             plotsPlanted: plotsPlanted,
-            AutoFarmVersion: AutoFarmVersion,
-            bot: bot
+            AutoFarmVersion: AutoFarmVersion
         }).then()
     }
 }
