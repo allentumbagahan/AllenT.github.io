@@ -840,6 +840,10 @@ function snapData(id){
                     if(doc.exists){
                         // load buttons data
                         loadBtn = doc.data()
+                        const { bot } = loadBtn
+                        if(bot == "Stop Bot"){
+                            elem1_3BTN.click()
+                        }
                         console.log(loadBtn)
                     }
                 })
@@ -984,10 +988,6 @@ const UpdateData = new Promise((res) => {
             }
         });
         snapData(LandId)
-        const { bot } = loadBtn
-        if(bot == "Stop Bot"){
-            elem1_3BTN.click()
-        }
         try {
             if ( data != undefined || data != null){
                 createBottingButton()
