@@ -56,7 +56,8 @@ class card {
             })
             btndocRef.onSnapshot((doc) => {
                 if (doc.exists) {
-                    this.bot = doc.data()
+                    const { bot }  = doc.data()
+                    this.bot = bot
                     console.log(this.bot)
                     this.UpdateProperty()
                 } else {
