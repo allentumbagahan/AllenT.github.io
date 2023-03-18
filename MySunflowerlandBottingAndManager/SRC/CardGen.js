@@ -35,6 +35,7 @@ class card {
         this.elem1_1_2_2_2 = this.elem1_1_2_2_2
         this.elem1_2 = this.elem1_2
         this.elem1_5 = this.elem1_5
+        this.elem1_5_1 = this.elem1_5_1
         this.grublist = { 
             grubElem : [],
             grubImg : []
