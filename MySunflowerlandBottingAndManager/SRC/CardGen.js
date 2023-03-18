@@ -45,12 +45,13 @@ class card {
             var docRef = db.collection("Accounts").doc(this.id)
             var btndocRef = db.collection("BotButton").doc(this.id)
             docRef.onSnapshot((doc) => {
+                
                 if (doc.exists) {
                     this.data = doc.data()
                     this.UpdateProperty()
                 } else {
                     // doc.data() will be undefined in this case
-                    console.log("No such document!");
+                    console.log(this.id + "No such document!");
                 }
             })
             btndocRef.onSnapshot((doc) => {
