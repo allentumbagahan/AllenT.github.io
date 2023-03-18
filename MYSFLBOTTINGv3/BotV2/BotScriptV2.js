@@ -841,10 +841,10 @@ function snapData(id){
                         // load buttons data
                         loadBtn = doc.data()
                         const { bot } = loadBtn
-                        if(bot == "Stop Bot"){
+                        if ((data != undefined || data != null) && bot == "Stop Bot"){
                             elem1_3BTN.click()
+                            console.log(loadBtn)
                         }
-                        console.log(loadBtn)
                     }
                 })
             }
