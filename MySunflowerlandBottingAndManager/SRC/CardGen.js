@@ -136,7 +136,7 @@ class card {
 
         this.elem1_5 = document.createElement('button')
         this.elem1_5.setAttribute('id', 'bot')
-        this.elem1_5.setAttribute('onclick', 'clickStartBot()')
+        this.elem1_5.setAttribute('onclick', `${this.clickStartBot()}`)
         this.elem1_5.setAttribute("style", "display: block; margin-left: auto; margin-right: auto; border: #5d3e02 solid 2px; border-radius: 20px; --tw-bg-opacity: 1; background-color: rgb(185 111 80 / var(--tw-bg-opacity));")
         this.elem1.appendChild(this.elem1_5)
         this.elem1_5_1 = document.createElement('h3')
