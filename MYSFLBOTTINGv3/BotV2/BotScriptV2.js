@@ -651,7 +651,18 @@ function GetLandId(){
 }
 
 async function Autofarm(seed, repeat){
-    elem1_3BTN.innerHTML = "Stop Bot"
+    switch(elem1_3BTN.innerHTML){
+        case "Stop Bot":
+            elem1_3BTN.innerHTML = "Start Bot"
+            BotSaveToDb(LandId, elem1_3BTN.innerHTML)
+            break
+        case "Start Bot":
+            elem1_3BTN.innerHTML = "Stop Bot"
+            BotSaveToDb(LandId, elem1_3BTN.innerHTML)
+            break
+    }
+
+
     SFLDatabaseToMyFirebaseData = { 
         date: DATE,
         landId: LandId, 
@@ -830,12 +841,20 @@ function snapData(id){
             if(RegisteredLands.list.includes(id)){
                 // already registered
                 landFirebaseLoc = db.collection("Accounts").doc(`${id}`)
+                BotBtn = db.collection("BotButton").doc(`${id}`)
                 landFirebaseLoc.onSnapshot((doc) => {
                     if(doc.exists){
                         // load land data
                         loadData = doc.data()
 
                         console.log(loadData)
+                    }
+                })
+                BotBtn.onSnapshot((doc) => {
+                    if(doc.exists){
+                        // load buttons data
+                        loadBtn = doc.data()
+                        console.log(loadBtn)
                     }
                 })
             }
@@ -884,6 +903,15 @@ function save2DB(list){
         }).then()
     }
 }
+
+function BotSaveToDb(id, buttonText){
+    BotBtn = db.collection("BotButton").doc(`${id}`)
+    BotBtn.set({
+        bot : buttonText
+    })
+}
+
+
 /* ---- */
 
 setup = async () => {
