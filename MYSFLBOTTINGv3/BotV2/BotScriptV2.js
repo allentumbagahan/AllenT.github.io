@@ -384,7 +384,7 @@ function createBottingButton(){
 
     elem1_3BTN = document.createElement('button')
     elem1_3BTN.innerHTML = "Start Bot"
-    elem1_3BTN.setAttribute("onclick", `Autofarm("${cropListName[seedAuto]}")`)
+    elem1_3BTN.setAttribute("onclick", `clickBot()`)
     elementForButtons.appendChild(elem1_3BTN)
     
     elem5TEXT = document.createElement('h3')
@@ -394,6 +394,20 @@ function createBottingButton(){
 
     
 }
+function clickBot(){
+    switch(elem1_3BTN.innerHTML){
+        case "Stop Bot":
+            elem1_3BTN.innerHTML = "Start Bot"
+            BotSaveToDb(LandId, elem1_3BTN.innerHTML)
+            break
+        case "Start Bot":
+            elem1_3BTN.innerHTML = "Stop Bot"
+            Autofarm(cropListName[seedAuto])
+            BotSaveToDb(LandId, elem1_3BTN.innerHTML)
+            break
+    }
+}
+
 function changeSeedAuto(){
     if(seedAuto == 10){
         seedAuto = 0
@@ -651,16 +665,7 @@ function GetLandId(){
 }
 
 async function Autofarm(seed, repeat){
-    switch(elem1_3BTN.innerHTML){
-        case "Stop Bot":
-            elem1_3BTN.innerHTML = "Start Bot"
-            BotSaveToDb(LandId, elem1_3BTN.innerHTML)
-            break
-        case "Start Bot":
-            elem1_3BTN.innerHTML = "Stop Bot"
-            BotSaveToDb(LandId, elem1_3BTN.innerHTML)
-            break
-    }
+
     let aa = 0 // count the repeat
     let a = repeat
     let e = 0
@@ -841,6 +846,7 @@ function snapData(id){
                         // load buttons data
                         loadBtn = doc.data()
                         const { bot } = loadBtn
+                        elem1_3BTN.innerText = bot
                         if ((data != undefined || data != null) && bot == "Stop Bot"){
                             elem1_3BTN.click()
                             console.log(loadBtn)
