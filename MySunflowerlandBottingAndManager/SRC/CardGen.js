@@ -216,6 +216,7 @@ class card {
         switch(this.bot){
             case "Start Bot":
                 this.bot = "Stop Bot"
+                console.log(this.bot)
                 BotSaveToDb(this.id, "Stop Bot")
                 break;
             case "Stop Bot":

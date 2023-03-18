@@ -997,9 +997,7 @@ const UpdateData = new Promise((res) => {
         try {
             if ( data != undefined || data != null){
                 createBottingButton()
-                d = new Date()
-                sec = d.getTime()
-                const DATE =  new Date(sec).toLocaleString("en-GB")
+                const DATE =  new Date().toISOString().split('T')[0];
                 SFLDatabaseToMyFirebaseData = { 
                     date: DATE,
                     landId: LandId, 
