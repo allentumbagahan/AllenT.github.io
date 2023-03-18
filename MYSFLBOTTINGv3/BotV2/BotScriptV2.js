@@ -984,7 +984,7 @@ const UpdateData = new Promise((res) => {
             }
         });
         snapData(LandId)
-        const { bot } = loadData
+        const { bot } = loadBtn
         if(bot == "Stop Bot"){
             elem1_3BTN.click()
         }
