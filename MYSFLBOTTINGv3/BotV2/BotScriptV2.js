@@ -397,12 +397,10 @@ function createBottingButton(){
 function clickBot(){
     switch(elem1_3BTN.innerHTML){
         case "Stop Bot":
-            elem1_3BTN.innerHTML = "Start Bot"
             clearInterval(timer)
             BotSaveToDb(LandId, elem1_3BTN.innerHTML)
             break
         case "Start Bot":
-            elem1_3BTN.innerHTML = "Stop Bot"
             Autofarm(cropListName[seedAuto])
             BotSaveToDb(LandId, elem1_3BTN.innerHTML)
             break
@@ -858,6 +856,9 @@ function snapData(id){
                         if ((data != undefined || data != null) && bot == "Stop Bot"){
                             Autofarm(cropListName[seedAuto]) // change seed type
                         }
+                    }
+                    else{
+                        BotSaveToDb(LandId, elem1_3BTN.innerHTML)
                     }
                 })
             }
