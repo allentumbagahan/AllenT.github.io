@@ -191,7 +191,7 @@ class card {
         UpdatedElement++
     }
     UpdateView(){
-        this.elem1_5.setAttribute('onclick', `clickStartBot(${this.id, this.elem1_5_1})`)
+        this.elem1_5.setAttribute('onclick', `clickStartBot(${this.elem1_1_1_1.innerHTML, this.elem1_5_1.innerText})`)
         for(let x =0; x < this.grublist.grubElem.length; x++){
             console.log(this.grublist.grubImg[x])
             let a = ItemnameToImageData(this.grublist.grubImg[x])
