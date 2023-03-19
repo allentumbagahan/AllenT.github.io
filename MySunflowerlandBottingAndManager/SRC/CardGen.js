@@ -281,12 +281,10 @@ function clickStartBot(id, botElem){
     console.log(botElem)
     switch(botElem){
         case "Start Bot":
-            botElem = "Stop Bot"
             BotSaveToDb(id, "Stop Bot")
             console.log(id + " saving " + "Stop Bot")
             break;
         case "Stop Bot":
-            botElem = "Start Bot"
             BotSaveToDb(id, "Start Bot")
             console.log(id + " saving " + "Start Bot")
             break;
