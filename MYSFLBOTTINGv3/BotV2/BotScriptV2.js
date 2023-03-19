@@ -846,8 +846,15 @@ function snapData(id){
                     if(doc.exists){
                         // load buttons data
                         loadBtn = doc.data()
-                        const { bot } = loadBtn
-                        elem1_3BTN.innerText = bot
+                        try {
+                            if ((elem1_3BTN.innerText != undefined || elem1_3BTN.innerText != null)){
+                                const { bot } = loadBtn
+                                elem1_3BTN.innerText = bot
+                            }
+                        }
+                        catch{
+                            console.log("no elem 1 _ 3")
+                        }
                         if ((data != undefined || data != null) && bot == "Stop Bot"){
                             Autofarm(cropListName[seedAuto]) // change seed type
                         }

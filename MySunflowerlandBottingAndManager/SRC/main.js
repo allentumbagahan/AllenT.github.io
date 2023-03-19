@@ -23,6 +23,7 @@ const observer = new IntersectionObserver(
         entry.target.children[1].style = intersecting? `visibility: 1;` : `visibility: collapse`
         entry.target.children[2].style = intersecting? `visibility: 1;` : `visibility: collapse`
         entry.target.children[3].style = intersecting? `visibility: 1;` : `visibility: collapse`
+        entry.target.children[4].style = intersecting? `visibility: 1;` : `visibility: collapse`
         /*if (intersecting){
           entry.target.setAttribute("class", "card")
           entry.target.children[1].setAttribute("id", "container2")
