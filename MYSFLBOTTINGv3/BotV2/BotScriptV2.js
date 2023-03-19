@@ -671,45 +671,50 @@ async function Autofarm(seed, repeat){
     setTimeout(pickSeed(seed, true), 10000) 
     IsPicking = false
     var timer = setInterval(()=> {   
-        if(a == undefined || a == 0){
-            a = 1000000
-        }
-        if (a == aa){
-            clearInterval(timer)
-        }
-        if(e == 0){
-            FindPlots()
-            UpdateReadyPlots()
-        }
-        handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']")[0].children
-        if (handleQuantity.length == 2){
-            handleQuantity = parseInt(handleQuantity[1].innerText)
-            console.log(handleQuantity)
-            if(handleQuantity == 0){
-                pickSeed(seed, false)
+        if( elem1_3BTN.innerHTML == "Stop Bot"){
+            if(a == undefined || a == 0){
+                a = 1000000
             }
-            else{
-                if (handleQuantity != 0 && readyPlots.length != 0 && IsPicking == false){
-                    try{
-                        aa++
-                        readyPlots[e].clickPlot()
-                        if(e == readyPlots.length - 1){
-                            e = 0
+            if (a == aa){
+                clearInterval(timer)
+            }
+            if(e == 0){
+                FindPlots()
+                UpdateReadyPlots()
+            }
+            handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']")[0].children
+            if (handleQuantity.length == 2){
+                handleQuantity = parseInt(handleQuantity[1].innerText)
+                console.log(handleQuantity)
+                if(handleQuantity == 0){
+                    pickSeed(seed, false)
+                }
+                else{
+                    if (handleQuantity != 0 && readyPlots.length != 0 && IsPicking == false){
+                        try{
+                            aa++
+                            readyPlots[e].clickPlot()
+                            if(e == readyPlots.length - 1){
+                                e = 0
+                            }
+                            else {
+                                e++
+                            }  
                         }
-                        else {
-                            e++
-                        }  
-                    }
-                    catch (err) {
-                        console.log(" click spot cant found " + err)
+                        catch (err) {
+                            console.log(" click spot cant found " + err)
+                        }
                     }
                 }
             }
+            else{
+                IsPicking = true
+                clearInterval(timer)
+                Autofarm(seed)
+            }
         }
         else{
-            IsPicking = true
             clearInterval(timer)
-            Autofarm(seed)
         }
     }, 2000)
 }
