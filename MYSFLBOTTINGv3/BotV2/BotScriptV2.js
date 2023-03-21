@@ -212,6 +212,7 @@ class food{
 }
 class botClicker{
     constructor(){
+        this.name = `${Math.random(100000)}`
         this.timerInterval1 = this.timerInterval1
         this.timerInterval2 = this.timerInterval2
         this.waitPickingSeed = this.waitPickingSeed
@@ -227,21 +228,20 @@ class botClicker{
         this.keyIn3 = this.keyIn3
     }
     async Autofarm(seed){
+        this.pickedSeed = false
         var closebtn;
         let aa = 0 // count the repeat
         let e = 0
         await this.pickSeed(seed, true)
-        console.log("picking seed done")
         this.timerInterval1 = setInterval(() => {
+            this.farmingRunning = true
             if(this.pickedSeed){
-                if(!this.farmingRunning){
+                console.log("picking seed done")
                     // set keys
                     this.keyIn1 = true
                     this.keyIn2 = true
                     this.keyIn3 = true
-                    this.farmingRunning = true
                     console.log("auto famring")
-                    this.pickedSeed = false
                     try{  
                             if( bot == "Stop Bot"){
                                 if(e == 0){
@@ -265,7 +265,7 @@ class botClicker{
                                     //test
                                     console.log("test code")
 
-                                    this.findcloseBtn = new Promise((res)=>{
+                                    this.findcloseBtn = new Promise((res, reject)=>{
                                         this.t2 = setInterval(()=>{
                                             closebtn = $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")
                                             if(closebtn.length != 0){
@@ -276,11 +276,16 @@ class botClicker{
                                                 clearInterval(this.t2)
                                             }
                                         }, 1000)
+                                        setTimeout(() => {
+                                            reject()
+                                            clearInterval(this.t2)
+                                        }, 5000);
                                     }).then(()=>{
                                         if(this.keyIn3){
                                             this.keyIn3 = false
                                             closebtn[0].click()
                                             handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']")[0].children
+                                            console.log(handleQuantity.length + " is equal to 2")
                                             if (handleQuantity.length == 2){
                                                 handleQuantity = parseInt(handleQuantity[1].innerText)
                                                 if(handleQuantity == 0){
@@ -298,7 +303,6 @@ class botClicker{
                                                             else {
                                                                 e++
                                                             }  
-                                                            this.farmingRunning = false
                                                         }
                                                         catch (err) {
                                                             console.log(" click spot cant found " + err)
@@ -307,11 +311,16 @@ class botClicker{
                                                 }
                                             }
                                             else{
-                                                this.Autofarm(seed)
                                                 this.shutdown()
+                                                this.Autofarm(seed)
                                             }
                                         }
 
+                                    }, ()=>{
+                                        //rejected
+                                        this.shutdown()
+                                        botsClicker = []
+                                        botsClicker.push(new botClicker())
                                     })
                                 })
                             }
@@ -321,9 +330,7 @@ class botClicker{
                     }
                     catch(err){
                         console.log(err)
-                        this.shutdown()
                     } 
-                }
 
             }
         }, 1000);
@@ -362,6 +369,7 @@ class botClicker{
                                             }
                                         }, 1000)
                                     }).then(()=>{
+                                        //fullfilled
                                         closebtn[0].click()
                                         this.pickedSeed = true
                                         clearTimeout(this.botclickerTimer)
@@ -521,6 +529,7 @@ class botClicker{
             })
         }
     shutdown(){
+        this.farmingRunning = false
         clearInterval(this.timerInterval1)
     }
 }
