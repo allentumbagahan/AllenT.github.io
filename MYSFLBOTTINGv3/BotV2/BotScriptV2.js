@@ -111,6 +111,8 @@ const cropListName = [
 class plot{
     constructor(parentElem, pointer){
         this.parentElem = parentElem 
+        this.image = parentElem.children[0].children[0].src
+        this.image = (this.image == undefined || this.image == null)? parentElem.children[0].children[0].children[0].src : this.image
         this.button = pointer //this.parentElem.children[this.parentElem.children.length - 1]
         this.span = this.parentElem.getElementsByTagName('span') // find if there is plant cooldown
         this.readyP = (this.span.length == 0)? true : false
@@ -671,7 +673,7 @@ async function Autofarm(seed, repeat){
     setTimeout(pickSeed(seed, true), 10000) 
     IsPicking = false
     var timer = setInterval(()=> {   
-        if( elem1_3BTN.innerHTML == "Stop Bot"){
+        if( bot == "Stop Bot"){
             if(a == undefined || a == 0){
                 a = 1000000
             }
@@ -854,16 +856,25 @@ function snapData(id){
                                 const { bot } = loadBtn
                                 elem1_3BTN.innerText = bot
                             }
+                            if ((data != undefined || data != null) && bot == "Stop Bot"){
+                                Autofarm(cropListName[seedAuto]) // change seed type
+                            }
                         }
                         catch{
                             console.log("no elem 1 _ 3")
                         }
-                        if ((data != undefined || data != null) && bot == "Stop Bot"){
-                            Autofarm(cropListName[seedAuto]) // change seed type
-                        }
+
                     }
                     else{
-                        BotSaveToDb(LandId, elem1_3BTN.innerHTML)
+                        try {
+                            if ((elem1_3BTN.innerText != undefined || elem1_3BTN.innerText != null)){
+                                BotSaveToDb(LandId, elem1_3BTN.innerHTML)
+                            }
+                        }
+                        catch{
+                            console.log("no elem 1 _ 3")
+                        }
+                        
                     }
                 })
             }
