@@ -1,5 +1,5 @@
 // script version
-const version = 0.1009
+const version = 0.10100
 var seedAuto = 0
 isSetupDone = false
 currentURl = window.location.href
@@ -237,35 +237,48 @@ class botClicker{
                             FindPlots()
                             UpdateReadyPlots()
                         }
-                        handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']")[0].children  
-                        if (handleQuantity.length == 2){
-                            handleQuantity = parseInt(handleQuantity[1].innerText)
-                            console.log(handleQuantity)
-                            if(handleQuantity == 0){
-                                this.pickSeed(seed, false)
-                            }
-                            else{
-                                if (handleQuantity != 0 && readyPlots.length != 0){
-                                    try{
-                                        aa++
-                                        readyPlots[e].clickPlot()
-                                        if(e == readyPlots.length - 1){
-                                            e = 0
+
+                        findHandleQuantity = new Promise((res)=>{
+                            let t1 = setInterval(()=>{
+                                handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']")
+                                if(handleQuantity.length != 0){
+                                    clearInterval(t1)
+                                    res()
+                                }
+                            }, 1000)
+                        }).then(()=>{
+                            closebtn[0].click()
+                            handleQuantity = handleQuantity[0].children  
+                            if (handleQuantity.length == 2){
+                                handleQuantity = parseInt(handleQuantity[1].innerText)
+                                console.log(handleQuantity)
+                                if(handleQuantity == 0){
+                                    this.pickSeed(seed, false)
+                                }
+                                else{
+                                    if (handleQuantity != 0 && readyPlots.length != 0){
+                                        try{
+                                            aa++
+                                            readyPlots[e].clickPlot()
+                                            if(e == readyPlots.length - 1){
+                                                e = 0
+                                            }
+                                            else {
+                                                e++
+                                            }  
                                         }
-                                        else {
-                                            e++
-                                        }  
-                                    }
-                                    catch (err) {
-                                        console.log(" click spot cant found " + err)
+                                        catch (err) {
+                                            console.log(" click spot cant found " + err)
+                                        }
                                     }
                                 }
                             }
-                        }
-                        else{
-                            this.Autofarm(seed)
-                            this.shutdown()
-                        }
+                            else{
+                                this.Autofarm(seed)
+                                this.shutdown()
+                            }
+                        })
+
                     }
                     else{
                         this.shutdown()
@@ -306,7 +319,7 @@ class botClicker{
                                                 res()
                                             }
                                         }, 1000)
-                                    }),then(()=>{
+                                    }).then(()=>{
                                         closebtn[0].click()
                                         clearTimeout(this.botclickerTimer)
                                     })
@@ -335,7 +348,7 @@ class botClicker{
                                                         res()
                                                     }
                                                 }, 1000)
-                                            }),then(()=>{
+                                            }).then(()=>{
                                                 closebtn[0].click()
                                                 setTimeout(buySeeds(cropListName[cropListName.indexOf(name)], 13, false), 3000)
                                             })
