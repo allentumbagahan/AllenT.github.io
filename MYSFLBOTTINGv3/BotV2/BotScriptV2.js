@@ -243,12 +243,7 @@ class botClicker{
                             FindPlots()
                             UpdateReadyPlots()
                         }
-                        try{
-                            handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']")[0].children
-                        }
-                        catch{
-                            handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']").children
-                        }
+                        handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']")[0].children  
                         if (handleQuantity.length == 2){
                             handleQuantity = parseInt(handleQuantity[1].innerText)
                             console.log(handleQuantity)
