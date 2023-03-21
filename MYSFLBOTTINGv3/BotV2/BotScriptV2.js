@@ -221,9 +221,8 @@ class botClicker{
         let a = repeat
         let e = 0
         a = pickSeed(seed, true)
-        IsPicking = false   
         this.waitPickingSeed = new Promise((res)=>{
-            timerInterval2 = setInterval(() => {
+            this.timerInterval2 = setInterval(() => {
                 if(a){
                     console.log("hello")
                     res(true)
@@ -244,7 +243,7 @@ class botClicker{
                             UpdateReadyPlots()
                         }
                         try{
-                        handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']")[0].children
+                            handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']")[0].children
                         }
                         catch{
                             handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']").children
@@ -256,7 +255,7 @@ class botClicker{
                                 pickSeed(seed, false)
                             }
                             else{
-                                if (handleQuantity != 0 && readyPlots.length != 0 && IsPicking == false){
+                                if (handleQuantity != 0 && readyPlots.length != 0){
                                     try{
                                         aa++
                                         readyPlots[e].clickPlot()
@@ -274,9 +273,8 @@ class botClicker{
                             }
                         }
                         else{
-                            IsPicking = true
-                            this.shutdown()
                             this.Autofarm(seed)
+                            this.shutdown()
                         }
                     }
                     else{
@@ -901,6 +899,14 @@ function snapData(id){
                                         botsClicker.push(new botClicker())
                                     }
                                     botsClicker[0].Autofarm(cropListName[seedAuto])
+                                }
+                                if(bot == "Start Bot"){
+                                    if(botsClicker.length = 0){
+                                        botsClicker = []
+                                    }else{
+                                        botsClicker[0].shutdown()
+                                        botsClicker = []
+                                    }
                                 }
                             }
 
