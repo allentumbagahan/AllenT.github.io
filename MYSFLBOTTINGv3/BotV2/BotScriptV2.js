@@ -1,5 +1,5 @@
 // script version
-const version = 0.1005
+const version = 0.1006
 var seedAuto = 0
 isSetupDone = false
 currentURl = window.location.href
@@ -284,7 +284,6 @@ class botClicker{
                 stop = false
                 var bagContainer = $("div[class='flex mb-2 flex-wrap -ml-1.5']")[0]
                 console.log(bagContainer.children.length)
-                closebtn = await $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")[0]
                 for (let elem = 0; elem < bagContainer.children.length; elem++){
                     console.log("finding")
                     botclickerTimer = setTimeout(async ()=>{
@@ -297,9 +296,10 @@ class botClicker{
                                 console.log(seedname)
                                 console.log(name)
                                 if(seedname == name){
-                                   stop = true
-                                   clearTimeout(this.botclickerTimer)
-                                   closebtn.click()
+                                    stop = true
+                                    clearTimeout(this.botclickerTimer)
+                                    closebtn = await $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")[0]
+                                    closebtn.click()
                                 }
                                 else{
                                     console.log("pick another seed")
@@ -316,6 +316,7 @@ class botClicker{
                                                 console.log("picking seed " + cropListName[cropListName.indexOf(name) - 1])
                                             }
                                         }else{
+                                            closebtn = await $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")[0]
                                             closebtn.click()
                                             setTimeout(buySeeds(cropListName[cropListName.indexOf(name)], 13, false), 3000)
                                             
