@@ -1,10 +1,10 @@
 // script version
-const version = 0.10102
+const version = 0.10103
 var seedAuto = 0
 isSetupDone = false
 currentURl = window.location.href
 bot = ""
-var handleQuantity;
+var handleQuantity, findHandleQuantity, findcloseBtn;
 var botsClicker = []
 
 function addJavascript(jsname,pos) {
@@ -220,7 +220,7 @@ class botClicker{
         this.pickedSeed = false
     }
     async Autofarm(seed, repeat){
-        
+        var closebtn;
         let aa = 0 // count the repeat
         let a = repeat
         let e = 0
@@ -253,38 +253,47 @@ class botClicker{
                                     }
                                 }, 1000)
                             }).then(()=>{
-                                closebtn[0].click()
-                                handleQuantity = handleQuantity[0].children  
-                                if (handleQuantity.length == 2){
-                                    handleQuantity = parseInt(handleQuantity[1].innerText)
-                                    console.log(handleQuantity)
-                                    if(handleQuantity == 0){
-                                        this.pickSeed(seed, false)
-                                    }
-                                    else{
-                                        if (handleQuantity != 0 && readyPlots.length != 0){
-                                            try{
-                                                aa++
-                                                readyPlots[e].clickPlot()
-                                                if(e == readyPlots.length - 1){
-                                                    e = 0
+                                findcloseBtn = new Promise((res)=>{
+                                    let t1 = setInterval(()=>{
+                                        closebtn = $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")
+                                        if(closebtn.length != 0){
+                                            clearInterval(t1)
+                                            res()
+                                        }
+                                    }, 1000)
+                                }).then(()=>{
+                                    closebtn[0].click()
+                                    handleQuantity = handleQuantity[0].children  
+                                    if (handleQuantity.length == 2){
+                                        handleQuantity = parseInt(handleQuantity[1].innerText)
+                                        console.log(handleQuantity)
+                                        if(handleQuantity == 0){
+                                            this.pickSeed(seed, false)
+                                        }
+                                        else{
+                                            if (handleQuantity != 0 && readyPlots.length != 0){
+                                                try{
+                                                    aa++
+                                                    readyPlots[e].clickPlot()
+                                                    if(e == readyPlots.length - 1){
+                                                        e = 0
+                                                    }
+                                                    else {
+                                                        e++
+                                                    }  
                                                 }
-                                                else {
-                                                    e++
-                                                }  
-                                            }
-                                            catch (err) {
-                                                console.log(" click spot cant found " + err)
+                                                catch (err) {
+                                                    console.log(" click spot cant found " + err)
+                                                }
                                             }
                                         }
                                     }
-                                }
-                                else{
-                                    this.Autofarm(seed)
-                                    this.shutdown()
-                                }
+                                    else{
+                                        this.Autofarm(seed)
+                                        this.shutdown()
+                                    }
+                                })
                             })
-    
                         }
                         else{
                             this.shutdown()
