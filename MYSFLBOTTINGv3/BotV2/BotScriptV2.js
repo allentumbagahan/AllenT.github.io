@@ -1,5 +1,5 @@
 // script version
-const version = 0.1008
+const version = 0.1009
 var seedAuto = 0
 isSetupDone = false
 currentURl = window.location.href
@@ -297,9 +297,20 @@ class botClicker{
                                 console.log(name)
                                 if(seedname == name){
                                     stop = true
-                                    clearTimeout(this.botclickerTimer)
-                                    closebtn = await $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")[0]
-                                    closebtn.click()
+
+                                    findcloseBtn = new Promise((res)=>{
+                                        let t1 = setInterval(()=>{
+                                            closebtn = $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")
+                                            if(closebtn.length != 0){
+                                                clearInterval(t1)
+                                                res()
+                                            }
+                                        }, 1000)
+                                    }),then(()=>{
+                                        closebtn[0].click()
+                                        clearTimeout(this.botclickerTimer)
+                                    })
+
                                 }
                                 else{
                                     console.log("pick another seed")
@@ -316,9 +327,18 @@ class botClicker{
                                                 console.log("picking seed " + cropListName[cropListName.indexOf(name) - 1])
                                             }
                                         }else{
-                                            closebtn = await $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")[0]
-                                            closebtn.click()
-                                            setTimeout(buySeeds(cropListName[cropListName.indexOf(name)], 13, false), 3000)
+                                            findcloseBtn = new Promise((res)=>{
+                                                let t1 = setInterval(()=>{
+                                                    closebtn = $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")
+                                                    if(closebtn.length != 0){
+                                                        clearInterval(t1)
+                                                        res()
+                                                    }
+                                                }, 1000)
+                                            }),then(()=>{
+                                                closebtn[0].click()
+                                                setTimeout(buySeeds(cropListName[cropListName.indexOf(name)], 13, false), 3000)
+                                            })
                                             
                                         }
                                     }
@@ -690,8 +710,8 @@ function buySeeds(seedName, count, buyNextIfEmpty){
                             try {
                                 if(buyOneBtn === undefined || buyOneBtn === null){
                                     closebtn.click()                       
-                                    clearTimeout(clicOnShop)     
                                     stopBuying = true                         
+                                    clearTimeout(clicOnShop)     
                                 }
                                 else{
                                     if(n != 0){
@@ -699,16 +719,16 @@ function buySeeds(seedName, count, buyNextIfEmpty){
                                         n--
                                     }
                                     else{
-                                        clearTimeout(clicOnShop)     
                                         stopBuying = true    
+                                        clearTimeout(clicOnShop)     
                                     }
                                 }
                             }
                             catch{
                                 closebtn.click()                       
-                                clearTimeout(clicOnShop)     
                                 stopBuying = true                         
                                 console.log("buying seed " + cropListName[cropListName.indexOf(seedName) - 1])
+                                clearTimeout(clicOnShop)     
                             }
                         }
 
