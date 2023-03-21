@@ -1,5 +1,5 @@
 // script version
-const version = 0.1011
+const version = 0.1012
 var seedAuto = 0
 isSetupDone = false
 currentURl = window.location.href
@@ -529,7 +529,7 @@ class botClicker{
             })
         }
     shutdown(){
-        console.log("bot "this.name + " : shutdown")
+        console.log("bot " + this.name + " : shutdown")
         this.farmingRunning = false
         clearInterval(this.timerInterval1)
     }
