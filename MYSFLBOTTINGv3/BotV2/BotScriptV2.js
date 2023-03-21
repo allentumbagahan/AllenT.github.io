@@ -216,7 +216,6 @@ class botClicker{
         this.timerInterval2 = this.timerInterval2
         this.waitPickingSeed = this.waitPickingSeed
         this.botclickerTimer = this.botclickerTimer
-        this.timer1 = this.timer1
         this.pickedSeed = false
         this.findHandleQuantity = this.findHandleQuantity
         this.findcloseBtn = this.findcloseBtn
@@ -227,15 +226,13 @@ class botClicker{
         this.keyIn2 = this.keyIn2
         this.keyIn3 = this.keyIn3
     }
-    async Autofarm(seed, repeat){
+    async Autofarm(seed){
         var closebtn;
         let aa = 0 // count the repeat
-        let a = repeat
         let e = 0
-        a = false
-        a = await this.pickSeed(seed, true)
+        await this.pickSeed(seed, true)
         console.log("picking seed done")
-        this.timer1 = setInterval(() => {
+        this.timerInterval1 = setInterval(() => {
             if(this.pickedSeed){
                 if(!this.farmingRunning){
                     // set keys
@@ -245,15 +242,8 @@ class botClicker{
                     this.farmingRunning = true
                     console.log("auto famring")
                     this.pickedSeed = false
-                    try{
-                        this.timerInterval1 = setInterval(async ()=> {   
+                    try{  
                             if( bot == "Stop Bot"){
-                                if(a == undefined || a == 0){
-                                    a = 1000000
-                                }
-                                if (a == aa){
-                                    clearInterval(this.timerInterval1)
-                                }
                                 if(e == 0){
                                     FindPlots()
                                     UpdateReadyPlots()
@@ -328,7 +318,6 @@ class botClicker{
                             else{
                                 this.shutdown()
                             }
-                        }, 2000)
                     }
                     catch(err){
                         console.log(err)
@@ -987,42 +976,48 @@ function snapData(id){
                     if(doc.exists){
                         // load buttons data
                         loadBtn = doc.data()
+                        bot = loadBtn["bot"]
                         try {
-                            if(changes == 0){
-                                changes++
-                                if ((elem1_3BTN.innerText != undefined || elem1_3BTN.innerText != null)){
-                                    bot = loadBtn["bot"]
-                                    elem1_3BTN.innerText = bot
-                                    console.log(bot)
-                                    if(bot == "Stop Bot"){
-                                        console.log("start botting")
-                                        if(botsClicker.length == 0){
-                                            botsClicker.push(new botClicker())
-                                        }else{
-                                            botsClicker[0].shutdown()
-                                            botsClicker = []
-                                            botsClicker.push(new botClicker())
+                            if (elem1_3BTN.innerText != bot){
+                                console.log("changes = " + changes)
+                                if(changes == 0){
+                                    changes++
+                                    if ((elem1_3BTN.innerText != undefined || elem1_3BTN.innerText != null)){
+                                        elem1_3BTN.innerText = bot
+                                        console.log(bot)
+                                        if(bot == "Stop Bot"){
+                                            console.log("start botting")
+                                            if(botsClicker.length == 0){
+                                                botsClicker.push(new botClicker())
+                                            }else{
+                                                botsClicker[0].shutdown()
+                                                botsClicker = []
+                                                botsClicker.push(new botClicker())
+                                            }
+                                            console.log(botsClicker)
+                                            botsClicker[0].Autofarm(cropListName[seedAuto])
                                         }
-                                        console.log(botsClicker)
-                                        botsClicker[0].Autofarm(cropListName[seedAuto])
-                                    }
-                                    if(bot == "Start Bot"){
-                                        if(botsClicker.length = 0){
-                                            botsClicker = []
-                                        }else{
-                                            botsClicker[0].shutdown()
-                                            botsClicker = []
+                                        if(bot == "Start Bot"){
+                                            if(botsClicker.length = 0){
+                                                botsClicker = []
+                                            }else{
+                                                botsClicker[0].shutdown()
+                                                botsClicker = []
+                                            }
                                         }
                                     }
+                                }else{
+                                    console.log("changes identifier cant defined")
                                 }
-                            setTimeout(() => {
-                                changes = 0
-                            }, 3000);
                             }
                         }
                         catch{
                             console.log("no elem 1 _ 3")
                         }
+                        setTimeout(() => {
+                            changes = 0
+                            console.log(changes)
+                        }, 3000);
 
                     }
                     else{
