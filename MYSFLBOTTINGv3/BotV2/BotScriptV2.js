@@ -1,5 +1,5 @@
 // script version
-const version = 0.1006
+const version = 0.1007
 var seedAuto = 0
 isSetupDone = false
 currentURl = window.location.href
@@ -286,7 +286,7 @@ class botClicker{
                 console.log(bagContainer.children.length)
                 for (let elem = 0; elem < bagContainer.children.length; elem++){
                     console.log("finding")
-                    botclickerTimer = setTimeout(async ()=>{
+                    this.botclickerTimer = setTimeout(async ()=>{
                         try {
                             if(!stop){
                                 console.log(elem)
