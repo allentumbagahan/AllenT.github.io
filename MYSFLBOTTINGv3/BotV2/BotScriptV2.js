@@ -529,6 +529,7 @@ class botClicker{
             })
         }
     shutdown(){
+        console.log("bot "this.name + " : shutdown")
         this.farmingRunning = false
         clearInterval(this.timerInterval1)
     }
