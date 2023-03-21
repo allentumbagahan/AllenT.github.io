@@ -1,5 +1,5 @@
 // script version
-const version = 0.1003
+const version = 0.1004
 var seedAuto = 0
 isSetupDone = false
 currentURl = window.location.href
@@ -221,6 +221,7 @@ class botClicker{
         let aa = 0 // count the repeat
         let a = repeat
         let e = 0
+        a = false
         a = this.pickSeed(seed, true)
         this.waitPickingSeed = new Promise((res)=>{
             this.timerInterval2 = setInterval(() => {
