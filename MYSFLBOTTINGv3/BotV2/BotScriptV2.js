@@ -1,5 +1,5 @@
 // script version
-const version = 0.10100
+const version = 0.10101
 var seedAuto = 0
 isSetupDone = false
 currentURl = window.location.href
@@ -216,6 +216,8 @@ class botClicker{
         this.timerInterval2 = this.timerInterval2
         this.waitPickingSeed = this.waitPickingSeed
         this.botclickerTimer = this.botclickerTimer
+        this.timer1 = this.timer1
+        this.pickedSeed = false
     }
     async Autofarm(seed, repeat){
         
@@ -224,70 +226,77 @@ class botClicker{
         let e = 0
         a = false
         a = await this.pickSeed(seed, true)
-            try{
-                this.timerInterval1 = setInterval(async ()=> {   
-                    if( bot == "Stop Bot"){
-                        if(a == undefined || a == 0){
-                            a = 1000000
-                        }
-                        if (a == aa){
-                            clearInterval(this.timerInterval1)
-                        }
-                        if(e == 0){
-                            FindPlots()
-                            UpdateReadyPlots()
-                        }
-
-                        findHandleQuantity = new Promise((res)=>{
-                            let t1 = setInterval(()=>{
-                                handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']")
-                                if(handleQuantity.length != 0){
-                                    clearInterval(t1)
-                                    res()
-                                }
-                            }, 1000)
-                        }).then(()=>{
-                            closebtn[0].click()
-                            handleQuantity = handleQuantity[0].children  
-                            if (handleQuantity.length == 2){
-                                handleQuantity = parseInt(handleQuantity[1].innerText)
-                                console.log(handleQuantity)
-                                if(handleQuantity == 0){
-                                    this.pickSeed(seed, false)
-                                }
-                                else{
-                                    if (handleQuantity != 0 && readyPlots.length != 0){
-                                        try{
-                                            aa++
-                                            readyPlots[e].clickPlot()
-                                            if(e == readyPlots.length - 1){
-                                                e = 0
+        this.timer1 = setInterval(() => {
+            if(this.pickedSeed){
+                this.pickedSeed = false
+                clearInterval(this.timer1)
+                try{
+                    this.timerInterval1 = setInterval(async ()=> {   
+                        if( bot == "Stop Bot"){
+                            if(a == undefined || a == 0){
+                                a = 1000000
+                            }
+                            if (a == aa){
+                                clearInterval(this.timerInterval1)
+                            }
+                            if(e == 0){
+                                FindPlots()
+                                UpdateReadyPlots()
+                            }
+                            
+                            findHandleQuantity = new Promise((res)=>{
+                                let t1 = setInterval(()=>{
+                                    handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']")
+                                    if(handleQuantity.length != 0){
+                                        clearInterval(t1)
+                                        res()
+                                    }
+                                }, 1000)
+                            }).then(()=>{
+                                closebtn[0].click()
+                                handleQuantity = handleQuantity[0].children  
+                                if (handleQuantity.length == 2){
+                                    handleQuantity = parseInt(handleQuantity[1].innerText)
+                                    console.log(handleQuantity)
+                                    if(handleQuantity == 0){
+                                        this.pickSeed(seed, false)
+                                    }
+                                    else{
+                                        if (handleQuantity != 0 && readyPlots.length != 0){
+                                            try{
+                                                aa++
+                                                readyPlots[e].clickPlot()
+                                                if(e == readyPlots.length - 1){
+                                                    e = 0
+                                                }
+                                                else {
+                                                    e++
+                                                }  
                                             }
-                                            else {
-                                                e++
-                                            }  
-                                        }
-                                        catch (err) {
-                                            console.log(" click spot cant found " + err)
+                                            catch (err) {
+                                                console.log(" click spot cant found " + err)
+                                            }
                                         }
                                     }
                                 }
-                            }
-                            else{
-                                this.Autofarm(seed)
-                                this.shutdown()
-                            }
-                        })
-
-                    }
-                    else{
-                        this.shutdown()
-                    }
-                }, 2000)
+                                else{
+                                    this.Autofarm(seed)
+                                    this.shutdown()
+                                }
+                            })
+    
+                        }
+                        else{
+                            this.shutdown()
+                        }
+                    }, 2000)
+                }
+                catch{
+                    this.shutdown()
+                }   
             }
-            catch{
-                this.shutdown()
-            }   
+        }, 1000);
+
     }
     async pickSeed(name, buyNextIfEmpty){
         try {
@@ -321,6 +330,7 @@ class botClicker{
                                         }, 1000)
                                     }).then(()=>{
                                         closebtn[0].click()
+                                        this.pickedSeed = true
                                         clearTimeout(this.botclickerTimer)
                                     })
 
