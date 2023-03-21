@@ -6,7 +6,6 @@ currentURl = window.location.href
 bot = ""
 var handleQuantity, findHandleQuantity, findcloseBtn;
 var botsClicker = []
-var changes = 0
 
 function addJavascript(jsname,pos) {
     var th = document.getElementsByTagName(pos)[0];
@@ -964,6 +963,7 @@ function kitchenData(){
 }   
 // firebase
 function snapData(id){
+    var changes = 0
     RegisteredLands = { list : [] }
     var docRef = db.collection("Accounts").doc("AccountList")
     docRef.get().then((doc) => {
