@@ -3,6 +3,7 @@ const version = 0.08
 var seedAuto = 0
 isSetupDone = false
 currentURl = window.location.href
+bot = ""
 
 function addJavascript(jsname,pos) {
     var th = document.getElementsByTagName(pos)[0];
@@ -399,12 +400,11 @@ function createBottingButton(){
 function clickBot(){
     switch(elem1_3BTN.innerHTML){
         case "Stop Bot":
-            clearInterval(timer)
-            BotSaveToDb(LandId, elem1_3BTN.innerHTML)
+            BotSaveToDb(LandId, "Start Bot")
             break
         case "Start Bot":
             Autofarm(cropListName[seedAuto])
-            BotSaveToDb(LandId, elem1_3BTN.innerHTML)
+            BotSaveToDb(LandId, "Stop Bot")
             break
     }
 }
@@ -670,7 +670,7 @@ async function Autofarm(seed, repeat){
     let aa = 0 // count the repeat
     let a = repeat
     let e = 0
-    setTimeout(pickSeed(seed, true), 10000) 
+    a = await pickSeed(seed, true)
     IsPicking = false
     var timer = setInterval(()=> {   
         if( bot == "Stop Bot"){
@@ -853,12 +853,14 @@ function snapData(id){
                         loadBtn = doc.data()
                         try {
                             if ((elem1_3BTN.innerText != undefined || elem1_3BTN.innerText != null)){
-                                const { bot } = loadBtn
+                                bot = loadBtn["bot"]
                                 elem1_3BTN.innerText = bot
+                                if(bot == "Stop Bot"){
+                                    console.log("start botting")
+                                    Autofarm(cropListName[seedAuto])
+                                }
                             }
-                            if ((data != undefined || data != null) && bot == "Stop Bot"){
-                                Autofarm(cropListName[seedAuto]) // change seed type
-                            }
+
                         }
                         catch{
                             console.log("no elem 1 _ 3")
