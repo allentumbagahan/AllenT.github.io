@@ -1,5 +1,5 @@
 // script version
-const version = 0.10101
+const version = 0.10102
 var seedAuto = 0
 isSetupDone = false
 currentURl = window.location.href
@@ -300,6 +300,7 @@ class botClicker{
     }
     async pickSeed(name, buyNextIfEmpty){
         try {
+            var closebtn;
             console.log("picking seed")
             var bagBtn = $("img[src='https://sunflower-land.com/game-assets/ui/round_button.png']")[0].click()
                 console.log("getting seeds container")
@@ -720,61 +721,73 @@ function buySeeds(seedName, count, buyNextIfEmpty){
             break;
         }
         clicOnShop = setTimeout(async () => {
+            var seedNameInShop;
             if (!stopBuying){
                 itemBox.children[x].children[0].click()
-                seedNameInShop = await $("span[class='text-center mb-1']")[0].innerText
-                closebtn = $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")[0]
-                console.log(itemBox.children[x])
-                if(seedNameInShop == seedName){
-                    for(let c = 0; c < count; c++){
-                        if (!stopBuying){
-                            buyOneBtn = $("button[class='bg-brown-200 w-full p-1 text-xs object-contain justify-center items-center hover:bg-brown-300 cursor-pointer flex disabled:opacity-50  text-xxs sm:text-xs']")[0]
 
-                            try {
-                                if(buyOneBtn === undefined || buyOneBtn === null){
-                                    closebtn.click()                       
-                                    stopBuying = true                         
-                                    clearTimeout(clicOnShop)     
-                                }
-                                else{
-                                    if(n != 0){
-                                        buyOneBtn.click()
-                                        n--
-                                    }
-                                    else{
-                                        stopBuying = true    
+                findcloseBtn = new Promise((res)=>{
+                    let t1 = setInterval(()=>{
+                        seedNameInShop = $("span[class='text-center mb-1']")
+                        if(seedNameInShop.length != 0){
+                            clearInterval(t1)
+                            res()
+                        }
+                    }, 1000)
+                }).then(()=>{
+                    seedNameInShop = seedNameInShop[0].innerText
+                    closebtn = $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")[0]
+                    console.log(itemBox.children[x])
+                    if(seedNameInShop == seedName){
+                        for(let c = 0; c < count; c++){
+                            if (!stopBuying){
+                                buyOneBtn = $("button[class='bg-brown-200 w-full p-1 text-xs object-contain justify-center items-center hover:bg-brown-300 cursor-pointer flex disabled:opacity-50  text-xxs sm:text-xs']")[0]
+    
+                                try {
+                                    if(buyOneBtn === undefined || buyOneBtn === null){
+                                        closebtn.click()                       
+                                        stopBuying = true                         
                                         clearTimeout(clicOnShop)     
                                     }
+                                    else{
+                                        if(n != 0){
+                                            buyOneBtn.click()
+                                            n--
+                                        }
+                                        else{
+                                            stopBuying = true    
+                                            clearTimeout(clicOnShop)     
+                                        }
+                                    }
+                                }
+                                catch{
+                                    closebtn.click()                       
+                                    stopBuying = true                         
+                                    console.log("buying seed " + cropListName[cropListName.indexOf(seedName) - 1])
+                                    clearTimeout(clicOnShop)     
                                 }
                             }
-                            catch{
-                                closebtn.click()                       
-                                stopBuying = true                         
-                                console.log("buying seed " + cropListName[cropListName.indexOf(seedName) - 1])
-                                clearTimeout(clicOnShop)     
-                            }
+    
                         }
-
+                        
                     }
-                    
-                }
-                if (x == (itemBox.children.length - 1)){
-                    closebtn.click()
-                    // then update data 
-                    UpdateInGameData(LandId)
-                    if(buyNextIfEmpty){
-                        if(n > 0 ){
-                            if (cropListName.indexOf(seedName) == 10){    
-                                buySeeds(cropListName[0], n)
+                    if (x == (itemBox.children.length - 1)){
+                        closebtn.click()
+                        // then update data 
+                        UpdateInGameData(LandId)
+                        if(buyNextIfEmpty){
+                            if(n > 0 ){
+                                if (cropListName.indexOf(seedName) == 10){    
+                                    buySeeds(cropListName[0], n)
+                                }
+                                else{  
+                                    buySeeds(cropListName[cropListName.indexOf(seedName) + 1], n)
+                                }
                             }
-                            else{  
-                                buySeeds(cropListName[cropListName.indexOf(seedName) + 1], n)
-                            }
+                        }else{
+                            this.pickSeed(cropListName[0], true)
                         }
-                    }else{
-                        this.pickSeed(cropListName[0], true)
                     }
-                }
+                })
             }
 
 
