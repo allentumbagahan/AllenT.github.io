@@ -1,5 +1,5 @@
 // script version
-const version = 0.10105
+const version = 0.10106
 var seedAuto = 0
 isSetupDone = false
 currentURl = window.location.href
@@ -341,6 +341,7 @@ class botClicker{
                                         closebtn[0].click()
                                         this.pickedSeed = true
                                         clearTimeout(this.botclickerTimer)
+                                        return true
                                     })
 
                                 }
@@ -386,7 +387,7 @@ class botClicker{
                     }, 1000*elem)
             
                 }
-                return true
+
     }
     shutdown(){
         clearInterval(this.timerInterval1)
