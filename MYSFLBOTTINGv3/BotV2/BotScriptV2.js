@@ -372,7 +372,7 @@ class botClicker{
                                         }else{
                                             findcloseBtn = new Promise((res)=>{
                                                 let t1 = setInterval(()=>{
-                                                    closebtn = $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")
+                                                    var closebtn = $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")
                                                     if(closebtn.length != 0){
                                                         clearInterval(t1)
                                                         res()
@@ -406,30 +406,34 @@ class botClicker{
         marketButton.click()
         this.findItemBox = new Promise((res)=>{
             setInterval(() => {
-                itemBox = $("div[class='w-full max-h-48 sm:max-h-96 sm:w-3/5 h-fit overflow-y-auto scrollable overflow-x-hidden p-1 mt-1 sm:mt-0 sm:mr-1 flex flex-wrap']")
-                if(itemBox.length != 0){
-                    itemBox = itemBox[0]
-                    res()
+                try{
+                    var itemBox = $("div[class='w-full max-h-48 sm:max-h-96 sm:w-3/5 h-fit overflow-y-auto scrollable overflow-x-hidden p-1 mt-1 sm:mt-0 sm:mr-1 flex flex-wrap']")
+                    if(itemBox.length != 0){
+                        itemBox = itemBox[0]
+                        res()
+                    }
+                }
+                catch{
+                    console.log("finding item box")
                 }
             }, 400);
         }).then(()=>{
                     
         if (count == 0 || count === undefined || count === null){
-            n = 13 // needed seed to buy
+            var n = 13 // needed seed to buy
         }
         else{
-            n = count
+            var n = count
         }
-        stopBuying = false
+        var stopBuying = false
         for(let x = 0; x < itemBox.children.length; x++){
             if(stopBuying){
                 break;
             }
-            clicOnShop = setTimeout(async () => {
+            var clicOnShop = setTimeout(async () => {
                 var seedNameInShop;
                 if (!stopBuying){
                     itemBox.children[x].children[0].click()
-    
                     findcloseBtn = new Promise((res)=>{
                         let t1 = setInterval(()=>{
                             seedNameInShop = $("span[class='text-center mb-1']")
@@ -440,8 +444,7 @@ class botClicker{
                         }, 1000)
                     }).then(()=>{
                             seedNameInShop = seedNameInShop[0].innerText
-                            closebtn = $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")[0]
-                            console.log(itemBox.children[x])
+                            var closebtn = $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")[0]
                             if(seedNameInShop == seedName){
                                 for(let c = 0; c < count; c++){
                                     if (!stopBuying){
