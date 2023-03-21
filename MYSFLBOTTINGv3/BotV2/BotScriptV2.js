@@ -218,7 +218,6 @@ class botClicker{
         this.botclickerTimer = this.botclickerTimer
         this.timer1 = this.timer1
         this.pickedSeed = false
-        this.farming = false
     }
     async Autofarm(seed, repeat){
         var closebtn;
@@ -230,8 +229,6 @@ class botClicker{
         console.log("picking seed done")
         this.timer1 = setInterval(() => {
             if(this.pickedSeed){
-                this.farming = false
-                if(!this.farming){
                     console.log("auto famring")
                     this.pickedSeed = false
                     clearInterval(this.timer1)
@@ -290,20 +287,15 @@ class botClicker{
                                             else{
                                                 if (handleQuantity != 0 && readyPlots.length != 0){
                                                     try{
-                                                        if(!this.farming){
-                                                            this.farming = true
-                                                            aa++
-                                                            console.log("click plot")
-                                                            readyPlots[e].clickPlot()
-                                                            if(e == readyPlots.length - 1){
-                                                                e = 0
-                                                            }
-                                                            else {
-                                                                e++
-                                                            }  
-                                                        }else{
-                                                            console.log("already click")
+                                                        aa++
+                                                        console.log("click plot")
+                                                        readyPlots[e].clickPlot()
+                                                        if(e == readyPlots.length - 1){
+                                                            e = 0
                                                         }
+                                                        else {
+                                                            e++
+                                                        }  
                                                     }
                                                     catch (err) {
                                                         console.log(" click spot cant found " + err)
@@ -326,7 +318,6 @@ class botClicker{
                     catch{
                         this.shutdown()
                     } 
-                }  
             }
         }, 2000);
 
