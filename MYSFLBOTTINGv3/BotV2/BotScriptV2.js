@@ -277,36 +277,41 @@ class botClicker{
                                             }
                                         }, 1000)
                                     }).then(()=>{
-                                        closebtn[0].click()
-                                        handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']")[0].children
-                                        if (handleQuantity.length == 2){
-                                            handleQuantity = parseInt(handleQuantity[1].innerText)
-                                            if(handleQuantity == 0){
-                                                this.pickSeed(seed, false)
-                                            }
-                                            else{
-                                                if (handleQuantity != 0 && readyPlots.length != 0){
-                                                    try{
-                                                        aa++
-                                                        console.log("click plot")
-                                                        readyPlots[e].clickPlot()
-                                                        if(e == readyPlots.length - 1){
-                                                            e = 0
+                                        let keyIn = true
+                                        if(keyIn){
+                                            keyIn = false
+                                            closebtn[0].click()
+                                            handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']")[0].children
+                                            if (handleQuantity.length == 2){
+                                                handleQuantity = parseInt(handleQuantity[1].innerText)
+                                                if(handleQuantity == 0){
+                                                    this.pickSeed(seed, false)
+                                                }
+                                                else{
+                                                    if (handleQuantity != 0 && readyPlots.length != 0){
+                                                        try{
+                                                            aa++
+                                                            console.log("click plot")
+                                                            readyPlots[e].clickPlot()
+                                                            if(e == readyPlots.length - 1){
+                                                                e = 0
+                                                            }
+                                                            else {
+                                                                e++
+                                                            }  
                                                         }
-                                                        else {
-                                                            e++
-                                                        }  
-                                                    }
-                                                    catch (err) {
-                                                        console.log(" click spot cant found " + err)
+                                                        catch (err) {
+                                                            console.log(" click spot cant found " + err)
+                                                        }
                                                     }
                                                 }
                                             }
+                                            else{
+                                                this.Autofarm(seed)
+                                                this.shutdown()
+                                            }
                                         }
-                                        else{
-                                            this.Autofarm(seed)
-                                            this.shutdown()
-                                        }
+
                                     })
                                 })
                             }
@@ -319,7 +324,7 @@ class botClicker{
                         this.shutdown()
                     } 
             }
-        }, 2000);
+        }, 1000);
 
     }
     async pickSeed(name, buyNextIfEmpty){
