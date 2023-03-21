@@ -1,5 +1,5 @@
 // script version
-const version = 0.10109
+const version = 0.1011
 var seedAuto = 0
 isSetupDone = false
 currentURl = window.location.href
@@ -725,6 +725,7 @@ function createBottingButton(){
     
 }
 function clickBot(){
+    console.log(elem1_3BTN.innerHTML + " :  click bot")
     switch(elem1_3BTN.innerHTML){
         case "Stop Bot":
             BotSaveToDb(LandId, "Start Bot")
