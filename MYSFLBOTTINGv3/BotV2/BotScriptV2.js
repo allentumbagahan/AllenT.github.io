@@ -234,105 +234,83 @@ class botClicker{
         let e = 0
         await this.pickSeed(seed, true)
         this.timerInterval1 = setInterval(() => {
-            this.farmingRunning = true
             if(this.pickedSeed){
-                console.log("picking seed done")
-                    // set keys
-                    this.keyIn1 = true
-                    this.keyIn2 = true
-                    this.keyIn3 = true
-                    console.log("auto famring")
-                    try{  
-                            if( bot == "Stop Bot"){
-                                if(e == 0){
-                                    FindPlots()
-                                    UpdateReadyPlots()
-                                }
-                                
-                                this.findHandleQuantity = new Promise((res)=>{
-                                    this.t1 = setInterval(()=>{
-                                        handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']")
-                                        if(handleQuantity.length != 0){
-                                            if(this.keyIn1){
-                                                this.keyIn1 = false
-                                                res()
-                                            }
-                                            clearInterval(this.t1)
-                                        }
-                                    }, 1000)
-                                }).then(()=>{
-
-                                    //test
-                                    console.log("test code")
-
-                                    this.findcloseBtn = new Promise((res, reject)=>{
-                                        this.t2 = setInterval(()=>{
-                                            closebtn = $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")
-                                            if(closebtn.length != 0){
-                                                if(this.keyIn2){
-                                                    this.keyIn2 = false
+                if(!this.farmingRunning){
+                    this.farmingRunning = true
+                        // set keys
+                        this.keyIn1 = true
+                        this.keyIn2 = true
+                        this.keyIn3 = true
+                        console.log("auto famring")
+                        try{  
+                                if( bot == "Stop Bot"){
+                                    if(e == 0){
+                                        FindPlots()
+                                        UpdateReadyPlots()
+                                    }
+                                    
+                                    this.findHandleQuantity = new Promise((res)=>{
+                                        this.t1 = setInterval(()=>{
+                                            handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']")
+                                            if(handleQuantity.length != 0){
+                                                if(this.keyIn1){
+                                                    this.keyIn1 = false
                                                     res()
                                                 }
-                                                clearInterval(this.t2)
+                                                clearInterval(this.t1)
                                             }
                                         }, 1000)
-                                        setTimeout(() => {
-                                            reject()
-                                            clearInterval(this.t2)
-                                        }, 5000);
                                     }).then(()=>{
-                                        if(this.keyIn3){
-                                            this.keyIn3 = false
-                                            closebtn[0].click()
-                                            handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']")[0].children
-                                            console.log(handleQuantity.length + " is equal to 2")
-                                            if (handleQuantity.length == 2){
-                                                handleQuantity = parseInt(handleQuantity[1].innerText)
-                                                if(handleQuantity == 0){
-                                                    this.pickSeed(seed, false)
-                                                }
-                                                else{
-                                                    if (handleQuantity != 0 && readyPlots.length != 0){
-                                                        try{
-                                                            aa++
-                                                            console.log("click plot")
-                                                            readyPlots[e].clickPlot()
-                                                            if(e == readyPlots.length - 1){
-                                                                e = 0
+                                        //test
+                                        console.log("test code")
+                                            console.log("test code 2")
+                                            if(this.keyIn3){
+                                                this.keyIn3 = false
+                                                handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']")[0].children
+                                                console.log(handleQuantity.length + " is equal to 2")
+                                                if (handleQuantity.length == 2){
+                                                    handleQuantity = parseInt(handleQuantity[1].innerText)
+                                                    if(handleQuantity == 0){
+                                                        this.pickSeed(seed, false)
+                                                    }
+                                                    else{
+                                                        if (handleQuantity != 0 && readyPlots.length != 0){
+                                                            try{
+                                                                aa++
+                                                                console.log("click plot")
+                                                                readyPlots[e].clickPlot()
+                                                                if(e == readyPlots.length - 1){
+                                                                    e = 0
+                                                                }
+                                                                else {
+                                                                    e++
+                                                                }  
+                                                                this.farmingRunning = false
                                                             }
-                                                            else {
-                                                                e++
-                                                            }  
-                                                        }
-                                                        catch (err) {
-                                                            console.log(" click spot cant found " + err)
+                                                            catch (err) {
+                                                                console.log(" click spot cant found " + err)
+                                                            }
                                                         }
                                                     }
                                                 }
+                                                else{
+                                                    this.shutdown("s1")
+                                                    this.Autofarm(seed)
+                                                }
                                             }
-                                            else{
-                                                this.shutdown()
-                                                this.Autofarm(seed)
-                                            }
-                                        }
-
-                                    }, ()=>{
-                                        //rejected
-                                        this.shutdown()
-                                        botsClicker = []
-                                        botsClicker.push(new botClicker())
                                     })
-                                })
-                            }
-                            else{
-                                this.shutdown()
-                            }
-                    }
-                    catch(err){
-                        console.log(err)
-                    } 
-
+                                }
+                                else{
+                                    this.shutdown("s4")
+                                }
+                        }
+                        catch(err){
+                            console.log(err)
+                        } 
+    
+                }
             }
+
         }, 1000);
 
     }
@@ -428,12 +406,7 @@ class botClicker{
         marketButton.click()
         this.findItemBox = new Promise((res)=>{
             setInterval(() => {
-                try{
-                    itemBox = $("div[class='w-full max-h-48 sm:max-h-96 sm:w-3/5 h-fit overflow-y-auto scrollable overflow-x-hidden p-1 mt-1 sm:mt-0 sm:mr-1 flex flex-wrap']")
-                }
-                catch{
-                    console.log("err find box")
-                }
+                itemBox = $("div[class='w-full max-h-48 sm:max-h-96 sm:w-3/5 h-fit overflow-y-auto scrollable overflow-x-hidden p-1 mt-1 sm:mt-0 sm:mr-1 flex flex-wrap']")
                 if(itemBox.length != 0){
                     itemBox = itemBox[0]
                     res()
@@ -528,8 +501,8 @@ class botClicker{
             return n
             })
         }
-    shutdown(){
-        console.log("bot " + this.name + " : shutdown")
+    shutdown(message){
+        console.log("bot " + this.name + " : shutdown by " + message)
         this.farmingRunning = false
         clearInterval(this.timerInterval1)
     }
@@ -1000,7 +973,7 @@ function snapData(id){
                                             if(botsClicker.length == 0){
                                                 botsClicker.push(new botClicker())
                                             }else{
-                                                botsClicker[0].shutdown()
+                                                botsClicker[0].shutdown("s3")
                                                 botsClicker = []
                                                 botsClicker.push(new botClicker())
                                             }
@@ -1011,7 +984,7 @@ function snapData(id){
                                             if(botsClicker.length = 0){
                                                 botsClicker = []
                                             }else{
-                                                botsClicker[0].shutdown()
+                                                botsClicker[0].shutdown("s2")
                                                 botsClicker = []
                                             }
                                         }
