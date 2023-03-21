@@ -1,5 +1,5 @@
 // script version
-const version = 0.10103
+const version = 0.10104
 var seedAuto = 0
 isSetupDone = false
 currentURl = window.location.href
@@ -263,7 +263,7 @@ class botClicker{
                                     }, 1000)
                                 }).then(()=>{
                                     closebtn[0].click()
-                                    handleQuantity = handleQuantity[0].children  
+                                    handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']")[0].children  
                                     if (handleQuantity.length == 2){
                                         handleQuantity = parseInt(handleQuantity[1].innerText)
                                         console.log(handleQuantity)
