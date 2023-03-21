@@ -1,5 +1,5 @@
 // script version
-const version = 0.1007
+const version = 0.1008
 var seedAuto = 0
 isSetupDone = false
 currentURl = window.location.href
@@ -231,7 +231,7 @@ class botClicker{
                             a = 1000000
                         }
                         if (a == aa){
-                            clearInterval(timer)
+                            clearInterval(this.timerInterval1)
                         }
                         if(e == 0){
                             FindPlots()
