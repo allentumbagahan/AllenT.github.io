@@ -1,5 +1,5 @@
 // script version
-const version = 0.10104
+const version = 0.10105
 var seedAuto = 0
 isSetupDone = false
 currentURl = window.location.href
@@ -308,7 +308,6 @@ class botClicker{
 
     }
     async pickSeed(name, buyNextIfEmpty){
-        try {
             var closebtn;
             console.log("picking seed")
             var bagBtn = $("img[src='https://sunflower-land.com/game-assets/ui/round_button.png']")[0].click()
@@ -388,11 +387,6 @@ class botClicker{
             
                 }
                 return true
-            
-        }
-        catch(err){
-            console.log(err)
-        }
     }
     shutdown(){
         clearInterval(this.timerInterval1)
