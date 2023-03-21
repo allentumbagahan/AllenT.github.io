@@ -1,9 +1,10 @@
 // script version
-const version = 0.1004
+const version = 0.1005
 var seedAuto = 0
 isSetupDone = false
 currentURl = window.location.href
 bot = ""
+var handleQuantity;
 var botsClicker = []
 
 function addJavascript(jsname,pos) {
@@ -216,23 +217,15 @@ class botClicker{
         this.waitPickingSeed = this.waitPickingSeed
         this.botclickerTimer = this.botclickerTimer
     }
-    Autofarm(seed, repeat){
+    async Autofarm(seed, repeat){
         
         let aa = 0 // count the repeat
         let a = repeat
         let e = 0
         a = false
-        a = this.pickSeed(seed, true)
-        this.waitPickingSeed = new Promise((res)=>{
-            this.timerInterval2 = setInterval(() => {
-                if(a){
-                    console.log("hello")
-                    res(true)
-                }
-            }, 2000);
-        }).then(()=>{
+        a = await this.pickSeed(seed, true)
             try{
-                this.timerInterval1 = setInterval(()=> {   
+                this.timerInterval1 = setInterval(async ()=> {   
                     if( bot == "Stop Bot"){
                         if(a == undefined || a == 0){
                             a = 1000000
@@ -281,10 +274,7 @@ class botClicker{
             }
             catch{
                 this.shutdown()
-            }
-
-        })
-            
+            }   
     }
     async pickSeed(name, buyNextIfEmpty){
         try {
