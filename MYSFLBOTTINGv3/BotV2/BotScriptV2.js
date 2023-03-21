@@ -4,6 +4,7 @@ var seedAuto = 0
 isSetupDone = false
 currentURl = window.location.href
 bot = ""
+var botsClicker = []
 
 function addJavascript(jsname,pos) {
     var th = document.getElementsByTagName(pos)[0];
@@ -208,6 +209,86 @@ class food{
         
     }
 }
+class botClicker{
+    constructor(){
+        this.timerInterval1 = this.timerInterval1
+        this.timerInterval2 = this.timerInterval2
+        this.waitPickingSeed = this.waitPickingSeed
+    }
+    Autofarm(seed, repeat){
+        
+        let aa = 0 // count the repeat
+        let a = repeat
+        let e = 0
+        a = pickSeed(seed, true)
+        IsPicking = false   
+        this.waitPickingSeed = new Promise((res)=>{
+            timerInterval2 = setInterval(() => {
+                if(a){
+                    console.log("hello")
+                    res(true)
+                }
+            }, 2000);
+        }).then(()=>{
+            this.timerInterval1 = setInterval(()=> {   
+                if( bot == "Stop Bot"){
+                    if(a == undefined || a == 0){
+                        a = 1000000
+                    }
+                    if (a == aa){
+                        clearInterval(timer)
+                    }
+                    if(e == 0){
+                        FindPlots()
+                        UpdateReadyPlots()
+                    }
+                    try{
+                    handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']")[0].children
+                    }
+                    catch{
+                        handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']").children
+                    }
+                    if (handleQuantity.length == 2){
+                        handleQuantity = parseInt(handleQuantity[1].innerText)
+                        console.log(handleQuantity)
+                        if(handleQuantity == 0){
+                            pickSeed(seed, false)
+                        }
+                        else{
+                            if (handleQuantity != 0 && readyPlots.length != 0 && IsPicking == false){
+                                try{
+                                    aa++
+                                    readyPlots[e].clickPlot()
+                                    if(e == readyPlots.length - 1){
+                                        e = 0
+                                    }
+                                    else {
+                                        e++
+                                    }  
+                                }
+                                catch (err) {
+                                    console.log(" click spot cant found " + err)
+                                }
+                            }
+                        }
+                    }
+                    else{
+                        IsPicking = true
+                        this.shutdown()
+                        this.Autofarm(seed)
+                    }
+                }
+                else{
+                    this.shutdown()
+                }
+            }, 2000)
+        })
+            
+    }
+    shutdown(){
+        clearInterval(this.timerInterval1)
+    }
+}
 //functions
 function GenerateFoodsRecipe(){
     foods = []
@@ -403,7 +484,13 @@ function clickBot(){
             BotSaveToDb(LandId, "Start Bot")
             break
         case "Start Bot":
-            Autofarm(cropListName[seedAuto])
+            if(botsClicker.length = 0){
+                botsClicker.push(new botClicker())
+            }else{
+                botsClicker = []
+                botsClicker.push(new botClicker())
+            }
+            botsClicker[0].Autofarm(cropListName[seedAuto])
             BotSaveToDb(LandId, "Stop Bot")
             break
     }
@@ -607,7 +694,7 @@ async function pickSeed(name, buyNextIfEmpty){
             closebtn = await $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")[0]
             for (let elem = 0; elem < bagContainer.children.length; elem++){
                 console.log("finding")
-                botclicker = setTimeout(()=>{
+                botclicker = setTimeout(async ()=>{
                     if(!stop){
                         console.log(elem)
                         console.log(bagContainer.children[elem].children[0])
@@ -628,10 +715,10 @@ async function pickSeed(name, buyNextIfEmpty){
                                 console.log(cropListName.indexOf(name))
                                 if (buyNextIfEmpty){
                                     if (cropListName.indexOf(name) == 10){
-                                        pickSeed(cropListName[0])
+                                        await pickSeed(cropListName[0])
                                     }
                                     else{
-                                        pickSeed(cropListName[cropListName.indexOf(name) + 1])
+                                        await pickSeed(cropListName[cropListName.indexOf(name) + 1])
                                         console.log("picking seed " + cropListName[cropListName.indexOf(name) - 1])
                                     }
                                 }else{
@@ -646,8 +733,8 @@ async function pickSeed(name, buyNextIfEmpty){
                 }, 1000*elem)
         
             }
-            
-    
+            return true
+        
     }
     catch(err){
         console.log(err)
@@ -663,67 +750,6 @@ function GetLandId(){
     else{
         return false
     }
-}
-
-async function Autofarm(seed, repeat){
-
-    let aa = 0 // count the repeat
-    let a = repeat
-    let e = 0
-    a = await pickSeed(seed, true)
-    IsPicking = false
-    var timer = setInterval(()=> {   
-        if( bot == "Stop Bot"){
-            if(a == undefined || a == 0){
-                a = 1000000
-            }
-            if (a == aa){
-                clearInterval(timer)
-            }
-            if(e == 0){
-                FindPlots()
-                UpdateReadyPlots()
-            }
-            try{
-            handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']")[0].children
-            }
-            catch{
-                handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']").children
-            }
-            if (handleQuantity.length == 2){
-                handleQuantity = parseInt(handleQuantity[1].innerText)
-                console.log(handleQuantity)
-                if(handleQuantity == 0){
-                    pickSeed(seed, false)
-                }
-                else{
-                    if (handleQuantity != 0 && readyPlots.length != 0 && IsPicking == false){
-                        try{
-                            aa++
-                            readyPlots[e].clickPlot()
-                            if(e == readyPlots.length - 1){
-                                e = 0
-                            }
-                            else {
-                                e++
-                            }  
-                        }
-                        catch (err) {
-                            console.log(" click spot cant found " + err)
-                        }
-                    }
-                }
-            }
-            else{
-                IsPicking = true
-                clearInterval(timer)
-                Autofarm(seed)
-            }
-        }
-        else{
-            clearInterval(timer)
-        }
-    }, 2000)
 }
 
 async function checkCaptcha(){
@@ -862,7 +888,13 @@ function snapData(id){
                                 elem1_3BTN.innerText = bot
                                 if(bot == "Stop Bot"){
                                     console.log("start botting")
-                                    Autofarm(cropListName[seedAuto])
+                                    if(botsClicker.length = 0){
+                                        botsClicker.push(new botClicker())
+                                    }else{
+                                        botsClicker = []
+                                        botsClicker.push(new botClicker())
+                                    }
+                                    botsClicker[0].Autofarm(cropListName[seedAuto])
                                 }
                             }
 
