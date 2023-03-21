@@ -309,7 +309,7 @@ class botClicker{
                     } 
                 }  
             }
-        }, 1000);
+        }, 2000);
 
     }
     async pickSeed(name, buyNextIfEmpty){
