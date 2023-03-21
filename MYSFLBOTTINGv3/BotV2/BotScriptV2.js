@@ -1,5 +1,5 @@
 // script version
-const version = 0.08
+const version = 0.09
 var seedAuto = 0
 isSetupDone = false
 currentURl = window.location.href
@@ -230,58 +230,64 @@ class botClicker{
                 }
             }, 2000);
         }).then(()=>{
-            this.timerInterval1 = setInterval(()=> {   
-                if( bot == "Stop Bot"){
-                    if(a == undefined || a == 0){
-                        a = 1000000
-                    }
-                    if (a == aa){
-                        clearInterval(timer)
-                    }
-                    if(e == 0){
-                        FindPlots()
-                        UpdateReadyPlots()
-                    }
-                    try{
-                    handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']")[0].children
-                    }
-                    catch{
-                        handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']").children
-                    }
-                    if (handleQuantity.length == 2){
-                        handleQuantity = parseInt(handleQuantity[1].innerText)
-                        console.log(handleQuantity)
-                        if(handleQuantity == 0){
-                            pickSeed(seed, false)
+            try{
+                this.timerInterval1 = setInterval(()=> {   
+                    if( bot == "Stop Bot"){
+                        if(a == undefined || a == 0){
+                            a = 1000000
                         }
-                        else{
-                            if (handleQuantity != 0 && readyPlots.length != 0 && IsPicking == false){
-                                try{
-                                    aa++
-                                    readyPlots[e].clickPlot()
-                                    if(e == readyPlots.length - 1){
-                                        e = 0
+                        if (a == aa){
+                            clearInterval(timer)
+                        }
+                        if(e == 0){
+                            FindPlots()
+                            UpdateReadyPlots()
+                        }
+                        try{
+                        handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']")[0].children
+                        }
+                        catch{
+                            handleQuantity = $("div[class='bg-brown-600 cursor-pointer relative cursor-pointer']").children
+                        }
+                        if (handleQuantity.length == 2){
+                            handleQuantity = parseInt(handleQuantity[1].innerText)
+                            console.log(handleQuantity)
+                            if(handleQuantity == 0){
+                                pickSeed(seed, false)
+                            }
+                            else{
+                                if (handleQuantity != 0 && readyPlots.length != 0 && IsPicking == false){
+                                    try{
+                                        aa++
+                                        readyPlots[e].clickPlot()
+                                        if(e == readyPlots.length - 1){
+                                            e = 0
+                                        }
+                                        else {
+                                            e++
+                                        }  
                                     }
-                                    else {
-                                        e++
-                                    }  
-                                }
-                                catch (err) {
-                                    console.log(" click spot cant found " + err)
+                                    catch (err) {
+                                        console.log(" click spot cant found " + err)
+                                    }
                                 }
                             }
                         }
+                        else{
+                            IsPicking = true
+                            this.shutdown()
+                            this.Autofarm(seed)
+                        }
                     }
                     else{
-                        IsPicking = true
                         this.shutdown()
-                        this.Autofarm(seed)
                     }
-                }
-                else{
-                    this.shutdown()
-                }
-            }, 2000)
+                }, 2000)
+            }
+            catch{
+                this.shutdown()
+            }
+
         })
             
     }
