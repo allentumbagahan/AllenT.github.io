@@ -177,6 +177,7 @@ class card {
         this.chef = this.data.kitchen
         this.bal = this.data.SFlbalance
         this.elem1_1_2_1_2.innerHTML = this.bal
+        this.elem1_1_2_1_2.innerHTML = parseFloat(this.elem1_1_2_1_2.innerHTML).toFixed(4)
         this.elem1_1_2_2_2.innerHTML = this.chef
         this.grublist.grubImg = this.data.grublist 
         this.date = this.data.date
