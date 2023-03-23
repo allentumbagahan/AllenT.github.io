@@ -621,21 +621,26 @@ async function UpdateInGameData(id){
             if(val){
                 try{
                     data = val.state
-                    inventory = data.inventory
-                    crops = {
-                        Sunflower : data.inventory.Sunflower,
-                        Potato : data.inventory.Potato,
-                        Pumpkin : data.inventory.Pumpkin,
-                        Carrots : data.inventory.Carrots,
-                        Cabbage : data.inventory.Cabbage,
-                        Beetroot : data.inventory.Beetroot,
-                        Cauliflower : data.inventory.Cauliflower,
-                        Parsnip : data.inventory.Parsnip, 
-                        Radish : data.inventory.Radish,
-                        Wheat : data.inventory.Wheat,
-                        Kale : data.inventory.Kale
-                     }
-                     return true
+                    if(data  != undefined || data != null){
+                        inventory = data.inventory
+                        crops = {
+                            Sunflower : data.inventory.Sunflower,
+                            Potato : data.inventory.Potato,
+                            Pumpkin : data.inventory.Pumpkin,
+                            Carrots : data.inventory.Carrots,
+                            Cabbage : data.inventory.Cabbage,
+                            Beetroot : data.inventory.Beetroot,
+                            Cauliflower : data.inventory.Cauliflower,
+                            Parsnip : data.inventory.Parsnip, 
+                            Radish : data.inventory.Radish,
+                            Wheat : data.inventory.Wheat,
+                            Kale : data.inventory.Kale
+                         }
+                         return true
+                    }
+                    else{
+                        return "error"
+                    }
                 }
                 catch{
                     return "error"
