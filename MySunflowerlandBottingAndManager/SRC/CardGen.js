@@ -162,24 +162,30 @@ class card {
 
         this.elem1_5 = document.createElement('div')
         this.elem1_5.setAttribute('class', 'buttonBox')
-        this.elem1_5.setAttribute('style', 'display: flex; align-items: center; margin-left: auto;margin-right: auto; border: 2px solid rgb(93, 62, 2); border-radius: 20px; background-color: initial;')
+        this.elem1_5.setAttribute('style', 'display: flex; align-items: center; margin-left: auto;margin-right: auto; background-color: initial;')
         this.elem1.appendChild(this.elem1_5)
         
         this.elem1_5_1 = document.createElement('button')
         this.elem1_5_1.setAttribute('id', 'bot')
-        this.elem1_5_1.setAttribute("style", " margin-left: auto; margin-right: auto; border: #5d3e02 solid 2px; border-radius: 20px; --tw-bg-opacity: 1; background-color: rgb(185 111 80 / var(--tw-bg-opacity));")
+        this.elem1_5_1.setAttribute("style", " margin-left: auto; margin-right: auto; border: #5d3e02 solid 2px; border-radius: 20px; --tw-bg-opacity: 1; background-color: rgb(78 53 50/ var(--tw-bg-opacity));")
         this.elem1_5.appendChild(this.elem1_5_1)
         this.elem1_5_1_1 = document.createElement('h3')
         this.elem1_5_1_1.innerText = "NOT CONNECTED"
         this.elem1_5_1.appendChild(this.elem1_5_1_1)
 
         this.elem1_5_2 = document.createElement('button')
-        this.elem1_5_2.setAttribute('id', 'bot')
+        this.elem1_5_2.setAttribute('id', 'botSeed')
         this.elem1_5_2.setAttribute("style", " margin-left: auto; margin-right: auto; border: #5d3e02 solid 2px; border-radius: 20px; --tw-bg-opacity: 1; background-color: rgb(185 111 80 / var(--tw-bg-opacity));")
         this.elem1_5.appendChild(this.elem1_5_2)
-        this.elem1_5_2_1 = document.createElement('h3')
-        this.elem1_5_2_1.innerText = "NOT CONNECTED"
+        this.elem1_5_2_1 = document.createElement('img')
+        this.elem1_5_2_1.setAttribute('class', 'icon')
+        this.elem1_5_2_1.setAttribute("src", `${cropListImage["Sunflower Seed"]}`)
+        this.elem1_5_2.setAttribute("style", "    display: flex; margin-left: auto; margin-right: auto; border: #5d3e02 solid 2px; border-radius: 20px; --tw-bg-opacity: 1; background-color: rgb(185 111 80 / var(--tw-bg-opacity));")
         this.elem1_5_2.appendChild(this.elem1_5_2_1)
+        this.elem1_5_2_2 = document.createElement('h3')
+        this.elem1_5_2_2.setAttribute("style", "align-self: center; ")
+        this.elem1_5_2_2.innerText = `${cropListName[0]}`
+        this.elem1_5_2.appendChild(this.elem1_5_2_2)
         
 
         for (let x =0; x < 12; x++){
