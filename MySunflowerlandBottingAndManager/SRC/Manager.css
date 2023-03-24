@@ -226,3 +226,10 @@ i {
     --tw-bg-opacity: 1;
     background-color: rgb(185 111 80 / var(--tw-bg-opacity));
 }
+
+.buttonBox {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    --tw-bg-opacity: 1;
+}

@@ -5,7 +5,31 @@ var cards = []
 var TotalBalance = 0
 LastGenListCount = 0
 UpdatedElement = 0
+const cropListName = [
+    "Sunflower Seed",
+    "Potato Seed",
+    "Pumpkin Seed",
+    "Carrot Seed",
+    "Cabbage Seed",
+    "Beetroot Seed",
+    "Cauliflower Seed",
+    "Parsnip Seed",
+    "Radish Seed",
+    "Wheat Seed",
+    "Kale Seed"]
 
+const cropListImage = {
+    "Sunflower Seed" : "https://sunflower-land.com/game-assets/crops/sunflower/seed.png",
+    "Potato Seed" : "https://sunflower-land.com/game-assets/crops/potato/seed.png",
+    "Pumpkin Seed" : "https://sunflower-land.com/game-assets/crops/pumpkin/seed.png",
+    "Carrot Seed" : "https://sunflower-land.com/game-assets/crops/carrot/seed.png",
+    "Cabbage Seed" : "https://sunflower-land.com/game-assets/crops/cabbage/seed.png",
+    "Beetroot Seed" : "https://sunflower-land.com/game-assets/crops/beetroot/seed.png",
+    "Cauliflower Seed" : "https://sunflower-land.com/game-assets/crops/cauliflower/seed.png",
+    "Parsnip Seed" : "https://sunflower-land.com/game-assets/crops/parsnip/seed.png",
+    "Radish Seed" : "https://sunflower-land.com/game-assets/crops/radish/seed.png",
+    "Wheat Seed" : "https://sunflower-land.com/game-assets/crops/wheat/seed.png",
+    "Kale Seed" : "https://sunflower-land.com/game-assets/crops/kale/seed.png"}
 
 
 class card {
@@ -136,14 +160,26 @@ class card {
         this.elem1_4_1.setAttribute('id', 'date')
         this.elem1_4.appendChild(this.elem1_4_1)
 
+        this.elem1_5 = document.createElement('div')
+        this.elem1_5.setAttribute('class', 'buttonBox')
+        this.elem1_5.setAttribute('style', 'display: flex; align-items: center; margin-left: auto;margin-right: auto; border: 2px solid rgb(93, 62, 2); border-radius: 20px; background-color: initial;')
+        this.elem1.appendChild(this.elem1_5)
         
         this.elem1_5_1 = document.createElement('button')
         this.elem1_5_1.setAttribute('id', 'bot')
-        this.elem1_5_1.setAttribute("style", "display: block; margin-left: auto; margin-right: auto; border: #5d3e02 solid 2px; border-radius: 20px; --tw-bg-opacity: 1; background-color: rgb(185 111 80 / var(--tw-bg-opacity));")
-        this.elem1.appendChild(this.elem1_5_1)
+        this.elem1_5_1.setAttribute("style", " margin-left: auto; margin-right: auto; border: #5d3e02 solid 2px; border-radius: 20px; --tw-bg-opacity: 1; background-color: rgb(185 111 80 / var(--tw-bg-opacity));")
+        this.elem1_5.appendChild(this.elem1_5_1)
         this.elem1_5_1_1 = document.createElement('h3')
         this.elem1_5_1_1.innerText = "NOT CONNECTED"
         this.elem1_5_1.appendChild(this.elem1_5_1_1)
+
+        this.elem1_5_2 = document.createElement('button')
+        this.elem1_5_2.setAttribute('id', 'bot')
+        this.elem1_5_2.setAttribute("style", " margin-left: auto; margin-right: auto; border: #5d3e02 solid 2px; border-radius: 20px; --tw-bg-opacity: 1; background-color: rgb(185 111 80 / var(--tw-bg-opacity));")
+        this.elem1_5.appendChild(this.elem1_5_2)
+        this.elem1_5_2_1 = document.createElement('h3')
+        this.elem1_5_2_1.innerText = "NOT CONNECTED"
+        this.elem1_5_2.appendChild(this.elem1_5_2_1)
         
 
         for (let x =0; x < 12; x++){
