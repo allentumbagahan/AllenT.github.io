@@ -271,7 +271,7 @@ class botClicker{
                                                 if (handleQuantity.length == 2){
                                                     handleQuantity = parseInt(handleQuantity[1].innerText)
                                                     if(handleQuantity == 0){
-                                                        this.pickSeed(seed, false)
+                                                        this.pickSeed(seed, true)
                                                     }
                                                     else{
                                                         if (handleQuantity != 0 && readyPlots.length != 0){
@@ -343,10 +343,10 @@ class botClicker{
                                             closebtn = $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")
                                             if(closebtn.length != 0){
                                                 clearInterval(t1)
-                                                res()
+                                                res(closebtn)
                                             }
                                         }, 1000)
-                                    }).then(()=>{
+                                    }).then((closebtn)=>{
                                         //fullfilled
                                         closebtn[0].click()
                                         this.pickedSeed = true
@@ -375,10 +375,10 @@ class botClicker{
                                                     var closebtn = $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")
                                                     if(closebtn.length != 0){
                                                         clearInterval(t1)
-                                                        res()
+                                                        res(closebtn)
                                                     }
                                                 }, 1000)
-                                            }).then(()=>{
+                                            }).then((closebtn)=>{
                                                 closebtn[0].click()
                                                 setTimeout(this.buySeeds(cropListName[cropListName.indexOf(name)], 13, false), 3000)
                                             })
@@ -400,6 +400,7 @@ class botClicker{
 
     }
     buySeeds(seedName, count, buyNextIfEmpty){
+        var itemBox
         console.log("buying seed " + cropListName[cropListName.indexOf(seedName)])
     
         const marketButton = $("img[src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAmCAYAAACCjRgBAAAAAXNSR0IArs4c6QAABmNJREFUWIXNmW1sW1cZx38nsePOTre0RX5BiDVFoS/rtjZShyNYcApRW6HIqcbQNkXLtCZS+dQWhITGgAkyhEAq9EuJ1CItU6WB9mFE2UZDyxqiNteOpeXF7jYWaNgWyS8itoEkm53Yhw/OvbnXsZPrJKz8pSjnPM859z7POc/zf+45FvyfoO2VMxJg4MkLQm2r0MsGnrwg9DpD526h7ZUz0rn7DgBTw4vc9/m9qH1V1tBsBSDxjz0GJ6o+ZVvLYmp4EUAzdGp4saSsGHd1B4Zf/LYWKl3v/hX3gzU0NFuZGl4kFs5yef9enrdMr5KpaP7Bb4Tlrliuwz5/CwA3/S185ee9AMTCWW5+/zTZyQCxN7MGmYr3+m8AcFcdWEhEea//Bv2D4/zy7CK9yUVOh3fRm5zlM+//gu/1WumtXTDKfm3Ff+wQC4moeQdOKW1r6jPz1QbWsDlyopR8lW4A9tTfU3hGIImvaye9l2fxdVnJBJL0eMHmNcrAxZ76e4gkCnZtKInTMY98/HfV2l9nX5pnz0/z8X+cPHt+mnTMI9Mxj+wYgI4Byur0UCLbAfD9tlHrl5IVo+IQSsc8snsoYZDldtYB0D2UINtQj6qvmZou6HftKKnLNtRX+vpVqMgBvfF2p8eoLO7rZCVf4vSQXY5jFZlAEhvh5VDZXlamR0UhVNb4LcALf69a1S8lK4YAIx9/mlhIRLE7PfQPjtN62GVqzrWxuMZCrz6RW6kD+9pbEFKQmVTYNfYaEkg1nkRKQMCu8X5kPk/ycDs1DzVpD1T5eCOwOz3s87ewz99CdjJgak5j91O6984UduDqmXaprkSPN47lnA+pTLKkzPLDoJsebwLLuUdhJMzSaJrnAy6QUluJjYZU/+D4huapiP/ItZJfX6i3I4FAZDtfHpkAqgjcvpcebxyEQCoREIJAZDvk87Q2ujU+3gxaD7v42dUPeO74/abGq2OvjcUBHUHkySMA74Nz5EZBCdfSdHAO67mvIpUIS8EkAon3gOT1UfvmrC5jWKWwOXQ5IBD0NCWwnG1GKmGaSBV2QwnDcopbzhac6REx/pJxbpnxAEdc2wDKJrO64qH4Jwa5gaKVcC2PKmGWAkmElPz4b4IXLhc+YZseyLN4fohq785CGDVsqf2aYaEKdiIzXy1XHJDwxpydJiWG9Ts+pBJmUCQ51n8ff/L/ayWxA2len3PSukmDF4qKWCU5oEeVsSVQbt8LSgQhCm0hBCPhWvJKGIlAidQyMOvg2licO9MfmzKuFOxOjxYuZo3Xj1XnaoVM/S43y8c1D3mBzdUBWHG2mIrXo+fMu+/Q98yOggPfbW7aVCX2Hzu0mekbwoUDOerc0RUWqpSPE3+cQZJn0m3TZB+8HELKPLs7v1RyTrnV3gxWfSia4eNTecHj7cdIKSFELAXA9EtBvnXyBP+8GeRG3yi7Ox8xzNHnxVrhYVbXPZTgSpuehZZhho8nheDorRAImHBZoS+IEJAcCQIF2cTgeMWhpTpZzgm9rHo2BexYvQPr8bEQglN5wZDIMu62cii2xGP+E8zeCnI9nkQIwcPAJXL4i16+XgipY8yEWO9je6lzRIWl43q75CdxTbFeDsTf/JBvth9ndiSIjKYYd9fguxWkqgomP7uNnz7iY3ZkFJlIljRwPZjNjzp3VMAyjXZcbzfFQp0vpbj6YZaHY4Wrjgl3jdYu7k+4a/6n7NR3dEbAchJf+fof1rzgOqW0kY55pG2/ByWWo/VEgmtjcc6dLpwL3r/yZ77Y8TWOAr/qVWg97EK57TSE0FYjHfPIOndUmDpSZuarVx3kASLBO0SCd3hjzq619VirIpup1vqxxeO7hxJk5qul6TNxIesLCB/s4hu1C1q/uB0+2LWuQfr/G4Fqj6lbCZsjJ2z7D0gAy0chxt7eAydfXBlwEEN77O0Ilo9C2Fu8JZ9Xjm3M0Kdm0/4D2Bwz5u9G+47OiM63PicBZt76/Zpj19OXM6qSCm1IYrO42DgPLxeKXWgNI4+4tq06eGwlLjbO41huV3Qv5KhLieeO368Zd8S1Tavc+nYo/gk9T5cOn62Aoy618R84Xn0iJ9YrdpV831cKNXRUmPqBo9Tt9Hx6h3zm6r8Nsks+J91DCS75CudlPfWW0xXL69xRUeoK82LjvGHlN+2AHhu+Xi8hL35msbwY/wXueifmCbiY5QAAAABJRU5ErkJggg==']")[0]
@@ -407,17 +408,17 @@ class botClicker{
         this.findItemBox = new Promise((res)=>{
             setInterval(() => {
                 try{
-                    var itemBox = $("div[class='w-full max-h-48 sm:max-h-96 sm:w-3/5 h-fit overflow-y-auto scrollable overflow-x-hidden p-1 mt-1 sm:mt-0 sm:mr-1 flex flex-wrap']")
+                    itemBox = $("div[class='w-full max-h-48 sm:max-h-96 sm:w-3/5 h-fit overflow-y-auto scrollable overflow-x-hidden p-1 mt-1 sm:mt-0 sm:mr-1 flex flex-wrap']")
                     if(itemBox.length != 0){
                         itemBox = itemBox[0]
-                        res()
+                        res(itemBox)
                     }
                 }
                 catch{
                     console.log("finding item box")
                 }
             }, 400);
-        }).then(()=>{
+        }).then((itemBox)=>{
                     
         if (count == 0 || count === undefined || count === null){
             var n = 13 // needed seed to buy
@@ -433,6 +434,7 @@ class botClicker{
             var clicOnShop = setTimeout(async () => {
                 var seedNameInShop;
                 if (!stopBuying){
+                    console.log(itemBox)
                     itemBox.children[x].children[0].click()
                     findcloseBtn = new Promise((res)=>{
                         let t1 = setInterval(()=>{
