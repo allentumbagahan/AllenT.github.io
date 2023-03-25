@@ -401,7 +401,6 @@ class botClicker{
                                 }
                             }
                             catch(err){
-                                console.log(err + " err picking seed")
                                 this.pickSeed(name, buyNextIfEmpty)
                             }
     

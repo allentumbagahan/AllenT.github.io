@@ -42,10 +42,13 @@ class card {
         this.id = id
         this.chef = this.chef
         this.bal = 0
+        this.totalPlots = this.totalPlots
         this.selectedSeed = this.selectedSeed
         this.data = this.data
         this.elem1_4 = this.elem1_4
         this.elem1_4_1 = this.elem1_4_1 // date
+        this.elem1_a4_1 = this.elem1_a4_1 
+        this.elem1_a4 = this.elem1_a4
         this.elem1_3 = this.elem1_3
         this.elem1_3_1 = this.elem1_3_1
         this.elem1 = this.elem1
@@ -165,6 +168,13 @@ class card {
         this.elem1_4_1.setAttribute('id', 'date')
         this.elem1_4.appendChild(this.elem1_4_1)
 
+        this.elem1_a4 = document.createElement('div')
+        this.elem1_a4.setAttribute('class', 'fh mxf ')
+        this.elem1.appendChild(this.elem1_4)
+        this.elem1_a4_1 = document.createElement('h3')
+        this.elem1_a4_1.setAttribute('id', 'totalPlot')
+        this.elem1_a4.appendChild(this.elem1_a4_1)
+
         this.elem1_5 = document.createElement('div')
         this.elem1_5.setAttribute('class', 'buttonBox')
         this.elem1_5.setAttribute('style', 'display: flex; align-items: center; margin-left: auto;margin-right: auto; background-color: initial;')
@@ -241,6 +251,8 @@ class card {
         this.grublist.grubImg = this.data.grublist 
         this.date = this.data.date
         this.trees = this.data.trees
+        this.totalPlots = this.data.totalPlots
+        this.elem1_a4_1.innerHTML = this.totalPlots
         this.elem1_4_1.innerHTML = this.date
         this.elem1_3_1.innerHTML = this.trees
         if(this.bot != undefined || this.bot != null){
