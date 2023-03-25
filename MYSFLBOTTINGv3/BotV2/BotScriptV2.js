@@ -228,6 +228,7 @@ class botClicker{
         this.keyIn2 = this.keyIn2
         this.keyIn3 = this.keyIn3
         this.findcloseBtn = this.findcloseBtn
+        this.buyOneBtn = this.buyOneBtn
     }
     async Autofarm(seed){
         this.pickedSeed = false
@@ -460,17 +461,17 @@ class botClicker{
                             if(seedNameInShop == seedName){
                                 for(let c = 0; c < count; c++){
                                     if (!stopBuying){
-                                        buyOneBtn = $("button[class='bg-brown-200 w-full p-1 text-xs object-contain justify-center items-center hover:bg-brown-300 cursor-pointer flex disabled:opacity-50  text-xxs sm:text-xs']")[0]
+                                        this.buyOneBtn = $("button[class='bg-brown-200 w-full p-1 text-xs object-contain justify-center items-center hover:bg-brown-300 cursor-pointer flex disabled:opacity-50  text-xxs sm:text-xs']")[0]
                                     
                                         try {
-                                            if(buyOneBtn === undefined || buyOneBtn === null){
+                                            if(this.buyOneBtn === undefined || this.buyOneBtn === null){
                                                 closebtn.click()                       
                                                 stopBuying = true                         
                                                 clearTimeout(clicOnShop)     
                                             }
                                             else{
                                                 if(n != 0){
-                                                    buyOneBtn.click()
+                                                    this.buyOneBtn.click()
                                                     n--
                                                 }
                                                 else{
