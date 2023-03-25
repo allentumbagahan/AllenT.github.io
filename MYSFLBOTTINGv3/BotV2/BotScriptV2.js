@@ -1,5 +1,5 @@
 // script version
-const version = 0.1012
+const version = 0.1013
 var seedAuto = 0
 isSetupDone = false
 currentURl = window.location.href
