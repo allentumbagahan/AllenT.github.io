@@ -170,7 +170,7 @@ class card {
 
         this.elem1_a4 = document.createElement('div')
         this.elem1_a4.setAttribute('class', 'fh mxf ')
-        this.elem1.appendChild(this.elem1_4)
+        this.elem1.appendChild(this.elem1_a4)
         this.elem1_a4_1 = document.createElement('h3')
         this.elem1_a4_1.setAttribute('id', 'totalPlot')
         this.elem1_a4.appendChild(this.elem1_a4_1)
