@@ -227,6 +227,7 @@ class botClicker{
         this.keyIn1 = this.keyIn1
         this.keyIn2 = this.keyIn2
         this.keyIn3 = this.keyIn3
+        this.findcloseBtn = this.findcloseBtn
     }
     async Autofarm(seed){
         this.pickedSeed = false
@@ -347,7 +348,7 @@ class botClicker{
                                     if(seedname == name){
                                         stop = true
     
-                                        findcloseBtn = new Promise((res)=>{
+                                        this.findcloseBtn = new Promise((res)=>{
                                             let t1 = setInterval(()=>{
                                                 closebtn = $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")
                                                 if(closebtn.length != 0){
