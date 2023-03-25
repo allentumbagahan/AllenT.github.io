@@ -1067,6 +1067,7 @@ function save2DB(list){
         grublist, 
         balance, 
         plotsPlanted,
+        totalPlots,
         trees,
         AutoFarmVersion } = list
         
@@ -1078,6 +1079,7 @@ function save2DB(list){
             trees: trees,
             grublist: grublist,
             plotsPlanted: plotsPlanted,
+            totalPlots: totalPlots,
             AutoFarmVersion: AutoFarmVersion
         }).then()
     }
@@ -1190,6 +1192,7 @@ const UpdateData = new Promise((res) => {
                     grublist: grubList, 
                     balance: data.balance, 
                     plotsPlanted: plotsCooldown,
+                    totalPlots: plots.length,
                     trees: "Trees Under Construction",
                     AutoFarmVersion: version,
                     bot: elem1_3BTN.innerHTML
