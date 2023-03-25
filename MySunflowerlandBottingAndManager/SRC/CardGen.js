@@ -33,7 +33,8 @@ const cropListImage = {
 
 
 class card {
-    constructor(id){
+    constructor(id, index){
+        this.index = index
         this.bot = this.bot
         this.countClick = 0
         this.date = this.date
@@ -41,6 +42,7 @@ class card {
         this.id = id
         this.chef = this.chef
         this.bal = 0
+        this.selectedSeed = this.selectedSeed
         this.data = this.data
         this.elem1_4 = this.elem1_4
         this.elem1_4_1 = this.elem1_4_1 // date
@@ -61,6 +63,8 @@ class card {
         this.elem1_5 = this.elem1_5
         this.elem1_5_1 = this.elem1_5_1
         this.elem1_5_1_1 = this.elem1_5_1_1
+        this.elem1_5_2_2 = this.elem1_5_2_2
+        this.elem1_5_2_1 = this.elem1_5_2_1
         this.grublist = { 
             grubElem : [],
             grubImg : []
@@ -82,8 +86,9 @@ class card {
             })
             btndocRef.onSnapshot((doc) => {
                 if (doc.exists) {
-                    const { bot }  = doc.data()
+                    const { bot, selectedSeed  }  = doc.data()
                     this.bot = bot
+                    this.selectedSeed = selectedSeed
                     console.log(this.bot)
                     this.UpdateProperty()
                 } else {
@@ -175,17 +180,27 @@ class card {
 
         this.elem1_5_2 = document.createElement('button')
         this.elem1_5_2.setAttribute('id', 'botSeed')
-        this.elem1_5_2.setAttribute("style", " margin-left: auto; margin-right: auto; border: #5d3e02 solid 2px; border-radius: 20px; --tw-bg-opacity: 1; background-color: rgb(185 111 80 / var(--tw-bg-opacity));")
+        this.elem1_5_2.setAttribute("style", "display: flex; padding: 0.1in; margin-left: auto; margin-right: auto; border: #5d3e02 solid 2px; border-radius: 20px; --tw-bg-opacity: 1; background-color: rgb(185 111 80 / var(--tw-bg-opacity));")
         this.elem1_5.appendChild(this.elem1_5_2)
+
+
         this.elem1_5_2_1 = document.createElement('img')
-        this.elem1_5_2_1.setAttribute('class', 'icon')
+        this.elem1_5_2_1.setAttribute('class', 'selectedSeedicon')
         this.elem1_5_2_1.setAttribute("src", `${cropListImage["Sunflower Seed"]}`)
-        this.elem1_5_2.setAttribute("style", "    display: flex; margin-left: auto; margin-right: auto; border: #5d3e02 solid 2px; border-radius: 20px; --tw-bg-opacity: 1; background-color: rgb(185 111 80 / var(--tw-bg-opacity));")
+        this.elem1_5_2_1.setAttribute("style", "width: 0.3in; heigth: 0.3in; margin-right: 0.1in; ")
         this.elem1_5_2.appendChild(this.elem1_5_2_1)
-        this.elem1_5_2_2 = document.createElement('h3')
+
+        this.elem1_5_2_2 = document.createElement('select')
+        this.elem1_5_2_2.setAttribute("id", "selection")
         this.elem1_5_2_2.setAttribute("style", "align-self: center; ")
-        this.elem1_5_2_2.innerText = `${cropListName[0]}`
         this.elem1_5_2.appendChild(this.elem1_5_2_2)
+
+        for(let seedType = 0; cropListName.length > seedType; seedType++){
+            this.elem1_5_2_2_1 = document.createElement('option')
+            this.elem1_5_2_2_1.setAttribute("style", "align-self: center; ")
+            this.elem1_5_2_2_1.innerText = `${cropListName[seedType]}`
+            this.elem1_5_2_2.appendChild(this.elem1_5_2_2_1)
+        }
         
 
         for (let x =0; x < 12; x++){
@@ -236,7 +251,12 @@ class card {
         UpdatedElement++
     }
     UpdateView(){
-        this.elem1_5_1.setAttribute('onclick', `clickStartBot(${this.elem1_1_1_1.innerHTML}, "${this.elem1_5_1_1.innerText}")`)
+        console.log(cropListImage[this.elem1_5_2_2.value])
+        this.elem1_5_2_1.setAttribute("src", `${cropListImage[this.elem1_5_2_2.value]}`)
+        this.selectedSeed = this.elem1_5_2_2.value
+        this.elem1_5_1.setAttribute('onclick', `clickStartBot(${this.elem1_1_1_1.innerHTML}, "${this.elem1_5_1_1.innerText}", "${this.selectedSeed}")`)
+        this.elem1_5_2_2.setAttribute("onchange", `updateViewOf(${this.index})`)
+
         for(let x =0; x < this.grublist.grubElem.length; x++){
             console.log(this.grublist.grubImg[x])
             let a = ItemnameToImageData(this.grublist.grubImg[x])
@@ -286,7 +306,7 @@ async function GenCards(){
     AllLands = RegisteredLands.list
     for (x = 0; x < AllLands.length; x++){
         console.log(AllLands[x])
-        cards.push(new card(AllLands[x]))
+        cards.push(new card(AllLands[x], cards.length))
         console.log(AllLands[x])
         cards[x].CreateCardView()
         cards[x].GetDataToDb()
@@ -322,17 +342,21 @@ function ComputeTotalbal(val) {
 
 ConnectToApi()
 
-function clickStartBot(id, botElem){
+function clickStartBot(id, botElem, seed){
     console.log(botElem)
     switch(botElem){
         case "Start Bot":
-            BotSaveToDb(id, "Stop Bot")
+            BotSaveToDb(id, "Stop Bot", seed)
             console.log(id + " saving " + "Stop Bot")
             break;
         case "Stop Bot":
-            BotSaveToDb(id, "Start Bot")
+            BotSaveToDb(id, "Start Bot", seed)
             console.log(id + " saving " + "Start Bot")
             break;
     }
+}
+function updateViewOf(index){
+    console.log("update view of" + index) 
+    cards[index].UpdateView()
 }
 

@@ -3,7 +3,8 @@ const version = 0.1012
 var seedAuto = 0
 isSetupDone = false
 currentURl = window.location.href
-bot = ""
+var bot = ""
+var selectSeed = "Sunflower Seed"
 var handleQuantity, findHandleQuantity, findcloseBtn;
 var botsClicker = []
 
@@ -622,26 +623,28 @@ async function UpdateInGameData(id){
         getData = await GetSFLData(currentURl.replace('https://sunflower-land.com/play/#/land/', '')).then(function(val){
             if(val){
                 try{
-                    data = val.state
-                    if(data  != undefined || data != null){
-                        inventory = data.inventory
-                        crops = {
-                            Sunflower : data.inventory.Sunflower,
-                            Potato : data.inventory.Potato,
-                            Pumpkin : data.inventory.Pumpkin,
-                            Carrots : data.inventory.Carrots,
-                            Cabbage : data.inventory.Cabbage,
-                            Beetroot : data.inventory.Beetroot,
-                            Cauliflower : data.inventory.Cauliflower,
-                            Parsnip : data.inventory.Parsnip, 
-                            Radish : data.inventory.Radish,
-                            Wheat : data.inventory.Wheat,
-                            Kale : data.inventory.Kale
-                         }
-                         return true
-                    }
-                    else{
-                        return "error"
+                    if(val != undefined || val != null){
+                        data = val.state
+                        if(data  != undefined || data != null){
+                            inventory = data.inventory
+                            crops = {
+                                Sunflower : data.inventory.Sunflower,
+                                Potato : data.inventory.Potato,
+                                Pumpkin : data.inventory.Pumpkin,
+                                Carrots : data.inventory.Carrots,
+                                Cabbage : data.inventory.Cabbage,
+                                Beetroot : data.inventory.Beetroot,
+                                Cauliflower : data.inventory.Cauliflower,
+                                Parsnip : data.inventory.Parsnip, 
+                                Radish : data.inventory.Radish,
+                                Wheat : data.inventory.Wheat,
+                                Kale : data.inventory.Kale
+                             }
+                             return true
+                        }
+                        else{
+                            return "error"
+                        }
                     }
                 }
                 catch{
@@ -970,6 +973,7 @@ function snapData(id){
                         // load buttons data
                         loadBtn = doc.data()
                         bot = loadBtn["bot"]
+                        selectSeed = loadBtn["selectSeed"]
                         try {
                             if (elem1_3BTN.innerText != bot){
                                 console.log("changes = " + changes)
@@ -988,7 +992,7 @@ function snapData(id){
                                                 botsClicker.push(new botClicker())
                                             }
                                             console.log(botsClicker)
-                                            botsClicker[0].Autofarm(cropListName[seedAuto])
+                                            botsClicker[0].Autofarm(selectSeed)
                                         }
                                         if(bot == "Start Bot"){
                                             if(botsClicker.length = 0){

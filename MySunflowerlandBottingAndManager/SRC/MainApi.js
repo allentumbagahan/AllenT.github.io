@@ -87,10 +87,11 @@ function save2DB(list, id){
     }
 }
 
-function BotSaveToDb(id, buttonText){
+function BotSaveToDb(id, buttonText, seed){
     BotBtn = db.collection("BotButton").doc(`${id}`)
     BotBtn.set({
-        bot : buttonText
+        bot : buttonText,
+        selectSeed : seed
     })
     console.log("saved " + buttonText + "  " + id)
 }
