@@ -318,87 +318,95 @@ class botClicker{
     async pickSeed(name, buyNextIfEmpty){
             var closebtn;
             console.log("picking seed")
-            var bagBtn = await $("img[src='https://sunflower-land.com/game-assets/ui/round_button.png']")
-            console.log(bagBtn)
-            bagBtn[0].click()
-                console.log("getting seeds container")
-                stop = false
-                var bagContainer = $("div[class='flex mb-2 flex-wrap -ml-1.5']")[0]
-                console.log(bagContainer.children.length)
-                for (let elem = 0; elem < bagContainer.children.length; elem++){
-                    console.log("finding")
-                    this.botclickerTimer = setTimeout(async ()=>{
-                        try {
-                            if(!stop){
-                                console.log(elem)
-                                console.log(bagContainer.children[elem].children[0])
-                                bagContainer.children[elem].children[0].click()
-                                let seedname = $("span[class='sm:text-center']")[0].innerText
-                                console.log(seedname)
-                                console.log(name)
-                                if(seedname == name){
-                                    stop = true
-
-                                    findcloseBtn = new Promise((res)=>{
-                                        let t1 = setInterval(()=>{
-                                            closebtn = $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")
-                                            if(closebtn.length != 0){
-                                                clearInterval(t1)
-                                                res(closebtn)
+            findbag = new Promise((res)=>{
+                let t1 = setInterval(()=>{
+                    var bagBtn = $("img[src='https://sunflower-land.com/game-assets/ui/round_button.png']")
+                    if(bagBtn.length != 0){
+                        clearInterval(t1)
+                        res(bagBtn)
+                    }
+                }, 1000)
+            }).then((bagBtn)=>{
+                console.log(bagBtn)
+                bagBtn[0].click()
+                    console.log("getting seeds container")
+                    stop = false
+                    var bagContainer = $("div[class='flex mb-2 flex-wrap -ml-1.5']")[0]
+                    console.log(bagContainer.children.length)
+                    for (let elem = 0; elem < bagContainer.children.length; elem++){
+                        console.log("finding")
+                        this.botclickerTimer = setTimeout(async ()=>{
+                            try {
+                                if(!stop){
+                                    console.log(elem)
+                                    console.log(bagContainer.children[elem].children[0])
+                                    bagContainer.children[elem].children[0].click()
+                                    let seedname = $("span[class='sm:text-center']")[0].innerText
+                                    console.log(seedname)
+                                    console.log(name)
+                                    if(seedname == name){
+                                        stop = true
+    
+                                        findcloseBtn = new Promise((res)=>{
+                                            let t1 = setInterval(()=>{
+                                                closebtn = $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")
+                                                if(closebtn.length != 0){
+                                                    clearInterval(t1)
+                                                    res(closebtn)
+                                                }
+                                            }, 1000)
+                                        }).then((closebtn)=>{
+                                            //fullfilled
+                                            closebtn[0].click()
+                                            this.pickedSeed = true
+                                            clearTimeout(this.botclickerTimer)
+                                            return true
+                                        })
+    
+                                    }
+                                    else{
+                                        console.log("pick another seed")
+                                        console.log(bagContainer.children.length - 1)
+                                        if (elem == bagContainer.children.length - 1){
+                                            //pick another
+                                            console.log(cropListName.indexOf(name))
+                                            if (buyNextIfEmpty){
+                                                if (cropListName.indexOf(name) == 10){
+                                                    await this.pickSeed(cropListName[0])
+                                                }
+                                                else{
+                                                    await this.pickSeed(cropListName[cropListName.indexOf(name) + 1])
+                                                    console.log("picking seed " + cropListName[cropListName.indexOf(name) - 1])
+                                                }
+                                            }else{
+                                                findcloseBtn = new Promise((res)=>{
+                                                    let t1 = setInterval(()=>{
+                                                        var closebtn = $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")
+                                                        if(closebtn.length != 0){
+                                                            clearInterval(t1)
+                                                            res(closebtn)
+                                                        }
+                                                    }, 1000)
+                                                }).then((closebtn)=>{
+                                                    closebtn[0].click()
+                                                    setTimeout(this.buySeeds(cropListName[cropListName.indexOf(name)], 13, false), 3000)
+                                                })
+                                                
                                             }
-                                        }, 1000)
-                                    }).then((closebtn)=>{
-                                        //fullfilled
-                                        closebtn[0].click()
-                                        this.pickedSeed = true
-                                        clearTimeout(this.botclickerTimer)
-                                        return true
-                                    })
-
-                                }
-                                else{
-                                    console.log("pick another seed")
-                                    console.log(bagContainer.children.length - 1)
-                                    if (elem == bagContainer.children.length - 1){
-                                        //pick another
-                                        console.log(cropListName.indexOf(name))
-                                        if (buyNextIfEmpty){
-                                            if (cropListName.indexOf(name) == 10){
-                                                await this.pickSeed(cropListName[0])
-                                            }
-                                            else{
-                                                await this.pickSeed(cropListName[cropListName.indexOf(name) + 1])
-                                                console.log("picking seed " + cropListName[cropListName.indexOf(name) - 1])
-                                            }
-                                        }else{
-                                            findcloseBtn = new Promise((res)=>{
-                                                let t1 = setInterval(()=>{
-                                                    var closebtn = $("img[src='https://sunflower-land.com/game-assets/icons/close.png']")
-                                                    if(closebtn.length != 0){
-                                                        clearInterval(t1)
-                                                        res(closebtn)
-                                                    }
-                                                }, 1000)
-                                            }).then((closebtn)=>{
-                                                closebtn[0].click()
-                                                setTimeout(this.buySeeds(cropListName[cropListName.indexOf(name)], 13, false), 3000)
-                                            })
-                                            
                                         }
                                     }
                                 }
                             }
-                        }
-                        catch(err){
-                            console.log(err + " err picking seed")
-                            this.pickSeed(name, buyNextIfEmpty)
-                        }
-
+                            catch(err){
+                                console.log(err + " err picking seed")
+                                this.pickSeed(name, buyNextIfEmpty)
+                            }
     
-                    }, 1000*elem)
-            
-                }
-
+        
+                        }, 1000*elem)
+                
+                    }
+            })
     }
     buySeeds(seedName, count, buyNextIfEmpty){
         var itemBox
