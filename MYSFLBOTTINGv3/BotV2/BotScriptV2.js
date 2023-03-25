@@ -229,6 +229,7 @@ class botClicker{
         this.keyIn3 = this.keyIn3
         this.findcloseBtn = this.findcloseBtn
         this.buyOneBtn = this.buyOneBtn
+        this.findbag = this.findbag
     }
     async Autofarm(seed){
         this.pickedSeed = false
@@ -320,7 +321,7 @@ class botClicker{
     async pickSeed(name, buyNextIfEmpty){
             var closebtn;
             console.log("picking seed")
-            findbag = new Promise((res)=>{
+            this.findbag = new Promise((res)=>{
                 let t1 = setInterval(()=>{
                     var bagBtn = $("img[src='https://sunflower-land.com/game-assets/ui/round_button.png']")
                     if(bagBtn.length != 0){
