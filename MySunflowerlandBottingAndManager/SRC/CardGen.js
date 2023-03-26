@@ -34,6 +34,7 @@ const cropListImage = {
 
 class card {
     constructor(id, index){
+        this.plotElem = []
         this.index = index
         this.bot = this.bot
         this.countClick = 0
@@ -42,6 +43,7 @@ class card {
         this.id = id
         this.chef = this.chef
         this.bal = 0
+        this.plots = []
         this.totalPlots = this.totalPlots
         this.selectedSeed = this.selectedSeed
         this.data = this.data
@@ -68,6 +70,7 @@ class card {
         this.elem1_5_1_1 = this.elem1_5_1_1
         this.elem1_5_2_2 = this.elem1_5_2_2
         this.elem1_5_2_1 = this.elem1_5_2_1
+        this.elem1_b4_1 = this.elem1_b4_1
         this.grublist = { 
             grubElem : [],
             grubImg : []
@@ -174,6 +177,14 @@ class card {
         this.elem1_a4_1 = document.createElement('h3')
         this.elem1_a4_1.setAttribute('id', 'totalPlot')
         this.elem1_a4.appendChild(this.elem1_a4_1)
+        this.elem1_b4_1 = document.createElement('select')
+        this.elem1_a4_1.appendChild(this.elem1_b4_1)
+
+        this.elem1_b4 = document.createElement('div')
+        this.elem1_b4.setAttribute('style', ' display: flex; padding: 0.1in; margin-left: auto; margin-right: auto; border: #5d3e02 solid 2px; border-radius: 20px; --tw-bg-opacity: 1; background-color: rgb(185 111 80 / var(--tw-bg-opacity)); ')
+        this.elem1.appendChild(this.elem1_b4)
+
+
 
         this.elem1_5 = document.createElement('div')
         this.elem1_5.setAttribute('class', 'buttonBox')
@@ -243,6 +254,7 @@ class card {
         }
 
     UpdateProperty(){
+        this.plots = this.data.plotsPlanted
         this.chef = this.data.kitchen
         this.bal = this.data.SFlbalance
         this.elem1_1_2_1_2.innerHTML = this.bal
@@ -252,7 +264,17 @@ class card {
         this.date = this.data.date
         this.trees = this.data.trees
         this.totalPlots = this.data.totalPlots
-        this.elem1_a4_1.innerHTML = this.totalPlots
+        
+        for (let index = 0; index < this.totalPlots; index++) {
+            this.elem1_b4_1_1 = document.createElement('option')
+            this.elem1_b4_1_1.setAttribute('style', 'display: flex; flex-wrap: nowrap; heigth: 40px; width: 40px;')
+            this.elem1_b4_1.appendChild(this.elem1_b4_1_1)
+            this.plotElem.push(this.elem1_b4_1_1)
+        }
+
+
+        this.elem1_a4_1.innerText = "Planted : " + this.plots.length + " / " + this.totalPlots
+
         this.elem1_4_1.innerHTML = this.date
         this.elem1_3_1.innerHTML = this.trees
         if(this.bot != undefined || this.bot != null){
@@ -287,6 +309,10 @@ class card {
                 this.grublist.grubElem[x].setAttribute("src", `${a}`)
             })
 
+        }
+        for(let i = 0 ; i < this.plotElem.length; i++){
+            if(i < this.plots.length)
+            this.plotElem[i].innerText = this.plots[i]
         }
     }
 
