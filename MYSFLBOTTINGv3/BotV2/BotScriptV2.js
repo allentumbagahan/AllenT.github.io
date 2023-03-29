@@ -375,10 +375,10 @@ class botClicker{
                                             console.log(cropListName.indexOf(name))
                                             if (buyNextIfEmpty){
                                                 if (cropListName.indexOf(name) == 10){
-                                                    await this.pickSeed(cropListName[0])
+                                                    await this.pickSeed(cropListName[0], true)
                                                 }
                                                 else{
-                                                    await this.pickSeed(cropListName[cropListName.indexOf(name) + 1])
+                                                    await this.pickSeed(cropListName[cropListName.indexOf(name) + 1], true)
                                                     console.log("picking seed " + cropListName[cropListName.indexOf(name) - 1])
                                                 }
                                             }else{
@@ -401,7 +401,7 @@ class botClicker{
                                 }
                             }
                             catch(err){
-                                this.pickSeed(name, buyNextIfEmpty)
+                                this.pickSeed(name, true)
                             }
     
         
