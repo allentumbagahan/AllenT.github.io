@@ -1064,8 +1064,7 @@ function snapData(id){
 }
 function save2DB(list){
     const { 
-        date,
-        kitchen, 
+        date, 
         grublist, 
         balance, 
         plotsPlanted,
@@ -1077,7 +1076,6 @@ function save2DB(list){
         landFirebaseLoc.set({
             date: date,
             SFlbalance: balance,
-            kitchen: kitchen,
             trees: trees,
             grublist: grublist,
             plotsPlanted: plotsPlanted,
@@ -1190,7 +1188,6 @@ const UpdateData = new Promise((res) => {
                 SFLDatabaseToMyFirebaseData = { 
                     date: DATE,
                     landId: LandId, 
-                    kitchen: kitchenData(), 
                     grublist: grubList, 
                     balance: data.balance, 
                     plotsPlanted: plotsCooldown,
