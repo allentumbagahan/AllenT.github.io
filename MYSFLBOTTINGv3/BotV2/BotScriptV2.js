@@ -1070,6 +1070,7 @@ function save2DB(list){
         plotsPlanted,
         totalPlots,
         trees,
+        crops,
         AutoFarmVersion } = list
         
     if(landFirebaseLoc != ""){
@@ -1080,6 +1081,7 @@ function save2DB(list){
             grublist: grublist,
             plotsPlanted: plotsPlanted,
             totalPlots: totalPlots,
+            crops : crops,
             AutoFarmVersion: AutoFarmVersion
         }).then()
     }
@@ -1194,7 +1196,8 @@ const UpdateData = new Promise((res) => {
                     totalPlots: plots.length,
                     trees: "Trees Under Construction",
                     AutoFarmVersion: version,
-                    bot: elem1_3BTN.innerHTML
+                    bot: elem1_3BTN.innerHTML,
+                    crops : crops
                  } 
                 if(SFLDatabaseToMyFirebaseData != loadData){
                     save2DB(SFLDatabaseToMyFirebaseData)
