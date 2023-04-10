@@ -1189,18 +1189,18 @@ const UpdateData = new Promise((res) => {
                 const DATE =  new Date().toISOString().split('T')[0];
                 SFLDatabaseToMyFirebaseData = { 
                     date: DATE,
-                    landId: LandId, 
                     grublist: grubList, 
                     balance: data.balance, 
                     plotsPlanted: plotsCooldown,
                     totalPlots: plots.length,
                     trees: "Trees Under Construction",
                     AutoFarmVersion: version,
-                    bot: elem1_3BTN.innerHTML,
                     crops : crops
                  } 
                 if(SFLDatabaseToMyFirebaseData != loadData){
+                    console.log("save to db")
                     save2DB(SFLDatabaseToMyFirebaseData)
+
                 }
             }
         }
