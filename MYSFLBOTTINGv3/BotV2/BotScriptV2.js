@@ -1146,30 +1146,6 @@ function grubshopValue(){
     }
 }
 
-
-// fetch data 
-
-// wait then proceed
-/*
-a = await UpdateInGameData(LandId)
-
-
-const UpdateData = new Promise((res) => {
-        let tt = setInterval(()=>{
-            if(a == "error"){
-                a =  UpdateInGameData(LandId)
-            }
-            if (a){
-                clearInterval(tt)
-                res()
-            }
-        }, 5000)
-        // if data is json type then
-    
-})*/
-
-
-    // after fetching data
     FindPlots()
     UpdateReadyPlots() 
     GenerateFoodsRecipe()
@@ -1207,7 +1183,7 @@ const UpdateData = new Promise((res) => {
         catch{
             console.log('undefined data')
         }
-    }, 120000)
+    }, 30000)
     foodsMission = []
 
     // set mission

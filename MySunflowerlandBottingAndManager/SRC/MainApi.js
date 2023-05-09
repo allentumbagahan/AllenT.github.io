@@ -60,7 +60,9 @@ async function GetSFLPrice(){
         }
     })
     return await url.json()
+
 }
+
 function save2DB(list, id){
     landFirebaseLoc = db.collection("Accounts").doc(`${id}`)
     const { 
