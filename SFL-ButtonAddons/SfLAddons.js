@@ -134,7 +134,7 @@ function addJavascript(jsname,pos) {
     }
     plotsReady2Harvest = []
     for(let i = 0; i < plots.length; i++){
-        if(plots[i].image.includes("https://sunflower-land.com/game-assets/crops") && !plots[i].image.includes("https://sunflower-land.com/game-assets/crops/soil2")){
+        if(plots[i].image.includes("plant")){
             plotsReady2Harvest.push(plots[i])
         }
     }

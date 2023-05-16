@@ -41,7 +41,7 @@ function addJavascript(jsname,pos) {
     loadData = ""
     ConfigOneTime = 0
 
-    async function ConfigDB(){
+    async function plotConfigDB(){
         const firebaseConfig = {
             apiKey: "AIzaSyBC6W49ilLK5mWHsP2MXKyiIjmLyRGkFiQ",
             authDomain: "allentumbagahan-9610f.firebaseapp.com",
