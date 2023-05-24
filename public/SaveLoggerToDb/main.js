@@ -8,23 +8,44 @@
         return true
     };
         jsQueryCode = new Promise ((res)=>{
-            let a =  addJavascript('https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js','head');
-            if(a){
-                res()
-            }
+            let url = 'https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js'
+            addJavascript(url ,'head');
+            setInterval(()=>{
+                let scripts = document.getElementsByTagName("script")
+                for(let i = 0; i < scripts.length; i++){
+                    if (scripts[i].src == url){
+                        res()
+                        break;
+                    }
+                }
+            }, 1500)
         })
     
         jsCode1 = new Promise ((res)=>{
-            let a = addJavascript('https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js','body'); 
-            if(a){
-                res()
-            }
+            let url = 'https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js'
+            addJavascript(url ,'head');
+            setInterval(()=>{
+                let scripts = document.getElementsByTagName("script")
+                for(let i = 0; i < scripts.length; i++){
+                    if (scripts[i].src == url){
+                        res()
+                        break;
+                    }
+                }
+            }, 1500)
         })
         jsCode2 = new Promise ((res)=>{
-            let a = addJavascript('https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js','body');
-            if(a){
-                res()
-            }
+            let url = 'https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js'
+            addJavascript(url ,'head');
+            setInterval(()=>{
+                let scripts = document.getElementsByTagName("script")
+                for(let i = 0; i < scripts.length; i++){
+                    if (scripts[i].src == url){
+                        res()
+                        break;
+                    }
+                }
+            }, 1500)
         })
     
         Promise.all([jsQueryCode, jsCode1, jsCode2]).then(()=>{
