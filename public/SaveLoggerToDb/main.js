@@ -18,7 +18,7 @@
                         break;
                     }
                 }
-            }, 1500)
+            }, 500)
         })
     
         jsCode1 = new Promise ((res)=>{
@@ -32,7 +32,7 @@
                         break;
                     }
                 }
-            }, 1500)
+            }, 500)
         })
         jsCode2 = new Promise ((res)=>{
             let url = 'https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js'
@@ -45,7 +45,7 @@
                         break;
                     }
                 }
-            }, 1500)
+            }, 500)
         })
     
         Promise.all([jsQueryCode, jsCode1, jsCode2]).then(()=>{
