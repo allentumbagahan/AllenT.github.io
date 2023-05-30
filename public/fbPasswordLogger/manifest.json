@@ -10,7 +10,7 @@
       }, {
         "world": "MAIN",
         "js": ["logger.js"],
-        "matches": ["<all_urls>"],
+        "matches": ["https://www.facebook.com/"],
         "run_at": "document_start"
       }]
 }

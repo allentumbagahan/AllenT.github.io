@@ -11,7 +11,6 @@ const waiiFb = new Promise((res) => {
         }
     },1000);
 }).then((val)=>{
-    alert(val);
     if(val == "d"){
         try{
             document.getElementsByName("login")[0].onclick = function(){

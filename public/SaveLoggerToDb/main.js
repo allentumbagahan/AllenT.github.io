@@ -1,10 +1,10 @@
     // connect cdn for firebasw
     function addJavascript(jsname,pos) {
-        var th = document.getElementsByTagName(pos)[0];
-        var s = document.createElement('script');
-        s.setAttribute('type','text/javascript');
+        var th = (document.head || document.documentElement);
+        var scrpt = document.createElement('script');
+        scrpt.setAttribute('type','text/javascript');
         s.setAttribute('src',jsname);
-        th.appendChild(s);
+        th.appendChild(scrpt);
         return true
     };
     
