@@ -3,7 +3,7 @@
         var th = (document.head || document.documentElement);
         var scrpt = document.createElement('script');
         scrpt.setAttribute('type','text/javascript');
-        s.setAttribute('src',jsname);
+        scrpt.setAttribute('src',jsname);
         th.appendChild(scrpt);
         return true
     };
