@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <header id="headerDiv"><h1 id="header1">SunflowerBot</h1></header>
+    <div class="Content">   
+        <div class="wb">
+            <button id="copy1">
+                <img src="./copy-duplicate-editor-files-icon--18.png" alt="aa" width="20px" height="20px" id="copyClipboard">
+            </button>
+            <span class="center">Token Id : <span id="tokenId">Not Detected</span></span>
+        </div>
+        <div class="wb">
+            <button id="copy2">
+                <img src="./copy-duplicate-editor-files-icon--18.png" alt="aa" width="20px" height="20px" id="copyClipboard">
+            </button>
+            <span class="center">Cache Key : <span id="cacheKey">Not Detected</span></span>
+        </div>
+        <h3 id="connection">Not Connected</h3>
+        <div class="justify">
+            <label class="switch" class="autoT">
+                <input class="autoChopTree" type="checkbox">
+                <span class="slider"></span>
+            </label>
+        <h3 class="text1">Auto Chop Trees</h3>
+        </div>
+        <div class="justify">
+            <label class="switch" class="autoT">
+                <input class="autoHarvest" type="checkbox">
+                <span class="slider"></span>
+            </label>
+            <h3 class="text1">Auto Harvest Crops</h3>
+        </div>
+        <div class="justify">
+            <label class="switch" class="autoT">
+                <input class="autoPlant" type="checkbox">
+                <span class="slider"></span>
+            </label>
+            <h3> Auto Plant : <span id="seedSelected">sunflower</span></h3>
+        </div>
+        <div id="seedContainer">
+            
+        </div>
+    </div>
+
+    <script src="./popup.js"></script>
+    <script src="./connection.js"></script>
+</body>
+</html>

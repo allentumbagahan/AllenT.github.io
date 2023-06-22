@@ -1,3 +1,96 @@
+var sessionId = ""
+
+var jquearAdded = false
+var autoTrees = 'false';
+var autoHarvestOn = 'false';
+var autoPlantOn = 'false';
+var balance = 0
+var axePrice = 0.0625
+var axeMarketStock = -1
+var myAxeCount = -1;
+var actionIsIdle = true
+var seedForAuto = "sunflower"
+var seedStockOnInvetory = -1
+var seedMarketStock = -1
+// code for sfl
+var inventorybtn,
+    inventoryImageSrc,
+    holeBtn,
+    holeImageSrc,
+    closeImg,
+    closeBtn,
+    plots,
+    parents,
+    plotsReady2Harvest,
+    countClickHarvest,
+    stalls
+
+async function addJavascript(jsname) {
+    var th = document.getElementsByTagName("head")[0];
+    console.log(th)
+    var scrpt =  document.createElement('script');
+    scrpt.setAttribute('type','text/javascript');
+    scrpt.setAttribute('src', jsname);
+    console.log(scrpt)
+    th.appendChild(scrpt);
+};
+
+setTimeout(()=>{
+    addJavascript('https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js');
+}, 2000)
+
+var timer = setInterval(()=>{
+    try{
+        var jqueryLength = 0;
+        for(let a = 0; a < document.getElementsByTagName("script").length; a++){
+            if(document.getElementsByTagName("script")[a].src == "https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"){
+                jqueryLength++
+            }
+        }
+        if(jqueryLength == 1 && window.location.href.includes("https://sunflower-land.com/play") && !(typeof jQuery == 'undefined')){
+            spyNetworkCalls()
+            addJavascript('https://cdn.jsdelivr.net/npm/web3/dist/web3.min.js');
+            console.log("found jquery")
+            start()
+            clearInterval(timer)
+        }else if(jqueryLength > 1){
+            for(let a = 0; a < document.getElementsByTagName("script").length; a++){
+                if(document.getElementsByTagName("script")[a].src == "https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"){
+                    document.getElementsByTagName("script")[a].remove()
+                    break;
+                }
+            }
+        }
+    }
+    catch{
+    }
+}, 2000)
+
+
+
+async function start(){
+    try{
+        if (!(typeof jQuery == 'undefined')) {
+            console.log("jQuery Exist")
+        }else{
+            console.log("jQuery Doesn't Exist")
+        }
+        metamaskBtn = $("button.bg-brown-200.w-full.p-1.text-xs.object-contain.justify-center.items-center")
+        if(metamaskBtn.length > 0){
+            metamaskBtn[0].click()
+        }else{
+            // go to sunfloweland
+            if(!window.location.href.includes("https://sunflower-land.com")){
+                window.location.href = "https://sunflower-land.com/play/#/land";
+            }
+        }
+        setup()
+    }catch{
+        setup()
+    }
+}
+
+
 class plot{
     constructor(parentElem, pointer, index){
         this.index = index
@@ -45,100 +138,56 @@ function coolingDownTrees(){
         clearTimeout(timer1)
     }
 }
+var isBotTimeOutToReset = true
 function startBot(){
     setInterval(() => {
-        if(actions.length > 0){
-            let firstAction = actions.shift()
-            console.log(firstAction)
-            firstAction()
-        }
-        //add cutting trees on action
-        trees = $("img[src='https://sunflower-land.com/game-assets/resources/tree.png']")
-        treesDiv = $("div.absolute.w-full.h-full.cursor-pointer")
-        if(treesDiv.length > 0){
-            // add actio click blacksmith
-            //add action for chopping trees
-            if(!treesIsCooldown){
-                for(let f = 0; stalls.length > f; f++){
-                    if(stalls[f].name == "Blacksmith"){
-                        actions.push(function(){
-                            stalls[f].elem.click()
-                            console.log("found blacksmith " + stalls[f].name)
-                            axe = $("img[src='https://sunflower-land.com/game-assets/tools/axe.png']")
-                            console.log("axe length = " + axe.length)
-                            if(axe.length > 0){
-                                if(axe.length == 2){
-                                    axe[1].click()
-                                }else{
-                                    axe[0].click()
-                                }
-                            }
-                                closeBtnStall = $(`img.flex-none.cursor-pointer.float-right[src="${closeImg}"]`)
-                                closeBtnStall.click()
-                                treesDiv[0].click()
-                                treesDiv[0].click()
-                                treesDiv[0].click()
-                                coolingDownTrees()
-                        })
-                        console.log(actions.length)
-                    }
-                }
+        if(actionIsIdle){
+            //update balance
+            let balanceElem = $("span[class='text-sm ml-1.5 mb-0.5']")[0]
+            balance = parseFloat(balanceElem.innerHTML)
+    
+            if(actions.length > 0){
+                console.log("processing some action")
+                let firstAction = actions.shift()
+                console.log(firstAction)
+                actionIsIdle = false
+                firstAction()
+            }
+    
+            findStall()
+            //add cutting trees on action
+            autoChopTrees()
+            autoHarvest()
+            autoPlant()
+        }else{
+            if(isBotTimeOutToReset){
+                isBotTimeOutToReset = false
+                setTimeout(()=>{
+                    console.log("Reset Bot")
+                    actionIsIdle = true
+                    isBotTimeOutToReset = true
+                }, 15000)
             }
         }
-    }, 5000);
+    }, 1000);
 }
 
-var inventorybtn,
-    inventoryImageSrc,
-    holeBtn,
-    holeImageSrc,
-    closeImg,
-    closeBtn,
-    plots,
-    parents,
-    plotsReady2Harvest,
-    countClickHarvest,
-    stalls
 
-function addJavascript(jsname,pos) {
-    var th = document.getElementsByTagName(pos)[0];
-    var s = document.createElement('script');
-    s.setAttribute('type','text/javascript');
-    s.setAttribute('src',jsname);
-    th.appendChild(s);
-    return true
-};
-    jsQueryCode = new Promise ((res)=>{
-        setInterval(()=>{              
-            let a =  addJavascript('https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js','head');
-            if(a){
-                res()
-            }
-        }, 2000)
-    }).then(async()=>{
-        var acc = await window.ethereum.enable()
-        metamaskBtn = $("button.bg-brown-200.w-full.p-1.text-xs.object-contain.justify-center.items-center")
-        if(metamaskBtn.length > 0){
-            metamaskBtn[0].click()
-        }else{
-            // go to sunfloweland
-            if(!window.location.href.includes("https://sunflower-land.com")){
-                window.location.href = "https://sunflower-land.com/play/#/land"
-            }
-        }
-        if(acc != undefined){
-            setup()
-        }
-    })
+
     function setup(){
         holeImageSrc = "https://sunflower-land.com/game-assets/crops/soil2.png"
         inventoryImageSrc = "https://sunflower-land.com/game-assets/icons/basket.png"
         closeImg = "https://sunflower-land.com/game-assets/icons/close.png"
         // 
-        console.log(plots)
-        events()
-        findStall()
-        startBot()
+        var findBalanceBeforeSetup = setInterval(()=>{
+            let balanceElem = $("span[class='text-sm ml-1.5 mb-0.5']").length
+            if(balanceElem > 0){
+                events()
+                startBot()
+                clearInterval(findBalanceBeforeSetup)
+            }
+        }, 2000)
+
     }
     function events () {
         countClickHarvest = 0
@@ -254,6 +303,171 @@ function addJavascript(jsname,pos) {
         }
     }
 
-    function openMetamask() {
-        
+    function autoChopTrees() {
+        autoTrees = localStorage.getItem("autoChopTree")
+        if(autoTrees == 'true'){
+            trees = $("img[src='https://sunflower-land.com/game-assets/resources/tree.png']")
+            treesDiv = $("div.absolute.w-full.h-full.cursor-pointer")
+            if(treesDiv.length > 0){
+                // add actio click blacksmith
+                //add action for chopping trees
+                if(!treesIsCooldown && (balance > axePrice && axeMarketStock != 0 ) || myAxeCount != 0  ){
+                    for(let f = 0; stalls.length > f; f++){
+                        if(stalls[f].name == "Blacksmith"){
+                            actions.push(function(){
+                                if(autoTrees == 'true'){
+                                    stalls[f].elem.click()
+                                    console.log("found blacksmith " + stalls[f].name)
+                                    axe =  $("div[class='w-full sm:w-3/5 h-fit sm:max-h-96 p-1 mt-1 sm:mt-0 flex max-h-56 flex-wrap overflow-y-auto scrollable overflow-x-hidden sm:mr-1']").find("div[class='relative ']").find("img[src='https://sunflower-land.com/game-assets/tools/axe.png']")
+                                    myAxe = $("div[class='w-full sm:w-3/5 h-fit sm:max-h-96 p-1 mt-1 sm:mt-0 flex max-h-56 flex-wrap overflow-y-auto scrollable overflow-x-hidden sm:mr-1']").find("div[class='relative ']")[0].getElementsByTagName("span")
+                                    modalDialog = $(".modal-content")[0]
+                                    if(axe.length > 0){
+                                        axe[0].click()
+                                    }
+                                    buy1 = modalDialog.getElementsByTagName("button")[0]
+                                    buy10 =  modalDialog.getElementsByTagName("button")[1]
+                                    axeMarketStock = parseInt($("span[class='text-xxs px-1.5 pb-1 pt-0.5 rounded-md inline-flex items-center bg-blue-600 border']")[0].innerHTML)
+                                    console.log("axe length = " + axe.length)
+                                    if(myAxe.length == 0 && axeMarketStock > 0 ){
+                                        myAxeCount = -1
+                                        buy1.click()
+                                    }else{
+                                        myAxeCount = parseInt(myAxe)
+                                    }
+                                    closeBtnStall = $(`img.flex-none.cursor-pointer.float-right[src="${closeImg}"]`)
+                                    closeBtnStall.click()
+                                    treesDiv[0].click()
+                                    treesDiv[0].click()
+                                    treesDiv[0].click()
+                                    coolingDownTrees()
+                                }
+                                actionIsIdle = true
+                            })
+                            console.log(actions.length)
+                        }
+                    }
+                }
+            }
+        }
     }
+    function autoPlant(){
+        autoPlantOn = localStorage.getItem("autoPlant")
+        holeBtn = $(`img.absolute.pointer-events-none[src="${holeImageSrc}"`)
+        if(autoPlantOn == 'true' && holeBtn.length > 0 && (seedStockOnInvetory != 0 || seedMarketStock != 0)){
+            for(let f = 0; stalls.length > f; f++){
+                if(stalls[f].name == "Market" && holeBtn.length != 0){
+                        actions.push(function(){
+                            if(autoPlantOn == 'true'){
+                                seedForAuto = localStorage.getItem("seedForAuto")
+                                stalls[f].elem.click()
+                                seedImg = $('div[class="w-full sm:w-3/5 h-fit sm:max-h-96 p-1 mt-1 sm:mt-0 flex max-h-56 flex-wrap overflow-y-auto scrollable overflow-x-hidden sm:mr-1"]').find(`img[src="https://sunflower-land.com/game-assets/crops/${seedForAuto}/seed.png"]`)
+                                if(seedImg.length > 0){
+                                    seedImg[0].click()
+                                }
+                                var outOfstock = $("span[class='text-xxs px-1.5 pb-1 pt-0.5 rounded-md inline-flex items-center bg-error border']")
+                                if(outOfstock == 0){
+                                    seedMarketStock = parseInt($("span[class='text-xxs px-1.5 pb-1 pt-0.5 rounded-md inline-flex items-center bg-blue-600 border']")[0].innerHTML)
+                                }else{
+                                    seedMarketStock = 0
+                                }
+                                modalDialog = $(".modal-content")[0]
+                                seedStockOnInvetory = $('div[class="w-full sm:w-3/5 h-fit sm:max-h-96 p-1 mt-1 sm:mt-0 flex max-h-56 flex-wrap overflow-y-auto scrollable overflow-x-hidden sm:mr-1"]').find(`img[src="https://sunflower-land.com/game-assets/crops/${seedForAuto}/seed.png"]`).parent().parent().parent().find('span')
+                                if(seedStockOnInvetory.length > 0){
+                                    seedStockOnInvetory = parseInt($('div[class="w-full sm:w-3/5 h-fit sm:max-h-96 p-1 mt-1 sm:mt-0 flex max-h-56 flex-wrap overflow-y-auto scrollable overflow-x-hidden sm:mr-1"]').find(`img[src="https://sunflower-land.com/game-assets/crops/${seedForAuto}/seed.png"]`).parent().parent().parent().find('span')[0].innerHTML)
+                                }else{
+                                    seedStockOnInvetory = 0;
+                                }
+                                buy1 = modalDialog.getElementsByTagName("button")[0]
+                                buy10 =  modalDialog.getElementsByTagName("button")[1]
+                                if(seedStockOnInvetory == 0 ){
+                                    buy1.click()
+                                    seedStockOnInvetory++
+                                }
+                                closeBtnStall = $(`img.flex-none.cursor-pointer.float-right[src="${closeImg}"]`)
+                                closeBtnStall.click()
+                                holeBtn = $(`img.absolute.pointer-events-none[src="${holeImageSrc}"`)
+                                if(holeBtn.length > 0 && seedStockOnInvetory > 0){
+                                    holeBtn[0].click()
+                                }
+                                actionIsIdle = true
+                            }
+
+                    })
+                }
+            }
+        }
+    }
+    function autoHarvest(){
+        FindPlots()
+        autoHarvestOn = localStorage.getItem("autoHarvest")
+        if(autoHarvestOn == 'true' && plotsReady2Harvest.length > 0){
+            actions.push(function(){ 
+                FindPlots()
+                if(plotsReady2Harvest.length > 0 && autoHarvestOn == 'true') {
+                    if(countClickHarvest >= plotsReady2Harvest.length){
+                        countClickHarvest = 0;
+                    }
+                    plotsReady2Harvest[countClickHarvest].parentElem.click()
+                    countClickHarvest++
+                }
+                actionIsIdle = true
+            })
+        }
+    }
+    function spyNetworkCalls(){
+        try{
+            // Create an array to store the captured requests and responses
+            var a = 0;
+            capturedData = [];
+
+            // Override the fetch function
+            const originalFetch = window.fetch;
+            window.fetch = function (url, options) {
+              const fetchPromise = originalFetch.call(this, url, options); // Invoke the original fetch function
+            
+              const request = {
+                url,
+                options,
+                timestamp: Date.now()
+              };
+
+              // Intercept the response and add it to the captured data
+              fetchPromise.then(response => {
+                const capturedResponse = {
+                  request,
+                  response,
+                  timestamp: Date.now()
+                };
+
+                capturedData.push(capturedResponse);
+
+                // You can also log or process the response here
+                console.log(capturedResponse);
+                if(capturedData[a].request.url.includes("https://api.sunflower-land.com/session/")){
+                    console.log(JSON.parse(capturedData[a].request.options.body).sessionId)
+                }
+                a++
+              });
+              
+              return fetchPromise; // Return the fetch promise
+            };
+            p = fetch('https://api.example.com/data')
+              .then(response => {
+                // Handle the response for data
+                console.log(response)
+              })
+              .catch(error => {
+                  console.log(error)
+              });
+            console.log(p)
+        }catch{
+        
+        }
+    }
+
+
+
+
+
+
+

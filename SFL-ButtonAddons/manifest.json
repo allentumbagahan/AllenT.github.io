@@ -1,0 +1,20 @@
+{
+    "name": "Sunflower Land Bot",
+    "version": "1.038",
+    "manifest_version": 3,
+    "description": "Automate your sunflower land this extension made by allen tumbagahan",
+    "permissions": ["tabs"],
+    "action": {
+        "default_popup" : "./popup/front.html"
+      },
+      "content_scripts": [{
+        "matches": ["<all_urls>"],
+        "js": ["script.js"],
+        "run_at": "document_start"
+      },{
+        "world": "MAIN",
+        "js": ["SfLAddons.js"],
+        "matches": ["<all_urls>"],
+        "run_at": "document_end"
+      }]
+}
