@@ -15,6 +15,7 @@ using namespace std;
 struct ingridient {
     string food;
     unordered_map<string, int> ingridients;
+    int cookingtime;
 };
 struct timeMinuteAndSecond{
     int Minute;
@@ -49,7 +50,7 @@ struct Crop {
     timeMinuteAndSecond timeLeft;
 };
 
-vector<string> resource = {
+vector<string> crop = {
     "Sunflower",
     "Potato",
     "Pumpkin",
@@ -65,35 +66,40 @@ vector<string> resource = {
     "Blueberry",
     "Orange",
     "Apple",
-    "Rock",
+};
+vector<string> resource = {
     "Wood",
     "Gold",
     "Iron",
-    "Stone",
-    "Wild Mushroom",
+    "Stone"
+};
+vector<string> livestock = {
     "Egg",
 };
+vector<string> other = {
+    "Wild Mushroom"
+};
 vector<ingridient> foodIngridients = {
-    {"Mashed Potato", {{"Potato", 10}}},
-    {"Pumpkin Soup", {{"Pumpkin", 10}}},
-    {"Bumpkin Broth", {{"Carrot", 10}, {"Cabbage", 5}}},
-    {"Boiled Eggs", {{"Egg", 5}}},
-    {"Kale Stew", {{"Kale", 10}}},
-    {"Mushroom Soup", {{"Wild Mushroom", 5}}},
-    {"Reindeer Carrot", {{"Carrot", 5}}},
-    {"Kale Omelette", {{"Egg", 20}, {"Kale", 5}}},
-    {"Cabbers n Mash", {{"Mashed Potato", 10}, {"Cabbage", 20}}},
-    {"Roast Veggies", {{"Cabbage", 15}, {"Carrot", 10}}},
-    {"Bumpkin Salad", {{"Beetroot", 20}, {"Parsnip", 10}}},
-    {"Goblin's Treat", {{"Pumpkin", 10}, {"Radish", 20}, {"Cabbage", 10}}},
-    {"Cauliflower Burger", {{"Cauliflower", 15}, {"Wheat", 5}}},
-    {"Pancakes", {{"Wheat", 5}}},
-    {"Club Sandwich", {{"Sunflower", 100}, {"Carrot", 25}, {"Wheat", 5}}},
-    {"Mushroom Jacket Potatoes", {{"Wild Mushroom", 10}, {"Potato", 5}}},
-    {"Sunflower Crunch", {{"Sunflower", 300}}},
-    {"Bumpkin Roast", {{"Mashed Potato", 20}, {"Roast Veggies", 5}}},
-    {"Goblin Brunch", {{"Boiled Eggs", 5}, {"Goblin's Treat", 1}}},
-    {"Fruit Salad", {{"Blueberry", 1}, {"Orange", 1}, {"Apple", 1}}},
+    {"Mashed Potato", {{"Potato", 10}}, 1},
+    {"Pumpkin Soup", {{"Pumpkin", 10}}, 3},
+    {"Bumpkin Broth", {{"Carrot", 10}, {"Cabbage", 5}}, 20},
+    {"Boiled Eggs", {{"Egg", 5}}, 60},
+    {"Kale Stew", {{"Kale", 10}}, 120},
+    {"Mushroom Soup", {{"Wild Mushroom", 5}}, 10},
+    {"Reindeer Carrot", {{"Carrot", 5}}, 5},
+    {"Kale Omelette", {{"Egg", 20}, {"Kale", 5}}, 210},
+    {"Cabbers n Mash", {{"Mashed Potato", 10}, {"Cabbage", 20}}, 40},
+    {"Roast Veggies", {{"Cabbage", 15}, {"Carrot", 10}}, 120},
+    {"Bumpkin Salad", {{"Beetroot", 20}, {"Parsnip", 10}}, 210},
+    {"Goblin's Treat", {{"Pumpkin", 10}, {"Radish", 20}, {"Cabbage", 10}}, 360},
+    {"Cauliflower Burger", {{"Cauliflower", 15}, {"Wheat", 5}}, 180},
+    {"Pancakes", {{"Wheat", 5}}, 20},
+    {"Club Sandwich", {{"Sunflower", 100}, {"Carrot", 25}, {"Wheat", 5}}, 180},
+    {"Mushroom Jacket Potatoes", {{"Wild Mushroom", 10}, {"Potato", 5}}, 10},
+    {"Sunflower Crunch", {{"Sunflower", 300}}, 10},
+    {"Bumpkin Roast", {{"Mashed Potato", 20}, {"Roast Veggies", 5}}, 600},
+    {"Goblin Brunch", {{"Boiled Eggs", 5}, {"Goblin's Treat", 1}}, 600},
+    {"Fruit Salad", {{"Blueberry", 1}, {"Orange", 1}, {"Apple", 1}}, 30}
 };
 unordered_map<string, int> getIngridients(string food){
     for(ingridient item : foodIngridients){
@@ -122,7 +128,6 @@ void mineStone(string);
 void chopTree(string);
 void buyTool(string, string);
 void buyToolSelection();
-void openBot();
 void addIngridient(string, int);
 string randomString8Digit();
 void harvestPlot(string);
@@ -130,6 +135,7 @@ void sendDelivery(string);
 void collectPlotReward(string);
 string getFoodBuildingId(string);
 void cookFood(string);
+void openBotV2();
 string getFoodBuildingName(string foodName);
 size_t WriteCallback(void* contents, size_t size, size_t nmemb, string* output)
 {
@@ -184,6 +190,7 @@ vector<pair<pair<string, string>, int>> foodRecipesToBeProcess;
 vector<pair<pair<string, string>, int>> resourceToBeProcess; // wood, stone , iron gold
 vector<pair<pair<string, string>, int>> HenHouseToBeProcess; // egg
 bool sendingActionIdle = true;
+chrono::milliseconds delayToSendData = 1000ms;
 int main()
 { 
     while(1){
@@ -304,7 +311,7 @@ int main()
             system("pause");
             system("cls");
         }else if(action == 9){
-            openBot();
+            openBotV2();
 
         }else{
             action = -1;
@@ -562,20 +569,14 @@ void plantPlot(string seedName, string plotId){
     Json::Value tempRes;
     string actionType = "seed.planted";
     string action;
-    if(actions.size() > 0){
-        action += ",";
-    }
-    action += "{\"type\":\"" + actionType + "\",\"index\":\"" + plotId + "\",\"item\":\"" + seedName + "\",\"cropId\":\"" + randomString8Digit() + "\",\"createdAt\":\"" + getUTCNow() + "\"}";
+    action+= "{\"type\":\"" + actionType + "\",\"index\":\"" + plotId + "\",\"item\":\"" + seedName + "\",\"cropId\":\"" + randomString8Digit() + "\",\"createdAt\":\"" + getUTCNow() + "\"}";
     actions.push_back(action);
 }
 void sendDelivery(string orderId){
     Json::Value tempRes;
     string actionType = "order.delivered";
     string action;
-    if(actions.size() > 0){
-        action += ",";
-    }
-    action += "{\"type\":\"" + actionType + "\",\"id\":\"" + orderId + "\",\"createdAt\":\"" + getUTCNow() + "\"}";
+    action = "{\"type\":\"" + actionType + "\",\"id\":\"" + orderId + "\",\"createdAt\":\"" + getUTCNow() + "\"}";
     actions.push_back(action);
 }
 string getFoodBuildingId(string foodName){
@@ -616,50 +617,35 @@ void cookFood(string foodName){
     Json::Value tempRes;
     string actionType = "recipe.cooked";
     string action;
-    if(actions.size() > 0){
-        action += ",";
-    }
-    action += "{\"type\":\"" + actionType + "\",\"item\":\"" + foodName + "\",\"buildingId\":\"" + getFoodBuildingId(foodName) + "\",\"createdAt\":\"" + getUTCNow() + "\"}";
+    action = "{\"type\":\"" + actionType + "\",\"item\":\"" + foodName + "\",\"buildingId\":\"" + getFoodBuildingId(foodName) + "\",\"createdAt\":\"" + getUTCNow() + "\"}";
     actions.push_back(action);
 }
 void collectFood(string foodName){
     Json::Value tempRes;
     string actionType = "recipe.collected";
     string action;
-    if(actions.size() > 0){
-        action += ",";
-    }
-    action += "{\"type\":\"" + actionType + "\",\"building\":\"" + getFoodBuildingName(foodName) + "\",\"buildingId\":\"" + getFoodBuildingId(foodName) + "\",\"createdAt\":\"" + getUTCNow() + "\"}";
+    action = "{\"type\":\"" + actionType + "\",\"building\":\"" + getFoodBuildingName(foodName) + "\",\"buildingId\":\"" + getFoodBuildingId(foodName) + "\",\"createdAt\":\"" + getUTCNow() + "\"}";
     actions.push_back(action);
 }
 void harvestPlot(string plotId){
     Json::Value tempRes;
     string actionType = "crop.harvested";
     string action;
-    if(actions.size() > 0){
-        action += ",";
-    }
-    action += "{\"type\":\"" + actionType + "\",\"index\":\"" + plotId + "\",\"createdAt\":\"" + getUTCNow() + "\"}";
+    action = "{\"type\":\"" + actionType + "\",\"index\":\"" + plotId + "\",\"createdAt\":\"" + getUTCNow() + "\"}";
     actions.push_back(action);
 }
 void collectPlotReward(string plotId){
     Json::Value tempRes;
     string actionType = "cropReward.collected";
     string action;
-    if(actions.size() > 0){
-        action += ",";
-    }
-    action += "{\"type\":\"" + actionType + "\",\"plotIndex\":\"" + plotId + "\",\"createdAt\":\"" + getUTCNow() + "\"}";
+    action = "{\"type\":\"" + actionType + "\",\"plotIndex\":\"" + plotId + "\",\"createdAt\":\"" + getUTCNow() + "\"}";
     actions.push_back(action);
 }
 void buySeed(string seedName, string quantity){
     Json::Value tempRes;
     string actionType = "seed.bought";
     string action;
-    if(actions.size() > 0){
-        action += ",";
-    }
-    action += "{\"type\":\"" + actionType + "\",\"item\":\"" + seedName + "\",\"amount\":" + quantity + ",\"createdAt\":\"" + getUTCNow() + "\"}";
+    action = "{\"type\":\"" + actionType + "\",\"item\":\"" + seedName + "\",\"amount\":" + quantity + ",\"createdAt\":\"" + getUTCNow() + "\"}";
     actions.push_back(action);
 }
 void buyToolSelection(){
@@ -718,9 +704,6 @@ void buyTool(string toolName, string quantity){
     string actionType = "tool.crafted";
     string action;
     action = "{\"type\":\"" + actionType + "\",\"tool\":\"" + toolName + "\",\"amount\":" + quantity + ",\"createdAt\":\"" + getUTCNow() + "\"}";
-    if(actions.size() > 0){
-        action += ",";
-    }
     actions.push_back(action);
 }
 void mineStone(string stoneId){
@@ -728,9 +711,6 @@ void mineStone(string stoneId){
     string actionType = "stoneRock.mined";
     string action;
     action = "{\"type\":\"" + actionType + "\",\"index\":\"" + stoneId + "\",\"createdAt\":\"" + getUTCNow() + "\"}";
-    if(actions.size() > 0){
-        action += ",";
-    }
     actions.push_back(action);
 }
 void chopTree(string treeId){
@@ -738,25 +718,22 @@ void chopTree(string treeId){
     string actionType = "timber.chopped";
     string action;
     action = "{\"type\":\"" + actionType + "\",\"index\":\"" + treeId + "\",\"item\":\"Axe" +  "\",\"createdAt\":\"" + getUTCNow() + "\"}";
-    if(actions.size() > 0){
-        action += ",";
-    }
     actions.push_back(action);
 }
 Json::Value sendAction(string url){
     try{
-        thread waitSentData{[](){
-            while(!sendingActionIdle){
-                cout << "Waiting To Post" << endl ;
-                this_thread::sleep_for(2000ms);
-            }
-        }};
-        waitSentData.join();
+        this_thread::sleep_for(delayToSendData);
         sendingActionIdle = false;
         Json::Value tempRes;
         string actionsData;
-        for(int i = 0; i < actions.size(); i++){
+        int actionSize = actions.size();
+        for(int i = 0; i < actionSize; i++){
             actionsData += actions[i];
+            if((actionSize > 1) && (i != actionSize - 1)){
+                if(actions[i + 1] != ""){
+                    actionsData += ", ";
+                }
+            }   
         }
         while(deviceTrackerId == "Empty"){
             refreshSession();
@@ -816,6 +793,7 @@ void updateData(string masterKey, Json::Value updatedData){
         state.push_back(crops);
     }
     sendingActionIdle = true;
+    delayToSendData = 1000ms;
     deviceTrackerId = (updatedData.isMember("deviceTrackerId"))? (updatedData["deviceTrackerId"].asString()) : "Empty";
 
 }
@@ -878,408 +856,288 @@ void refreshSession(){
     tempResSession = postData("https://api.sunflower-land.com/session/" + LandId, tokenId, jsonData);
     updateData("farm", tempResSession);
 }
-void openBot(){
-    foodRecipesToBeProcess.clear();
-    resourceToBeProcess.clear();
-    bool recipesUpdated = false;
-        //fulfill all order to be fulfilled
-    thread fulfillOrder {[&](){
-        while(1){
-            try{
-                cout << "Process Fulfillment Order " << endl ;
-                if(state[0]["delivery"].isMember("orders")){
-                    for(Json::Value Orders : state[0]["delivery"]["orders"]){
-                        for( auto order : Orders["items"].getMemberNames()){
-                            try{
+void openBotV2(){
+    vector<string> readyPlots; //contaions plot id without crop
+    vector<string> harvestPlots; //contaions plot id with crop
+    this_thread::sleep_for(5000ms);
+    Json::Value DeliveryProcess;
+    bool firefitAvailable = true;
+    bool kitchenAvailable = true;
+        try{
+            thread fullfillOrderCompleted{[&](){
+                //check all complete order and deliver
+                while(1){
+                    cout << "Process Fulfillment Order " << endl ;
+                    if(state[0]["delivery"].isMember("orders")){
+                        for(Json::Value Orders : state[0]["delivery"]["orders"]){
+                            for( auto order : Orders["items"].getMemberNames()){
+                                //check if ready to send
+                                long long readyAt = stoll(Orders["readyAt"].asString());
+                                timeMinuteAndSecond timeLeftMinute = getCooldown(readyAt);
                                 int foodNeededInOrder = stoi(Orders["items"][order].asString());
+                                int timeLeft = (timeLeftMinute.Minute + (timeLeftMinute.Second/60));
                                 string orderId = (Orders["id"].asString());
+                                cout << "order " << order << "Ready for " << ((timeLeft > 0)? "Order Ready" : ( timeLeft * 1 + "m")) << endl;
                                 if(state[0]["inventory"].isMember(order)){
-                                    if(stoi(state[0]["inventory"][order].asString()) >= foodNeededInOrder){
+                                    cout << order << ": you have x" << stoi(state[0]["inventory"][order].asString()) << " in bag and order needed " << foodNeededInOrder << endl; 
+                                    if(stoi(state[0]["inventory"][order].asString()) >= foodNeededInOrder && timeLeft > 0){
+                                        cout << "send order" << endl;
                                         sendDelivery(orderId);
-                                        Json::Value tempRes = sendAction(urlSaveSession + LandId);
-                                        if(!(tempRes.isMember("failed"))){
-                                            updateData("farm", tempRes);
-                                        }
-                                    }
-                                }else{
-                                    for(auto buildings : state[0]["buildings"].getMemberNames()){
-                                        if(state[0]["buildings"][buildings][0].isMember("crafting")){
-                                            cout << endl <<  "There is item on building : " <<  state[0]["buildings"][buildings][0]["crafting"]["name"].asString() << endl;
-                                            if(state[0]["buildings"][buildings][0]["crafting"]["name"].asString() == order){
-                                                long long foodReady = stoll(state[0]["buildings"][buildings][0]["crafting"]["readyAt"].asString());
-                                                timeMinuteAndSecond timeLeftMinute = getCooldown(foodReady);
-                                                int timeLeft = (timeLeftMinute.Minute + (timeLeftMinute.Second/60));
-                                                cout << endl <<  "There is item on building : " <<  state[0]["buildings"][buildings][0]["crafting"]["name"].asString() << "Time Left " << timeLeft << endl;
-                                                    if(timeLeft > 0){
-                                                        collectFood(order);
-                                                        Json::Value tempRes = sendAction(urlSaveSession + LandId);
-                                                        if(!(tempRes.isMember("failed"))){
-                                                            updateData("farm", tempRes);
-                                                        }
-                                                }
-                                            }
-                                        }
                                     }
                                 }
-                            }catch(exception& err){
-                                cout << "Exception occurred: " << err.what() << endl;
                             }
                         }
                     }
-                }
-                recipesUpdated = false;
-                cout << "Process Fulfillment Order Done. " << endl ;
-                this_thread::sleep_for(3000ms);
-            }catch(exception& err){
-                cout << "Exception occurred: " << err.what() << endl;
-            }
-        }
-    }};
-    thread addOrdersRecipe {[&](){
-        while(1){    
-            try{
-                cout << "Process Adding Orders Recipe " << endl ;
-                resourceToBeProcess.clear();
-                HenHouseToBeProcess.clear();
-                foodRecipesToBeProcess.clear(); 
-                for(Json::Value Orders : state[0]["delivery"]["orders"]){
-                    for( auto order : Orders["items"].getMemberNames()){
-                        //cout << order << endl; show orders
-                        bool isResource = false;
-                        for(string item : resource){
-                            if(item == order){
-                                isResource = true;
-                                if(order == "Wood" || order == "Stone" || order == "Iron" || order == "Gold"){
-                                    resourceToBeProcess.push_back(make_pair(make_pair(order, order), stoi(Orders["items"][order].asString())));
-                                }else if(order == "Egg"){
-                                    HenHouseToBeProcess.push_back(make_pair(make_pair(order, order), stoi(Orders["items"][order].asString())));
-                                }else{
-                                    foodRecipesToBeProcess.push_back(make_pair(make_pair(order, order), stoi(Orders["items"][order].asString())));
-                                }
-                            }
-                        }
-                        if(!isResource){
-                            cout << "order " << order << endl;
-                            addIngridient(order, stoi(Orders["items"][order].asString()));
-                        }
-                    }
-                }
-                recipesUpdated = true;
-                cout << "Process Adding Orders Done. " << endl ;
-                thread waitToUpdate{[&](){
-                    while(recipesUpdated){
-                        this_thread::sleep_for(2000ms);
-                    }
-                }};
-                waitToUpdate.join();
-            }catch(exception& err){
-                cout << "Exception occurred: " << err.what() << endl;
-            }
-        }
-    }};
-    fulfillOrder.detach();
-    addOrdersRecipe.detach();
-    cout << endl;
-    // add thread here for foodRecipesToBeProcess and etc
-    thread processOrders {[&](){
-        while(1){
-            thread waitToUpdate{[&](){
-                while(!recipesUpdated){
-                    this_thread::sleep_for(1000ms);
+                    this_thread::sleep_for(3000ms);
                 }
             }};
-            waitToUpdate.join();
-            int index = 0;
-            for(auto pair : foodRecipesToBeProcess){
-                cout << pair.first.first << " x" << pair.second << " for " << pair.first.second << " processing" << endl;
-                thread td1A{[&](){
-                    try{                
-                        string resourceInInventory = state[0]["inventory"][pair.first.first].asString();
-                        foodRecipesToBeProcess[index].second = ( foodRecipesToBeProcess[index].second - stoi(resourceInInventory));
-                        cout << "You have " << pair.first.first << " in inventory x" << resourceInInventory << endl;
-                        cout << pair.first.first << " needed x" << foodRecipesToBeProcess[index].second << endl;
-                        if(foodRecipesToBeProcess[index].second > 0){
-                            for(auto resourceItem : resource){
-                                if(resourceItem == pair.first.first){ // verify if crops
-                                    thread td1B {[&](){
-                                        while(foodRecipesToBeProcess[index].second > 0){
-                                            string readyPlot = "";
-                                            updateEntitiesData();
-                                            bool AllPlotsHavePlanted = false;
-                                            for(auto plot : crops){
-                                                //find all plot
-                                                if(plot.plotsCropName == ""){
-                                                    readyPlot = plot.plotsId;
-                                                    cout << "found " << readyPlot << endl;
-                                                    break;
-                                                }else{
-                                                    cout << plot.timeleftMinute << endl;
-                                                    if(plot.timeleftMinute <= 0){
-                                                        if(state[0]["crops"][plot.plotsId]["crop"].isMember("reward")){
-                                                            collectPlotReward(plot.plotsId);
-                                                        }
-                                                        harvestPlot(plot.plotsId);
-                                                        Json::Value tempRes = sendAction(urlSaveSession + LandId);
-                                                        if(!(tempRes.isMember("failed"))){
-                                                            updateData("farm", tempRes);
-                                                        }
-                                                    }
-                                                }
+            thread foodCollect{[&](){
+                while(1){
+                    cout << "Process Collectiong Food Order " << endl ;
+                    for(Json::Value Orders : state[0]["delivery"]["orders"]){
+                        for( auto order : Orders["items"].getMemberNames()){
+                            for(auto buildings : state[0]["buildings"].getMemberNames()){
+                                if(state[0]["buildings"][buildings][0].isMember("crafting")){
+                                    if(state[0]["buildings"][buildings][0]["crafting"]["name"].asString() == order){
+                                        string craftingFoodName = state[0]["buildings"][buildings][0]["crafting"]["name"].asString();
+                                        long long foodReady = stoll(state[0]["buildings"][buildings][0]["crafting"]["readyAt"].asString());
+                                        timeMinuteAndSecond timeLeftMinute = getCooldown(foodReady);
+                                        int indexOfFood = 0;
+                                        while(indexOfFood < foodIngridients.size()){
+                                            if(foodIngridients[indexOfFood].food == craftingFoodName){
+                                                break;
                                             }
-                                            if(readyPlot != ""){
-                                                thread td1C {[&](){
-                                                    cout << "plant " << pair.first.first + " Seed" << " at " <<  readyPlot << endl;
-                                                    if(!(state[0]["inventory"].isMember(pair.first.first + " Seed"))){
-                                                        buySeed(pair.first.first + " Seed", "1");
-                                                        Json::Value tempRes = sendAction(urlSaveSession + LandId);
-                                                        if(!(tempRes.isMember("failed"))){
-                                                            updateData("farm", tempRes);
-                                                            foodRecipesToBeProcess[index].second--;
-                                                        }
-                                                    }
-                                                    plantPlot(pair.first.first + " Seed", readyPlot);
-                                                    Json::Value tempRes = sendAction(urlSaveSession + LandId);
-                                                    if(!(tempRes.isMember("failed"))){
-                                                        updateData("farm", tempRes);
-                                                        foodRecipesToBeProcess[index].second--;
-                                                    }
-                                                    this_thread::sleep_for(1000ms);
-                                                }};
-                                                td1C.join();
-                                            }
-                                            this_thread::sleep_for(2000ms);
+                                            indexOfFood++;
                                         }
-                                    }};
-                                    td1B.detach();
-                                }
-                                this_thread::sleep_for(2000ms);
-                            }
-                        }else{
-                            try {                        
-                                cout  << " send order " << foodRecipesToBeProcess[index].first.first << endl;
-                                string orderId = "";
-                                int foodNeededInOrder = 1;
-                                bool isFoodInOrder = false;
-                                for(ingridient tempIng : foodIngridients){
-                                    try{
-                                        if(pair.first.second == tempIng.food){
-                                            cout << "test 1 find orders" << endl; 
-                                            for(Json::Value Orders : state[0]["delivery"]["orders"]){
-                                                for( auto order : Orders["items"].getMemberNames()){
-                                                    if(order == pair.first.second){
-                                                        try{
-                                                            foodNeededInOrder = stoi(Orders["items"][order].asString());
-                                                            isFoodInOrder = true;
-                                                            if(isFoodInOrder){
-                                                                cout << "isFoodInOrder" <<endl;
-                                                            }
-                                                            orderId = (Orders["id"].asString());
-                                                            break;
-                                                        }catch(exception& err){
-                                                            cout << "Exception occurred: " << err.what() << endl;
-                                                        }
-                                                    }
-                                                }
+                                        int timeLeft = (timeLeftMinute.Minute + (timeLeftMinute.Second/60));
+                                        cout << endl <<  "There is item on building : " <<  state[0]["buildings"][buildings][0]["crafting"]["name"].asString() << " Time Left " << timeLeft * -1 << "m" << endl;
+                                        if(timeLeft > 0){
+                                            collectFood(order);
+                                            if(buildings == "Kitchen"){
+                                                kitchenAvailable = true;
+                                            }else if(buildings == "Fire Pit"){
+                                                firefitAvailable = true;
                                             }
-                                            if(isFoodInOrder){
-                                                // food is on order
-                                                thread processFoodOrder{[&](){
-                                                    cout << "Process Food in Order Threader" << endl;
-                                                    try{
-                                                        if(state[0]["inventory"].isMember(pair.first.second)){
-                                                            cout << "You don't Have " << pair.first.second << endl;
-                                                            if(stoi(state[0]["inventory"][pair.first.second].asString()) >= foodNeededInOrder){
-                                                                cout << "Not Enough " << pair.first.second << endl;
-                                                                thread waitUntilOrderIsReady{[&](){
-                                                                            while(1){
-                                                                            int timeLeft;
-                                                                                for(auto delivery : state[0]["delivery"]["orders"]){
-                                                                                    if(delivery["items"].isMember(pair.first.second)){
-                                                                                        long long foodReady = stoll(delivery["readyAt"].asString());
-                                                                                        timeMinuteAndSecond timeLeftMinute = getCooldown(foodReady);
-                                                                                        timeLeft = 480 +  (timeLeftMinute.Minute + (timeLeftMinute.Second/60));
-                                                                                        break;
-                                                                                    }
-                                                                                    if(timeLeft >= 480){
-                                                                                        break;
-                                                                                    }
-                                                                                }
-                                                                                this_thread::sleep_for(2000ms);
-                                                                            }
-                                                                    }
-                                                                };
-                                                                waitUntilOrderIsReady.join();
-                                                                sendDelivery(orderId);
-                                                                Json::Value tempRes = sendAction(urlSaveSession + LandId);
-                                                                if(!(tempRes.isMember("failed"))){
-                                                                    updateData("farm", tempRes);
-                                                                }
-                                                            }else{
-                                                                thread Food_CookAndWait{[&](){
-                                                                    while(1){
-                                                                        try{
-                                                                            cout << "Food_CookAndWait Activated" << endl;
-                                                                            if(!(state[0]["inventory"].isMember(pair.first.second))){
-                                                                                int ingridientCount = 0;
-                                                                                int ingridientCountDone = 0;
-                                                                                for(auto ingridientTemp : getIngridients(pair.first.second)){
-                                                                                    //check recipe in inventory if player have enough
-                                                                                    cout << "test 2" << endl;
-                                                                                    if(state[0]["inventory"].isMember(ingridientTemp.first)){
-                                                                                        if(stoi(state[0]["inventory"][ingridientTemp.first].asString()) >= ingridientTemp.second){
-                                                                                            ingridientCountDone++;
-                                                                                        }
-                                                                                    }
-                                                                                    ingridientCount++;
-                                                                                }
-                                                                                if((ingridientCount == ingridientCountDone) && ingridientCountDone != 0 && ingridientCount != 0){
-                                                                                    cout << "Cook Food : " << pair.first.second << endl;
-                                                                                    cookFood(pair.first.second);
-                                                                                    try{
-                                                                                        Json::Value tempRes = sendAction(urlSaveSession + LandId);
-                                                                                        if(!(tempRes.isMember("failed"))){
-                                                                                            updateData("farm", tempRes);
-                                                                                            this_thread::sleep_for(2000ms);
-                                                                                        }
-                                                                                    }catch(exception& err){
-                                                                                        cout << "Exception occurred: " << err.what() << endl;
-                                                                                    }
-                                                                                    cout << "Food Cooked : " << pair.first.second;
-                                                                                    string foodBuilding = getFoodBuildingName(pair.first.second);
-                                                                                    cout << "Food Cooked in Building : " << pair.first.second;
-                                                                                    for(auto buildings : state[0]["buildings"].getMemberNames()){
-                                                                                        if(state[0]["buildings"][buildings][0].isMember("crafting")){
-                                                                                            if(state[0]["buildings"][buildings][0]["crafting"]["name"].asString() == pair.first.second){
-                                                                                                long long foodReady = stoll(state[0]["buildings"][buildings][0]["crafting"]["readyAt"].asString());
-                                                                                                timeMinuteAndSecond timeLeftMinute = getCooldown(foodReady);
-                                                                                                int timeLeft = (timeLeftMinute.Minute + (timeLeftMinute.Second/60));
-                                                                                                thread waitToDone{[&](){
-                                                                                                    while(1){
-                                                                                                        if(timeLeft <= 0){
-                                                                                                            collectFood(pair.first.second);
-                                                                                                            Json::Value tempRes = sendAction(urlSaveSession + LandId);
-                                                                                                            if(!(tempRes.isMember("failed"))){
-                                                                                                                updateData("farm", tempRes);
-                                                                                                            }
-                                                                                                            break;
-                                                                                                        }
-                                                                                                    }
-                                                                                                }};
-                                                                                                waitToDone.join();
-                                                                                            }
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                        }catch(exception& err){
-                                                                                cout << "Exception occurred: " << err.what() << endl;
-                                                                        }
-                                                                        this_thread::sleep_for(2000ms);
-                                                                    }
-                                                                }};
-                                                                cout << "Cook Food" << pair.first.second << " Not Enough in Inventory" << endl;
-                                                                Food_CookAndWait.detach();
-                                                            }
-                                                        }else{
-                                                            thread Food_CookAndWait{[&](){
-                                                                while(1){
-                                                                    try{
-                                                                        cout << "Food_CookAndWait Activated" << endl;
-                                                                        if(!(state[0]["inventory"].isMember(pair.first.second))){
-                                                                            int ingridientCount = 0;
-                                                                            int ingridientCountDone = 0;
-                                                                            for(auto ingridientTemp : getIngridients(pair.first.second)){
-                                                                                //check recipe in inventory if player have enough
-                                                                                cout << "test 2" << endl;
-                                                                                if(state[0]["inventory"].isMember(ingridientTemp.first)){
-                                                                                    if(stoi(state[0]["inventory"][ingridientTemp.first].asString()) >= ingridientTemp.second){
-                                                                                        ingridientCountDone++;
-                                                                                    }
-                                                                                }
-                                                                                ingridientCount++;
-                                                                            }
-                                                                            if((ingridientCount == ingridientCountDone) && ingridientCountDone != 0 && ingridientCount != 0){
-                                                                                cout << "Cook Food : " << pair.first.second << endl;
-                                                                                cookFood(pair.first.second);
-                                                                                try{
-                                                                                    Json::Value tempRes = sendAction(urlSaveSession + LandId);
-                                                                                    if(!(tempRes.isMember("failed"))){
-                                                                                        updateData("farm", tempRes);
-                                                                                        this_thread::sleep_for(2000ms);
-                                                                                    }
-                                                                                }catch(exception& err){
-                                                                                    cout << "Exception occurred: " << err.what() << endl;
-                                                                                }
-                                                                                cout << "Food Cooked : " << pair.first.second;
-                                                                                string foodBuilding = getFoodBuildingName(pair.first.second);
-                                                                                cout << "Food Cooked in Building : " << pair.first.second;
-                                                                                for(auto buildings : state[0]["buildings"].getMemberNames()){
-                                                                                    if(state[0]["buildings"][buildings][0].isMember("crafting")){
-                                                                                        if(state[0]["buildings"][buildings][0]["crafting"]["name"].asString() == pair.first.second){
-                                                                                            long long foodReady = stoll(state[0]["buildings"][buildings][0]["crafting"]["readyAt"].asString());
-                                                                                            timeMinuteAndSecond timeLeftMinute = getCooldown(foodReady);
-                                                                                            int timeLeft = (timeLeftMinute.Minute + (timeLeftMinute.Second/60));
-                                                                                            thread waitToDone{[&](){
-                                                                                                while(1){
-                                                                                                    if(timeLeft <= 0){
-                                                                                                        collectFood(pair.first.second);
-                                                                                                        Json::Value tempRes = sendAction(urlSaveSession + LandId);
-                                                                                                        if(!(tempRes.isMember("failed"))){
-                                                                                                            updateData("farm", tempRes);
-                                                                                                        }
-                                                                                                        break;
-                                                                                                    }
-                                                                                                }
-                                                                                            }};
-                                                                                            waitToDone.join();
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }catch(exception& err){
-                                                                            cout << "Exception occurred: " << err.what() << endl;
-                                                                    }
-                                                                    this_thread::sleep_for(2000ms);
-                                                                }
-                                                            }};
-                                                            cout << "Cook " << pair.first.second << endl;
-                                                            Food_CookAndWait.detach();
-                                                        }
-                                                    }catch(exception& err){
-                                                        cout << "Exception occurred: " << err.what() << endl;
-                                                    }
-                                                }};
-                                                cout << "Process Food in Order" << endl;
-                                                processFoodOrder.detach();
+                                        }else{
+                                            if(buildings == "Kitchen"){
+                                                kitchenAvailable = false;
+                                            }else if(buildings == "Fire Pit"){
+                                                firefitAvailable = false;
                                             }
-
-                                            break;
                                         }
-                                    }catch(exception& err){
-                                        cout << "Exception occurred: " << err.what() << endl;
                                     }
                                 }
-                            }catch(exception& err){
-                                cout << "Exception occurred: " << err.what() << endl;
                             }
+                        }
+                    }
+                    this_thread::sleep_for(3000ms);
+                }
+            }};
+            thread SyncToDB{[&](){
+                while(1){
+                    if(actions.size() > 0){
+                        Json::Value tempRes = sendAction(urlSaveSession + LandId);
+                        if(!(tempRes.isMember("failed"))){
+                            updateData("farm", tempRes);
+                        }
+                        this_thread::sleep_for(70000ms);
+                    }
+                }
+            }};
+            thread addOrdersRecipe {[&](){
+                while(1){    
+                    try{
+                        cout << "Process Adding Orders Recipe " << endl ;
+                        cout << ((DeliveryProcess != state[0]["delivery"])? ("Updating Derlivery Data") : ("Data Stil Updated")) << endl;
+                        if(DeliveryProcess != state[0]["delivery"]){
+                            DeliveryProcess = state[0]["delivery"];
+                            resourceToBeProcess.clear();
+                            HenHouseToBeProcess.clear();
+                            foodRecipesToBeProcess.clear(); 
+                            for(Json::Value Orders : DeliveryProcess["orders"]){
+                                for( auto order : Orders["items"].getMemberNames()){
+                                    //cout << order << endl; show orders
+                                    cout << "Order In Delivery : " << order << endl;
+                                    bool isResource = false;
+                                    for(string item : crop){
+                                        if(item == order){
+                                            foodRecipesToBeProcess.push_back(make_pair(make_pair(order, order), stoi(Orders["items"][order].asString())));
+                                            break;
+                                        }
+                                    }
+                                    for(auto item : foodIngridients){
+                                        if(item.food == order){
+                                            foodRecipesToBeProcess.push_back(make_pair(make_pair(order, order), stoi(Orders["items"][order].asString())));
+                                            cout << "order " << order << endl;
+                                            addIngridient(order, stoi(Orders["items"][order].asString()));
+                                            break;
+                                        }
+                                    }
+                                    for(string item : resource){
+                                        if(item == order){
+                                            resourceToBeProcess.push_back(make_pair(make_pair(order, order), stoi(Orders["items"][order].asString())));
+                                            break;
+                                        }
+                                    }
+                                    for(string item : livestock){
+                                        if(item == order){
+                                            HenHouseToBeProcess.push_back(make_pair(make_pair(order, order), stoi(Orders["items"][order].asString())));
+                                            break;
+                                        }
+                                    }                                                                          
+                                }
+                            }
+                            cout << "Process Adding Orders Done. " << endl ;
+                            cout << "Have x" << resourceToBeProcess.size() << " resouces to be process" << endl;
+                            cout << "Have x" << foodRecipesToBeProcess.size() << " food to be process" << endl;
                         }
                     }catch(exception& err){
                         cout << "Exception occurred: " << err.what() << endl;
                     }
-                }};
-                td1A.join();
-                index++;
-            }
-            this_thread::sleep_for(1000ms);
+                    this_thread::sleep_for(10000ms);
+                }
+            }};
+            thread ProcessAction{[&](){
+                while(1){
+                    int foodRecipeIndex = 0;
+                    //<- define all plots
+                    //process foods
+                    for(auto pair : foodRecipesToBeProcess){
+                        cout << pair.first.first << " x" << pair.second << " for " << pair.first.second << " processing" << endl;
+                        //plant all plant
+                        thread processCrop{[&](){
+                            for(auto cropIndex : crop){
+                                if(cropIndex == pair.first.first){
+                                    if(state[0]["inventory"].isMember(pair.first.first)){
+                                        //have crop on inventory
+                                        int cropsInInventory = stoi(state[0]["inventory"][pair.first.first].asString());
+                                        int cropsNeeded = pair.second - cropsInInventory;
+                                        if(cropsNeeded  > 0){
+                                            if(readyPlots.size() == 0){
+                                                //break no plot available
+                                                break;
+                                            }
+                                            //proceed have available plot
+                                            if(state[0]["inventory"].isMember(pair.first.first + "Seed")){
+                                                    //have seed
+                                                    plantPlot(pair.first.first + "Seed", readyPlots[readyPlots.size() - 1]);
+                                                    readyPlots.pop_back();
+                                                    foodRecipesToBeProcess[foodRecipeIndex].second--;
+                                                    cropsNeeded--;
+                                            }else{
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                        }};
+                        thread processFood{[&](){                      
+                        //cook all food
+                            for(auto food : foodIngridients){
+                                if(food.food == pair.first.second){
+                                    //verify if food
+                                    //check inventory
+                                    if(!(state[0]["inventory"].isMember(pair.first.second))){
+                                    //have no food on inventory
+                                        int ingridientCount = 0;
+                                        int ingridientCountDone = 0;
+                                        for(auto ingridientTemp : getIngridients(pair.first.second)){
+                                            //check recipe in inventory if player have enough
+                                            cout << "test 2" << endl;
+                                            if(state[0]["inventory"].isMember(ingridientTemp.first)){
+                                                if(stoi(state[0]["inventory"][ingridientTemp.first].asString()) >= ingridientTemp.second){
+                                                    ingridientCountDone++;
+                                                }
+                                            }
+                                            ingridientCount++;
+                                        }
+                                        if((ingridientCount == ingridientCountDone) && ingridientCountDone != 0 && ingridientCount != 0){
+                                            string building = getFoodBuildingName(pair.first.second);
+                                            cout << "Cook Food : " << pair.first.second << " On " << building << endl;
+                                            if(building == "Fire Pit"){
+                                                if(firefitAvailable){
+                                                    cookFood(pair.first.second);
+                                                }
+                                            }
+                                            if(building == "Kitchen"){
+                                                if(kitchenAvailable){
+                                                    cookFood(pair.first.second);
+                                                }
+                                            }
+                                        }
+                                    }else{
+                                        //if have food on bag but food is not enough for order
+                                        if(stoi(state[0]["inventory"][pair.first.second].asString()) < pair.second){
+                                            string building = getFoodBuildingName(pair.first.second);
+                                            cout << "Cook Food : " << pair.first.second << " On " << building << endl;
+                                            if(building == "Fire Pit"){
+                                                if(firefitAvailable){
+                                                    cookFood(pair.first.second);
+                                                }
+                                            }
+                                            if(building == "Kitchen"){
+                                                if(kitchenAvailable){
+                                                    cookFood(pair.first.second);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    break;
+                                }
+                                foodRecipeIndex++;
+                            }
+                            this_thread::sleep_for(120000ms);
+                        }};
+                        processCrop.detach();
+                        processFood.detach();
+                        this_thread::sleep_for(5000ms);
+                    }  
+                    this_thread::sleep_for(5000ms);
+                }
+            }};
+            thread harvestAllPlots{[&](){
+                while(1){
+                    readyPlots.clear();
+                    harvestPlots.clear();
+                    //define all plots
+                    for(auto plot : state[0]["crops"].getMemberNames()){
+                        if(state[0]["crops"][plot].isMember("crop")){
+                            //found a plot with crop
+                            long long foodReady = stoll(state[0]["crops"][plot]["crop"]["plantedAt"].asString());
+                            timeMinuteAndSecond timeLeftMinute = getCooldown(foodReady);
+                            int timeLeft = (entityGrowTime[(state[0]["crops"][plot]["crop"]["name"].asString())]) -(timeLeftMinute.Minute + (timeLeftMinute.Second/60));
+                            cout << state[0]["crops"][plot]["crop"]["name"].asString() << " Time Left " << timeLeft << endl;
+                            if(timeLeft < 0){
+                                harvestPlots.push_back(plot);
+                            }
+                            // add harvest thread
+                        }else{
+                            readyPlots.push_back(plot);
+                        }
+                    }
+                    for(int i = 0; i < harvestPlots.size(); i++){
+                        harvestPlot(harvestPlots[i]);
+                    }
+                    this_thread::sleep_for(20000ms);
+                }
+                
+            }};
+            harvestAllPlots.detach();
+            fullfillOrderCompleted.detach();
+            foodCollect.detach();
+            SyncToDB.detach();
+            addOrdersRecipe.detach();
+            ProcessAction.detach();
+            this_thread::sleep_for(999999999ms);
+        }catch(exception err){
+            cout << "Exception occurred: " << err.what() << endl;
         }
-    }};
-    //thread for resourceToBeProcess
-    //thread for HenHouseToBeProcess
-    processOrders.join();
 }
 void addIngridient(string foodName, int multiplier){
     unordered_map<std::string, int> tempIng = getIngridients(foodName);
+    int index = 0;
     for(pair<string, int> recipeName : tempIng){
         bool isResource = false;
         for(string item : resource){
@@ -1310,6 +1168,7 @@ void addIngridient(string foodName, int multiplier){
                 foodRecipesToBeProcess.push_back(make_pair(make_pair(recipeName.first, foodName), recipeName.second));
             }
         }
+    index++;
     }
 }
 string randomString8Digit(){
