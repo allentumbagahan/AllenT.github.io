@@ -49,6 +49,11 @@ struct Crop {
     int timeleftMinute;
     timeMinuteAndSecond timeLeft;
 };
+struct Request {
+    string item;
+    int qty;
+    string type; //Seed, Tool
+};
 
 vector<string> crop = {
     "Sunflower",
@@ -66,7 +71,8 @@ vector<string> crop = {
     "Blueberry",
     "Orange",
     "Apple",
-};
+};// convert to json
+
 vector<string> resource = {
     "Wood",
     "Gold",
@@ -569,7 +575,7 @@ void plantPlot(string seedName, string plotId){
     Json::Value tempRes;
     string actionType = "seed.planted";
     string action;
-    action+= "{\"type\":\"" + actionType + "\",\"index\":\"" + plotId + "\",\"item\":\"" + seedName + "\",\"cropId\":\"" + randomString8Digit() + "\",\"createdAt\":\"" + getUTCNow() + "\"}";
+    action = "{\"type\":\"" + actionType + "\",\"index\":\"" + plotId + "\",\"item\":\"" + seedName + "\",\"cropId\":\"" + randomString8Digit() + "\",\"createdAt\":\"" + getUTCNow() + "\"}";
     actions.push_back(action);
 }
 void sendDelivery(string orderId){
@@ -863,6 +869,10 @@ void openBotV2(){
     Json::Value DeliveryProcess;
     bool firefitAvailable = true;
     bool kitchenAvailable = true;
+    Json::Value orderDelivered; // clear every sync
+    Json::Value plotHarvested;  // clear every sync
+    Json::Value plotPlanted;  // clear every sync
+    vector<Request> requestBuy;
         try{
             thread fullfillOrderCompleted{[&](){
                 //check all complete order and deliver
@@ -882,7 +892,10 @@ void openBotV2(){
                                     cout << order << ": you have x" << stoi(state[0]["inventory"][order].asString()) << " in bag and order needed " << foodNeededInOrder << endl; 
                                     if(stoi(state[0]["inventory"][order].asString()) >= foodNeededInOrder && timeLeft > 0){
                                         cout << "send order" << endl;
-                                        sendDelivery(orderId);
+                                        if(!(orderDelivered.isMember(orderId))){
+                                            sendDelivery(orderId);
+                                            orderDelivered[orderId] = "Delivered";
+                                        }
                                     }
                                 }
                             }
@@ -935,12 +948,18 @@ void openBotV2(){
             }};
             thread SyncToDB{[&](){
                 while(1){
+                    Json::Value emptyJson;
                     if(actions.size() > 0){
+                        cout << "Data Sync " << endl;
                         Json::Value tempRes = sendAction(urlSaveSession + LandId);
                         if(!(tempRes.isMember("failed"))){
                             updateData("farm", tempRes);
                         }
-                        this_thread::sleep_for(70000ms);
+                        actions.clear();
+                        orderDelivered.clear(); // clear every sync
+                        plotHarvested.clear();  // clear every sync
+                        plotPlanted.clear();  // clear every sync
+                        this_thread::sleep_for(10000ms);
                     }
                 }
             }};
@@ -990,6 +1009,9 @@ void openBotV2(){
                             cout << "Process Adding Orders Done. " << endl ;
                             cout << "Have x" << resourceToBeProcess.size() << " resouces to be process" << endl;
                             cout << "Have x" << foodRecipesToBeProcess.size() << " food to be process" << endl;
+                            for(auto pair : foodRecipesToBeProcess){
+                                cout << pair.first.first << " x" << pair.second << " for " << pair.first.second << " processing" << endl;
+                            }
                         }
                     }catch(exception& err){
                         cout << "Exception occurred: " << err.what() << endl;
@@ -1007,35 +1029,88 @@ void openBotV2(){
                         //plant all plant
                         thread processCrop{[&](){
                             for(auto cropIndex : crop){
+                                //cout << cropIndex << " is " << pair.first.first << endl;
                                 if(cropIndex == pair.first.first){
+                                    cout <<  pair.first.first << " is processing" << endl;
+                                    if(readyPlots.size() == 0){
+                                        //break no plot available
+                                        cout << "No plot Available" << endl;
+                                        break;
+                                    }
                                     if(state[0]["inventory"].isMember(pair.first.first)){
                                         //have crop on inventory
                                         int cropsInInventory = stoi(state[0]["inventory"][pair.first.first].asString());
                                         int cropsNeeded = pair.second - cropsInInventory;
-                                        if(cropsNeeded  > 0){
-                                            if(readyPlots.size() == 0){
-                                                //break no plot available
-                                                break;
-                                            }
+                                        if(cropsNeeded  > 0 && pair.first.second != "PLANT"){
+                                            cout <<  pair.first.first << " is processing 2" << endl;
                                             //proceed have available plot
                                             if(state[0]["inventory"].isMember(pair.first.first + "Seed")){
-                                                    //have seed
-                                                    plantPlot(pair.first.first + "Seed", readyPlots[readyPlots.size() - 1]);
+                                                //have seed
+                                                if(!(plotPlanted.isMember(readyPlots[readyPlots.size() - 1]))){
+                                                    cout << "Order : " << pair.first.first << " planted" << endl;
+                                                    plantPlot(pair.first.first + " Seed", readyPlots[readyPlots.size() - 1]);
+                                                    plotPlanted[readyPlots[readyPlots.size() - 1]] = "Planted";
                                                     readyPlots.pop_back();
                                                     foodRecipesToBeProcess[foodRecipeIndex].second--;
                                                     cropsNeeded--;
+                                                }else{
+                                                    cout << readyPlots[readyPlots.size() - 1] << " already planted" << endl;
+                                                }
                                             }else{
+                                                Request request;
+                                                cout << "Order : " << pair.first.first << " buying seeds" << endl;
+                                                request.item = (pair.first.first + "Seed");
+                                                request.qty = pair.second;
+                                                request.type = "Seed";
+                                                requestBuy.push_back(request);
                                                 break;
                                             }
                                         }
+                                        if(pair.first.second == "PLANT"){
+                                                cout << "Order : " << pair.first.first << " planted (PLANT)" << endl;
+                                                if(!(plotPlanted.isMember(readyPlots[readyPlots.size() - 1]))){
+                                                    plantPlot(pair.first.first + " Seed", readyPlots[readyPlots.size() - 1]);
+                                                    plotPlanted[readyPlots[readyPlots.size() - 1]] = "Planted";
+                                                    readyPlots.pop_back();
+                                                    foodRecipesToBeProcess[foodRecipeIndex].second--;
+                                                    cropsNeeded--;
+                                                }else{
+                                                    cout << readyPlots[readyPlots.size() - 1] << " already planted" << endl;
+                                                }
+                                        }
+                                    }else{
+                                        //plants
+                                        cout << "have " << pair.first.first + " Seed in bag?" << endl;
+                                         if(state[0]["inventory"].isMember(pair.first.first + " Seed")){
+                                                //have seed
+                                                //addd loop
+                                                    if(!(plotPlanted.isMember(readyPlots[readyPlots.size() - 1]))){
+                                                        cout << "Order : " << pair.first.first << " planted" << endl;
+                                                        plantPlot(pair.first.first + " Seed", readyPlots[readyPlots.size() - 1]);
+                                                        plotPlanted[readyPlots[readyPlots.size() - 1]] = "Planted";
+                                                        readyPlots.pop_back();
+                                                        foodRecipesToBeProcess[foodRecipeIndex].second--;
+                                                    }else{
+                                                        cout << readyPlots[readyPlots.size() - 1] << " already planted" << endl;
+                                                    }
+                                            }else{
+                                                Request request;
+                                                cout << "Order : " << pair.first.first << " buying seeds" << endl;
+                                                request.item = (pair.first.first + " Seed");
+                                                request.qty = pair.second;
+                                                request.type = "Seed";
+                                                requestBuy.push_back(request);
+                                                break;
+                                            }
+                                        break;
                                     }
                                 }
-                                break;
                             }
                         }};
                         thread processFood{[&](){                      
                         //cook all food
                             for(auto food : foodIngridients){
+                                //cout << food.food << " is " << pair.first.second << endl;
                                 if(food.food == pair.first.second){
                                     //verify if food
                                     //check inventory
@@ -1118,18 +1193,111 @@ void openBotV2(){
                         }
                     }
                     for(int i = 0; i < harvestPlots.size(); i++){
-                        harvestPlot(harvestPlots[i]);
+                        if(!(plotHarvested.isMember(harvestPlots[i]))){
+                            harvestPlot(harvestPlots[i]);
+                            plotHarvested[harvestPlots[i]] = "Harvested";
+                        }
                     }
-                    this_thread::sleep_for(20000ms);
+                     this_thread::sleep_for(4000ms);
                 }
                 
             }};
+            thread processBuyRequests{[&](){
+                while(1){
+                    if(requestBuy.size() > 0){
+                        vector<Request> tempRequest;
+                        tempRequest = requestBuy;
+                        requestBuy.clear();
+                        for(auto tempItemOnRequest : tempRequest){
+                            if(tempItemOnRequest.type == "Seed"){
+                                buySeed(tempItemOnRequest.item, to_string(tempItemOnRequest.qty));
+                            }else if(tempItemOnRequest.type == "Tool"){
+                                buyTool(tempItemOnRequest.item, to_string(tempItemOnRequest.qty));
+                            }else{
+                                cout << "Request Undefined";
+                            }
+                        }
+                    }
+                    this_thread::sleep_for(500ms);
+                }
+            }};
+            thread plantCropsNotBasedOnOrders{[&](){
+                int seedIndex = crop.size();
+                while(1){
+                    if(seedIndex < 0){
+                        seedIndex = crop.size();
+                    }
+                    this_thread::sleep_for(10000ms);
+                    cout << "plantCropsNotBasedOnOrders" << endl;
+                    bool isOrderNeededCrop = false;
+                    for(auto orderCrop_Food : foodRecipesToBeProcess){
+                        for(auto itemCrop : crop){
+                            if(orderCrop_Food.first.first == itemCrop){
+                                cout << "Order Needed Crop : " << orderCrop_Food.first.first << endl;
+                                isOrderNeededCrop = true;
+                                break;
+                            }
+                        }
+                        if(isOrderNeededCrop){
+                            break;
+                        }
+                    }
+                    if(!isOrderNeededCrop && readyPlots.size() > 0){
+                        cout << "Plant Crop based on stock" << endl;
+                        // here the error happen
+                        string cropName = "Sunflower";
+                        cout << "CropName Defined" << endl;
+                        if(state[0]["inventory"].isMember(cropName + " Seed")){
+                            if(stoi(state[0]["inventory"][cropName + " Seed"].asString()) >= readyPlots.size()){
+                                bool alreadyAdded = false;
+                                for(auto foodProcess : foodRecipesToBeProcess){
+                                    if(foodProcess.first.first == cropName){
+                                        alreadyAdded =true;
+                                    }
+                                }
+                                if(!alreadyAdded){
+                                        for(int i = 0; i < readyPlots.size(); i++){
+                                            foodRecipesToBeProcess.push_back(make_pair(make_pair(cropName, "PLANT"), 1));
+                                        }
+                                }
+                            }else{
+                                seedIndex--;
+                            }
+                        }else{
+                            if(state[0]["stock"].isMember(cropName + " Seed")){
+                                if(stoi(state[0]["stock"][cropName + " Seed"].asString()) < readyPlots.size()){
+                                    bool alreadyAdded = false;
+                                    for(auto foodProcess : foodRecipesToBeProcess){
+                                        if(foodProcess.first.first == cropName){
+                                            alreadyAdded =true;
+                                        }
+                                    }
+                                    if(!alreadyAdded){
+                                        Request request;
+                                        request.item = cropName;
+                                        request.qty = readyPlots.size();
+                                        request.type = "Seed";
+                                        requestBuy.push_back(request);
+                                        for(int i = 0; i < readyPlots.size(); i++){
+                                            foodRecipesToBeProcess.push_back(make_pair(make_pair(cropName, "PLANT"), 1));
+                                        }
+                                    }                                    
+                                }
+                            }else{
+                                seedIndex--;
+                            }
+                        }
+                    }
+                }
+            }};
+            plantCropsNotBasedOnOrders.detach();
             harvestAllPlots.detach();
             fullfillOrderCompleted.detach();
             foodCollect.detach();
             SyncToDB.detach();
             addOrdersRecipe.detach();
             ProcessAction.detach();
+            processBuyRequests.detach();
             this_thread::sleep_for(999999999ms);
         }catch(exception err){
             cout << "Exception occurred: " << err.what() << endl;
