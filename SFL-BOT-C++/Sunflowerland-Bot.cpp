@@ -872,6 +872,7 @@ void openBotV2(){
     Json::Value orderDelivered; // clear every sync
     Json::Value plotHarvested;  // clear every sync
     Json::Value plotPlanted;  // clear every sync
+    Json::Value treeChopped;  // clear every sync
     vector<Request> requestBuy;
         try{
             thread fullfillOrderCompleted{[&](){
@@ -901,7 +902,7 @@ void openBotV2(){
                             }
                         }
                     }
-                    this_thread::sleep_for(3000ms);
+                    this_thread::sleep_for(5000ms);
                 }
             }};
             thread foodCollect{[&](){
@@ -943,7 +944,7 @@ void openBotV2(){
                             }
                         }
                     }
-                    this_thread::sleep_for(3000ms);
+                    this_thread::sleep_for(4000ms);
                 }
             }};
             thread SyncToDB{[&](){
@@ -958,8 +959,9 @@ void openBotV2(){
                         actions.clear();
                         orderDelivered.clear(); // clear every sync
                         plotHarvested.clear();  // clear every sync
-                        plotPlanted.clear();  // clear every sync
-                        this_thread::sleep_for(10000ms);
+                        plotPlanted.clear();
+                        treeChopped.clear();  // clear every sync
+                        this_thread::sleep_for(8000ms);
                     }
                 }
             }};
@@ -1048,7 +1050,7 @@ void openBotV2(){
                                                 //have seed
                                                 if(!(plotPlanted.isMember(readyPlots[readyPlots.size() - 1]))){
                                                     cout << "Order : " << pair.first.first << " planted" << endl;
-                                                    plantPlot(pair.first.first + " Seed", readyPlots[readyPlots.size() - 1]);
+                                                    plantPlot((pair.first.first + " Seed"), readyPlots[readyPlots.size() - 1]);
                                                     plotPlanted[readyPlots[readyPlots.size() - 1]] = "Planted";
                                                     readyPlots.pop_back();
                                                     foodRecipesToBeProcess[foodRecipeIndex].second--;
@@ -1069,7 +1071,7 @@ void openBotV2(){
                                         if(pair.first.second == "PLANT"){
                                                 cout << "Order : " << pair.first.first << " planted (PLANT)" << endl;
                                                 if(!(plotPlanted.isMember(readyPlots[readyPlots.size() - 1]))){
-                                                    plantPlot(pair.first.first + " Seed", readyPlots[readyPlots.size() - 1]);
+                                                    plantPlot((pair.first.first + " Seed"), readyPlots[readyPlots.size() - 1]);
                                                     plotPlanted[readyPlots[readyPlots.size() - 1]] = "Planted";
                                                     readyPlots.pop_back();
                                                     foodRecipesToBeProcess[foodRecipeIndex].second--;
@@ -1086,7 +1088,7 @@ void openBotV2(){
                                                 //addd loop
                                                     if(!(plotPlanted.isMember(readyPlots[readyPlots.size() - 1]))){
                                                         cout << "Order : " << pair.first.first << " planted" << endl;
-                                                        plantPlot(pair.first.first + " Seed", readyPlots[readyPlots.size() - 1]);
+                                                        plantPlot((pair.first.first + " Seed"), readyPlots[readyPlots.size() - 1]);
                                                         plotPlanted[readyPlots[readyPlots.size() - 1]] = "Planted";
                                                         readyPlots.pop_back();
                                                         foodRecipesToBeProcess[foodRecipeIndex].second--;
@@ -1197,6 +1199,7 @@ void openBotV2(){
                             harvestPlot(harvestPlots[i]);
                             plotHarvested[harvestPlots[i]] = "Harvested";
                         }
+                        this_thread::sleep_for(2000ms);
                     }
                      this_thread::sleep_for(4000ms);
                 }
@@ -1222,10 +1225,10 @@ void openBotV2(){
                 }
             }};
             thread plantCropsNotBasedOnOrders{[&](){
-                int seedIndex = crop.size();
+                int seedIndex = crop.size() - 4;
                 while(1){
                     if(seedIndex < 0){
-                        seedIndex = crop.size();
+                        seedIndex = crop.size() - 4;
                     }
                     this_thread::sleep_for(10000ms);
                     cout << "plantCropsNotBasedOnOrders" << endl;
@@ -1245,7 +1248,7 @@ void openBotV2(){
                     if(!isOrderNeededCrop && readyPlots.size() > 0){
                         cout << "Plant Crop based on stock" << endl;
                         // here the error happen
-                        string cropName = "Sunflower";
+                        string cropName = crop[seedIndex];
                         cout << "CropName Defined" << endl;
                         if(state[0]["inventory"].isMember(cropName + " Seed")){
                             if(stoi(state[0]["inventory"][cropName + " Seed"].asString()) >= readyPlots.size()){
@@ -1276,7 +1279,7 @@ void openBotV2(){
                                         Request request;
                                         request.item = cropName;
                                         request.qty = readyPlots.size();
-                                        request.type = "Seed";
+                                        request.type = " Seed";
                                         requestBuy.push_back(request);
                                         for(int i = 0; i < readyPlots.size(); i++){
                                             foodRecipesToBeProcess.push_back(make_pair(make_pair(cropName, "PLANT"), 1));
@@ -1290,6 +1293,32 @@ void openBotV2(){
                     }
                 }
             }};
+            thread chopTrees{[&](){
+                while(1){
+                    int axeCount;
+                    if(state[0]["inventory"].isMember("Axe")){
+                        axeCount = stoi(state[0]["inventory"]["Axe"].asString());
+                        updateEntitiesData();
+                        cout << "You Have x" << axeCount << " Axe" << endl;
+                    }else{
+                        cout << "Your Not Able To Chop You Don't Have Axe On Your Inventory" << endl;
+                        axeCount = 0;
+                    }       
+                    for(int t = 0; t < trees.size(); t++){
+                        if(axeCount == 0){
+                            break;
+                        }
+                        if(trees[t].timeleftMinute < 0){
+                            if(!(treeChopped.isMember(trees[t].treeId))){
+                                chopTree(trees[t].treeId);
+                                treeChopped[trees[t].treeId] = "Chopped";
+                            }
+                        }
+                        this_thread::sleep_for(10000ms);
+                    }
+                    this_thread::sleep_for(10000ms);
+                }
+            }};
             plantCropsNotBasedOnOrders.detach();
             harvestAllPlots.detach();
             fullfillOrderCompleted.detach();
@@ -1298,7 +1327,9 @@ void openBotV2(){
             addOrdersRecipe.detach();
             ProcessAction.detach();
             processBuyRequests.detach();
-            this_thread::sleep_for(999999999ms);
+            chopTrees.detach();
+            this_thread::sleep_for(999999999h);
+            cout << "Bot Stop" << endl;
         }catch(exception err){
             cout << "Exception occurred: " << err.what() << endl;
         }
