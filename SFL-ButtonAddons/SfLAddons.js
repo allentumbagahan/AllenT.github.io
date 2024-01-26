@@ -316,7 +316,7 @@ function startBot(){
                         if(stalls[f].name == "Blacksmith"){
                             actions.push(function(){
                                 if(autoTrees == 'true'){
-                                    stalls[f].elem.click()
+                                    /*stalls[f].elem.click()
                                     console.log("found blacksmith " + stalls[f].name)
                                     axe =  $("div[class='w-full sm:w-3/5 h-fit sm:max-h-96 p-1 mt-1 sm:mt-0 flex max-h-56 flex-wrap overflow-y-auto scrollable overflow-x-hidden sm:mr-1']").find("div[class='relative ']").find("img[src='https://sunflower-land.com/game-assets/tools/axe.png']")
                                     myAxe = $("div[class='w-full sm:w-3/5 h-fit sm:max-h-96 p-1 mt-1 sm:mt-0 flex max-h-56 flex-wrap overflow-y-auto scrollable overflow-x-hidden sm:mr-1']").find("div[class='relative ']")[0].getElementsByTagName("span")
@@ -335,11 +335,15 @@ function startBot(){
                                         myAxeCount = parseInt(myAxe)
                                     }
                                     closeBtnStall = $(`img.flex-none.cursor-pointer.float-right[src="${closeImg}"]`)
-                                    closeBtnStall.click()
-                                    treesDiv[0].click()
-                                    treesDiv[0].click()
-                                    treesDiv[0].click()
-                                    coolingDownTrees()
+                                    closeBtnStall.click()*/
+                                    if(trees.length > 0){
+                                        treesDiv[0].click()
+                                        treesDiv[0].click()
+                                        treesDiv[0].click()
+                                        coolingDownTrees()
+                                    }else{
+                                        console.log("trees cooling down");
+                                    }
                                 }
                                 actionIsIdle = true
                             })

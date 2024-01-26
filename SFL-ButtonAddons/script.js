@@ -27,14 +27,11 @@ function connectExtension(){
             tokenId = accountToken[x].token
         }
         // send data to extension
-        var landElem = document.getElementsByClassName("text-white mb-1 text-sm")
-        if(landElem.length > 0){
-            land = landElem[0].innerHTML
-            let msg = {
-                type: "connect land", land: land, tokenId : tokenId, cachedKey : cachedKey
-            }
-            chrome.runtime.sendMessage(msg); 
+        land = (location.hash).replace("#/land/", "")
+        let msg = {
+            type: "connect land", land: land, tokenId : tokenId, cachedKey : cachedKey
         }
+        chrome.runtime.sendMessage(msg); 
     }catch{
     }
 }
